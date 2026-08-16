@@ -20,7 +20,15 @@ assets/
   site.js       tab strips and the properties panel — the pages read fine without it
   shots/        screenshots, captured from the running IDE
 CNAME           hexide.io
+.well-known/
+  security.txt  RFC 9116 — where to report a vulnerability
+.nojekyll       load-bearing; see below
 ```
+
+**`.nojekyll` is not optional.** GitHub Pages runs Jekyll by default, and Jekyll skips
+dot-directories — so without it `/.well-known/security.txt` returns 404 while looking perfectly
+correct in the repository. It also means the site is served exactly as committed, with no build
+stage interpreting it, which is what we want anyway.
 
 ## Working on it
 
@@ -48,6 +56,9 @@ wrong once:
   once broke seven references from four other pages, silently
 - nothing overflows horizontally, at 375 / 768 / 1440, in light and dark
 - every fragment jump lands clear of the sticky masthead rather than underneath it
+- `security.txt` exists, has the fields RFC 9116 requires, and **has not expired** — an expired one
+  is worse than none, because it advertises a contact route while telling the reader not to trust
+  it, and nothing else would remind you
 
 `npm run shoot` renders a page as a browser actually draws it. This exists because the site was
 designed for a long time without anyone looking at it, and the things that turned out to be wrong —

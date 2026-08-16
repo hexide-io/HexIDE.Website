@@ -24,7 +24,33 @@ const pages = fs.readdirSync(ROOT).filter(f => f.endsWith('.html')).sort();
 
 let failures = 0;
 const fail = (msg) => { console.log('  FAIL  ' + msg); failures++; };
+const warn = (msg) => console.log('  warn  ' + msg);
 const pass = (msg) => console.log('  ok    ' + msg);
+
+/* RFC 9116 makes Expires mandatory, and an expired security.txt is worse than none — it advertises
+   a contact route while telling the reader not to trust it. Nothing else reminds you. */
+function checkSecurityTxt() {
+  console.log('\nsecurity.txt');
+  const file = path.join(ROOT, '.well-known', 'security.txt');
+
+  if (!fs.existsSync(file)) return fail('.well-known/security.txt is missing');
+  if (!fs.existsSync(path.join(ROOT, '.nojekyll'))) {
+    return fail('.nojekyll is missing — GitHub Pages runs Jekyll, which skips dot-directories, so /.well-known/ would 404');
+  }
+
+  const body = fs.readFileSync(file, 'utf8');
+  const expires = /^Expires:\s*(.+)$/mi.exec(body);
+  if (!expires) return fail('security.txt has no Expires field (RFC 9116 requires one)');
+  if (!/^Contact:/mi.test(body)) return fail('security.txt has no Contact field');
+
+  const when = new Date(expires[1].trim());
+  if (Number.isNaN(when.getTime())) return fail(`security.txt Expires is not a valid date: ${expires[1].trim()}`);
+
+  const days = Math.round((when - Date.now()) / 86400000);
+  if (days <= 0) fail(`security.txt expired ${-days} day(s) ago — renew the Expires field`);
+  else if (days <= 30) warn(`security.txt expires in ${days} day(s) — renew it`);
+  else pass(`present, .nojekyll in place, expires in ${days} days`);
+}
 
 /* ---- static checks, no browser needed ---------------------------------------------------- */
 
@@ -153,6 +179,7 @@ async function checkAnchors(browser) {
 
 (async () => {
   checkStatic();
+  checkSecurityTxt();
   const browser = await chromium.launch();
   try {
     await checkRendered(browser);
