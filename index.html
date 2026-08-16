@@ -140,10 +140,11 @@
     </div>
   </section>
 
-  <!-- The carousel controls are document tabs, because that is how you switch
-       views in the thing being shown. Full-bleed: the MDI workspace grey runs
-       edge to edge, which is the one place the product's own chrome colour shows. -->
-  <div class="frame frame--bleed">
+  <!-- The carousel controls are document tabs, because that is how you switch views in the thing
+       being shown. Held to the same width as everything else: full-bleed made it read as a
+       detached band rather than part of the page. -->
+  <div class="shell">
+  <div class="frame">
     <div class="frame__tabs" role="tablist" aria-label="Screenshots" hidden>
       <button class="tab" type="button" role="tab" id="t-ide" aria-controls="p-ide" aria-selected="true">frmOrders (Form)</button>
       <button class="tab" type="button" role="tab" id="t-cod" aria-controls="p-cod" aria-selected="false" tabindex="-1">clsOrder (Code)</button>
@@ -177,6 +178,7 @@
         <p class="frame__cap">NeonVertigo — 130 Fibonacci-distributed vector balls, spun on two axes and painted back to front.</p>
       </div>
     </div>
+  </div>
   </div>
 
   <div class="vh">

@@ -225,7 +225,9 @@ a { color: inherit; }
   letter-spacing: .14em; text-transform: uppercase;
   flex: none; padding-top: .12rem;
 }
-.alert p { margin: 0; max-width: var(--measure); }
+/* No --measure cap here. The shell already bounds it, and 68ch wrapped this to four lines, which
+   reads as a wall rather than as a note. */
+.alert p { margin: 0; }
 .alert a { color: inherit; text-underline-offset: .18em; }
 
 /* --- Masthead ----------------------------------------------------------- */
@@ -290,12 +292,9 @@ a { color: inherit; }
   .hero__grid { grid-template-columns: minmax(0, 1fr) minmax(330px, 390px); }
 }
 
-/* Full-bleed: the frame lives outside .shell, so no 100vw scrollbar games. */
-.frame--bleed {
-  margin-top: clamp(2.5rem, 6vw, 4rem);
-  border-inline: 0;
-  border-radius: 0;
-}
+/* The frame sits inside .shell like everything else. It was briefly full-bleed; at 1440 that made a
+   1440px band under 1140px of content, which read as a detached element rather than as the hero's
+   screenshot. */
 
 h1 {
   font-size: clamp(2.35rem, 6.2vw, 4.1rem);
