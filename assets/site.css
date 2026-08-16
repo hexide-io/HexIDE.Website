@@ -320,6 +320,31 @@ h1 {
   color: var(--ink);
 }
 
+/* The licence, quoted verbatim. Set like the IDE's own code window — paper ground, a hairline
+   edge, mono type — because that is this product's idiom for "text you read literally", and the
+   page is quoting a document rather than naming a token.
+   pre-wrap, not overflow-x: a licence is its words, not its original line breaks, and a
+   horizontal scrollbar inside a legal text at 375px is a trap rather than a feature. Every colour
+   is a token, so dark mode follows without a second rule. */
+.licence-text {
+  font-family: var(--mono);
+  font-size: .8125rem;
+  line-height: 1.65;
+  color: var(--ink);
+  background: var(--paper);
+  border: 1px solid var(--rule-strong);
+  border-radius: var(--radius);
+  padding: 1.15rem 1.3rem;
+  margin: 0;
+  max-width: 100%;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+/* The inline-code rule above would otherwise repaint every <code> inside the block. */
+.prose .licence-text code {
+  background: none; border: 0; padding: 0; font-size: inherit;
+}
+
 /* --- Actions ------------------------------------------------------------ */
 
 .actions { display: flex; flex-wrap: wrap; gap: .75rem; align-items: center; }
@@ -630,7 +655,14 @@ h1 {
 }
 .walls > div:first-child { border-top: 1px solid var(--rule); }
 @media (min-width: 760px) { .walls > div { grid-template-columns: 15rem 1fr; } }
-.walls dt { font-weight: 600; color: var(--ink); }
+/* min-width:0 because a grid item refuses to shrink below its content by default, and
+   overflow-wrap because the content here includes dotted package names with no break
+   opportunity. Without both, "EmmyLua.LanguageServer.Framework" is wider than the 15rem
+   track and paints over its own description. */
+.walls dt {
+  font-weight: 600; color: var(--ink);
+  min-width: 0; overflow-wrap: anywhere;
+}
 .walls dd {
   margin: 0; color: var(--ink-2); font-size: .9375rem;
   max-width: var(--measure);   /* these sit in a bare .shell, so nothing else caps the line length */
