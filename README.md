@@ -28,6 +28,32 @@ Open `index.html` in a browser. That is the whole toolchain.
 
 Contributions go through a fork and a pull request, the same as the main repository.
 
+## Checking it
+
+There is optional tooling in `tools/`. **It is not a build step** — the site deploys without it ever
+being run, and nothing in it produces anything the site serves. It only looks at what is already
+there.
+
+```sh
+npm install          # once; pulls Playwright
+npm run check        # the invariants — exits non-zero if any fail
+npm run shoot -- index.html --dark --full
+```
+
+`npm run check` verifies the things that have actually gone wrong here, each added after it went
+wrong once:
+
+- every page has exactly one `<h1>` and skips no heading level
+- every internal link and every fragment resolves, **including across pages** — renaming one `id`
+  once broke seven references from four other pages, silently
+- nothing overflows horizontally, at 375 / 768 / 1440, in light and dark
+- every fragment jump lands clear of the sticky masthead rather than underneath it
+
+`npm run shoot` renders a page as a browser actually draws it. This exists because the site was
+designed for a long time without anyone looking at it, and the things that turned out to be wrong —
+a full-bleed frame that read as a detached band, a warning banner wrapping to four lines — were
+invisible in the CSS and obvious in a picture.
+
 ## Conventions worth knowing before you change something
 
 **Colours are sampled, not invented.** Every value in `site.css` comes from the product's own theme

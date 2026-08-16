@@ -1,0 +1,13 @@
+{
+  "name": "hexide-website-tools",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Optional verification tooling for hexide.io. The site itself has no build step — these scripts only look at it.",
+  "scripts": {
+    "check": "node tools/check.js",
+    "shoot": "node tools/shoot.js"
+  },
+  "devDependencies": {
+    "playwright": "^1.62.1"
+  }
+}
