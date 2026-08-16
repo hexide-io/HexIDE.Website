@@ -1,0 +1,188 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://hexide.io/schemas/theme/v1.json",
+  "title": "HexIDE theme pack",
+  "description": "A HexIDE theme pack: a name, a light/dark hint, and a set of colour overrides applied to the IDE chrome. Every key is optional except 'name' — a pack overrides only the colours it lists, and inherits the rest from the built-in Classic palette.",
+  "type": "object",
+  "required": ["name"],
+  "additionalProperties": false,
+  "properties": {
+    "$schema": {
+      "type": "string",
+      "description": "Optional pointer to this schema, for editor completion and validation."
+    },
+    "name": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Display name, shown in Options → Environment. Must match the pack's file name, since HexIDE loads packs by file name.",
+      "examples": ["Dark", "Abyss"]
+    },
+    "description": {
+      "type": "string",
+      "description": "One line explaining the pack, shown alongside the name."
+    },
+    "themeVariant": {
+      "type": "string",
+      "enum": ["Light", "Dark", "Default"],
+      "description": "Which base theme the pack sits on. 'Dark' selects Avalonia's dark variant; anything else selects light. Set this to match your palette — a dark palette on the light variant leaves built-in controls light.",
+      "default": "Light"
+    },
+    "colors": {
+      "type": "object",
+      "description": "Colour overrides, keyed by role. Unknown keys are ignored with a warning in the log.",
+      "additionalProperties": false,
+      "properties": {
+        "AppWorkspace": {
+          "$ref": "#/$defs/color",
+          "description": "The MDI workspace behind all child windows — the largest single area of the IDE."
+        },
+        "Window": {
+          "$ref": "#/$defs/color",
+          "description": "Background of editable surfaces: the code editor, list boxes, text fields."
+        },
+        "WindowText": {
+          "$ref": "#/$defs/color",
+          "description": "Text on 'Window' surfaces. Needs at least 4.5:1 against it."
+        },
+        "ActiveCaptionText": {
+          "$ref": "#/$defs/color",
+          "description": "Text in the active title bar. Needs contrast against 'ActiveTitleBar', not against 'Window'."
+        },
+        "Control": {
+          "$ref": "#/$defs/color",
+          "description": "Face of dialogs, toolbars, panels and buttons — the IDE's dominant chrome colour."
+        },
+        "ControlText": {
+          "$ref": "#/$defs/color",
+          "description": "Text and glyphs on 'Control' surfaces."
+        },
+        "ControlDark": {
+          "$ref": "#/$defs/color",
+          "description": "Outer bevel shadow. In a flat palette, set the four bevel colours close together."
+        },
+        "ControlLight": {
+          "$ref": "#/$defs/color",
+          "description": "Inner bevel highlight."
+        },
+        "ControlLightLight": {
+          "$ref": "#/$defs/color",
+          "description": "Brightest bevel edge — the top-left of a raised control."
+        },
+        "ControlDarkDark": {
+          "$ref": "#/$defs/color",
+          "description": "Darkest bevel edge — the bottom-right of a raised control."
+        },
+        "Menu": { "$ref": "#/$defs/color", "description": "Menu bar and drop-down background." },
+        "MenuText": { "$ref": "#/$defs/color", "description": "Menu item text." },
+        "Highlight": {
+          "$ref": "#/$defs/color",
+          "description": "Selection fill — selected text, list rows, menu items under the cursor."
+        },
+        "HighlightText": {
+          "$ref": "#/$defs/color",
+          "description": "Text drawn on 'Highlight'. Check this pair carefully; it is the one most often left unreadable."
+        },
+        "Desktop": {
+          "$ref": "#/$defs/color",
+          "description": "The desktop colour role. Rarely visible in HexIDE; kept for completeness."
+        },
+        "GrayText": {
+          "$ref": "#/$defs/color",
+          "description": "Disabled text, and the indeterminate check mark."
+        },
+        "InactiveCaption": {
+          "$ref": "#/$defs/color",
+          "description": "Title bar of an unfocused MDI child."
+        },
+        "InactiveCaptionText": {
+          "$ref": "#/$defs/color",
+          "description": "Text in an unfocused title bar."
+        },
+        "ActiveTitleBar": {
+          "$ref": "#/$defs/color",
+          "description": "Title bar of the focused MDI child. Classic VB6 uses #000080."
+        },
+        "InactiveTitleBar": {
+          "$ref": "#/$defs/color",
+          "description": "Title bar fill for unfocused child windows."
+        },
+        "DockTitleBar": {
+          "$ref": "#/$defs/color",
+          "description": "Header of docked tool windows — Project Explorer, Properties, Toolbox."
+        },
+        "SelectionAdorner": {
+          "$ref": "#/$defs/color",
+          "description": "Fill of the eight sizing handles around a selected control in the form designer."
+        },
+        "SelectionAdornerBorder": {
+          "$ref": "#/$defs/color",
+          "description": "Outline of those handles. Contrast against 'SelectionAdorner' keeps them visible over any control."
+        },
+        "FormGridPattern": {
+          "$ref": "#/$defs/color",
+          "description": "The form designer's alignment dots. Keep this subtle — it tiles across the whole form."
+        },
+        "ControlSpawnerPhantom": {
+          "$ref": "#/$defs/color",
+          "description": "The outline preview drawn while dragging a new control onto a form."
+        },
+        "RubberBandFill": {
+          "$ref": "#/$defs/color",
+          "description": "Fill of the marquee selection rectangle. Use an 8-digit #AARRGGBB value — this one is meant to be translucent."
+        },
+        "ColorPaletteBorder": {
+          "$ref": "#/$defs/color",
+          "description": "Grid lines in the colour picker."
+        },
+        "ColorPaletteHighlight": {
+          "$ref": "#/$defs/color",
+          "description": "Selected swatch indicator in the colour picker."
+        },
+        "WarningBannerBackground": {
+          "$ref": "#/$defs/color",
+          "description": "Fill of the in-IDE warning banner, such as the read-only file notice. The built-in value is a light amber; a dark pack should override it."
+        },
+        "WarningBannerBorder": {
+          "$ref": "#/$defs/color",
+          "description": "Edge of the warning banner."
+        },
+        "WarningBannerForeground": {
+          "$ref": "#/$defs/color",
+          "description": "Text inside the warning banner."
+        },
+        "ValidationError": {
+          "$ref": "#/$defs/color",
+          "description": "Validation error text in dialogs. The built-in red is tuned for light chrome; darker packs usually need a lighter red."
+        },
+        "SystemAccentColor": {
+          "$ref": "#/$defs/color",
+          "description": "Base accent, used by controls that draw their own emphasis. Stored as a colour rather than a brush, so translucent values are not meaningful here."
+        },
+        "SystemAccentColorLight1": {
+          "$ref": "#/$defs/color",
+          "description": "One step lighter than the base accent."
+        },
+        "SystemAccentColorLight2": {
+          "$ref": "#/$defs/color",
+          "description": "Two steps lighter than the base accent."
+        },
+        "SystemAccentColorDark1": {
+          "$ref": "#/$defs/color",
+          "description": "One step darker than the base accent."
+        },
+        "SystemAccentColorDark2": {
+          "$ref": "#/$defs/color",
+          "description": "Two steps darker than the base accent."
+        }
+      }
+    }
+  },
+  "$defs": {
+    "color": {
+      "type": "string",
+      "pattern": "^(#([0-9a-fA-F]{3,4}|[0-9a-fA-F]{6}|[0-9a-fA-F]{8})|[A-Za-z]+)$",
+      "description": "A colour as #RGB, #ARGB, #RRGGBB or #AARRGGBB, or a named colour. Alpha comes first in the 4- and 8-digit forms.",
+      "examples": ["#1E1E1E", "#007ACC", "#1A007ACC"]
+    }
+  }
+}
