@@ -74,10 +74,14 @@
           cannot yet hand back.
         </p>
 
-        <!-- Download links point at /releases/latest rather than pinned asset URLs, so they stay
-             correct across releases without an edit. The filenames shown match what publish.yml
-             emits on the fix/release-pipeline branch (RID-specific, both flavours, six platforms);
-             re-check them if that workflow changes. -->
+        <!-- Each link points at its own asset under /releases/latest/download/, which GitHub
+             resolves to the current release. That keeps them correct across releases without an
+             edit, the same reason the bare /releases/latest was used before, and additionally
+             makes a click start the download rather than landing on the releases page: the link
+             text is the filename, so sending someone to a page listing twelve files was a promise
+             the link did not keep. The audience for a VB6 IDE is not fluent in GitHub.
+             The visible text and the href must not drift -- re-check both against publish.yml if
+             the asset names change. -->
         <div class="actions">
           <a class="btn btn--primary" href="#download">
             <svg width="15" height="15" viewBox="0 0 16 16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
@@ -305,19 +309,19 @@ AllSunk=False</pre>
       <div class="claims">
         <div class="claim claim--plain">
           <p class="claim__k">Windows</p>
-          <p><a href="https://github.com/hexide-io/HexIDE/releases/latest"><code>hexide-windows-amd64-selfcontained.zip</code></a><br>
-             Also <a href="https://github.com/hexide-io/HexIDE/releases/latest">arm64</a>. Nothing to install first.</p>
+          <p><a href="https://github.com/hexide-io/HexIDE/releases/latest/download/hexide-windows-amd64-selfcontained.zip"><code>hexide-windows-amd64-selfcontained.zip</code></a><br>
+             Also <a href="https://github.com/hexide-io/HexIDE/releases/latest/download/hexide-windows-arm64-selfcontained.zip">arm64</a>. Nothing to install first.</p>
         </div>
         <div class="claim claim--plain">
           <p class="claim__k">macOS</p>
-          <p><a href="https://github.com/hexide-io/HexIDE/releases/latest"><code>hexide-macos-arm64-selfcontained.tar.gz</code></a><br>
-             Apple silicon; Intel Macs take <a href="https://github.com/hexide-io/HexIDE/releases/latest">amd64</a>. Extract in Terminal with
+          <p><a href="https://github.com/hexide-io/HexIDE/releases/latest/download/hexide-macos-arm64-selfcontained.tar.gz"><code>hexide-macos-arm64-selfcontained.tar.gz</code></a><br>
+             Apple silicon; Intel Macs take <a href="https://github.com/hexide-io/HexIDE/releases/latest/download/hexide-macos-amd64-selfcontained.tar.gz">amd64</a>. Extract in Terminal with
              <code>tar -xzf</code>.</p>
         </div>
         <div class="claim claim--plain">
           <p class="claim__k">Linux</p>
-          <p><a href="https://github.com/hexide-io/HexIDE/releases/latest"><code>hexide-linux-amd64-selfcontained.tar.gz</code></a><br>
-             Also <a href="https://github.com/hexide-io/HexIDE/releases/latest">arm64</a>. Needs your distro's X11 and fontconfig libraries.</p>
+          <p><a href="https://github.com/hexide-io/HexIDE/releases/latest/download/hexide-linux-amd64-selfcontained.tar.gz"><code>hexide-linux-amd64-selfcontained.tar.gz</code></a><br>
+             Also <a href="https://github.com/hexide-io/HexIDE/releases/latest/download/hexide-linux-arm64-selfcontained.tar.gz">arm64</a>. Needs your distro's X11 and fontconfig libraries.</p>
         </div>
       </div>
       <p class="dl-note">
