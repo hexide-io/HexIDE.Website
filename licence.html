@@ -1,0 +1,168 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Licence — HexIDE</title>
+<meta name="description" content="HexIDE is MIT licensed, with no contributor licence agreement. Third-party notices, trademark position and attribution.">
+<meta name="theme-color" content="#F07820">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://hexide.io/licence.html">
+<meta property="og:title" content="Licence — HexIDE">
+<meta property="og:description" content="MIT, both halves, no CLA. Third-party notices, trademark position and attribution.">
+<meta property="og:image" content="https://hexide.io/assets/shots/ide-designer.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="assets/hexide-logo.svg" type="image/svg+xml">
+<link rel="stylesheet" href="assets/site.css">
+</head>
+<body>
+
+<a class="skip" href="#main">Skip to content</a>
+
+<aside class="alert">
+  <div class="shell alert__in">
+    <b>Alpha</b>
+    <p>HexIDE opens and runs real VB6 projects, but <strong>saving is not yet round-trip
+       faithful</strong>: a save can delete binary companion files and rewrite class settings you
+       never touched. Work on a copy — not on a project you care about.
+       <a href="scope.html#saving">Exactly what goes wrong</a>.</p>
+  </div>
+</aside>
+
+<header class="masthead">
+  <div class="shell masthead__in">
+    <a class="brand" href="index.html">
+      <svg viewBox="0 0 200 200" aria-hidden="true" focusable="false">
+        <defs><radialGradient id="hx" cx="38%" cy="35%" r="65%" fx="38%" fy="35%">
+          <stop offset="0%" stop-color="#FFB347"/><stop offset="45%" stop-color="#F07820"/><stop offset="100%" stop-color="#C04A00"/>
+        </radialGradient></defs>
+        <path d="M171 59 112 18Q100 13 88 18L29 59v82l59 41q12 5 24 0l59-41Z" fill="url(#hx)"/>
+        <g fill="#fff" stroke="#fff" stroke-width="11">
+          <line x1="110.4" y1="94" x2="152" y2="70"/><circle cx="152" cy="70" r="12.5" stroke="none"/>
+          <line x1="100" y1="88" x2="100" y2="40"/><circle cx="100" cy="40" r="12.5" stroke="none"/>
+          <line x1="89.6" y1="94" x2="48" y2="70"/><circle cx="48" cy="70" r="12.5" stroke="none"/>
+          <line x1="89.6" y1="106" x2="48" y2="130"/><circle cx="48" cy="130" r="12.5" stroke="none"/>
+          <line x1="100" y1="112" x2="100" y2="160"/><circle cx="100" cy="160" r="12.5" stroke="none"/>
+          <line x1="110.4" y1="106" x2="152" y2="130"/><circle cx="152" cy="130" r="12.5" stroke="none"/>
+        </g>
+      </svg>
+      HexIDE
+    </a>
+    <p class="masthead__status">Alpha</p>
+    <nav class="nav" aria-label="Main">
+      <a href="demos.html">Demos</a>
+      <a href="scope.html">Scope</a>
+      <a href="https://github.com/hexide-io/HexIDE">Source</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+
+  <section class="band">
+    <div class="shell prose">
+      <p class="eyebrow">Licence</p>
+      <h1>MIT, both halves, no strings.</h1>
+      <p>The IDE and the language server are both MIT licensed. Use it, fork it, ship it in
+         something commercial — the licence text is the whole of the deal.</p>
+      <p><strong>There is no contributor licence agreement.</strong> Contributions are
+         inbound&nbsp;=&nbsp;outbound: you keep your copyright, and you licence your contribution
+         under the same MIT terms as the rest of the project. Nothing to sign, no bot to argue
+         with.</p>
+    </div>
+  </section>
+
+  <section class="band band--rule">
+    <div class="shell">
+      <div class="band__head">
+        <p class="eyebrow">Attribution</p>
+        <h2>Standing on the shoulders of giants.</h2>
+        <p>This is not politeness. The load-bearing ones, including two that carry obligations
+           travelling with any binary you redistribute — the complete set is in the notices file.</p>
+      </div>
+      <dl class="walls">
+        <div><dt>Avalonia UI</dt><dd>The cross-platform UI framework the whole interface is built
+          on, with AvaloniaEdit for the code editor and a vendored slice of Avalonia.Labs (the
+          routed-command manager). MIT.</dd></div>
+        <div><dt>Dock</dt><dd>The docking layout system, © Wiesław Šoltés. MIT.</dd></div>
+        <div><dt>AvaloniaVisualBasic6</dt><dd>© Bartosz Korczyński. HexIDE began as a fork of this
+          project, and its copyright travels in our LICENSE. MIT.</dd></div>
+        <div><dt>EmmyLua.LanguageServer.Framework</dt><dd>© CppCXY. The JSON-RPC and LSP protocol
+          shell the VB6 language server is built on. MIT.</dd></div>
+        <div><dt>proleap VB6 grammar</dt><dd>© Ulrich Wolffgang, by way of grammars-v4. Both the
+          interpreter and the language server parse with descendants of it. MIT.</dd></div>
+        <div><dt>Fluent UI System Icons</dt><dd>© Microsoft. Every icon in the interface is drawn
+          from these as themed vector geometry. MIT.</dd></div>
+        <div><dt>Serilog</dt><dd>Logging — the core package plus its file sink and logging
+          extensions. <strong>Apache-2.0</strong>: the licence text must accompany binary
+          redistribution.</dd></div>
+        <div><dt>ANTLR runtime</dt><dd>Parser runtime. <strong>BSD-3-Clause.</strong></dd></div>
+      </dl>
+      <p class="dl-note">The authoritative and complete list is
+        <a href="https://github.com/hexide-io/HexIDE/blob/HEAD/THIRD-PARTY-NOTICES.md">THIRD-PARTY-NOTICES.md</a>
+        in the repository. If anything here and that disagree, that wins.</p>
+    </div>
+  </section>
+
+  <section class="band band--rule">
+    <div class="shell prose">
+      <p class="eyebrow">Trademarks</p>
+      <h2>Whose names these are.</h2>
+      <p>“Visual Basic”, “VB”, and “VBA” are trademarks of Microsoft Corporation. HexIDE is an
+         independent, community-built project — not affiliated with, endorsed by, or sponsored by
+         Microsoft — and uses these names only descriptively to indicate VB6 file-format and
+         workflow compatibility.</p>
+      <p>No <strong>VB6</strong> artwork, iconography or fonts are redistributed: the
+         VB6-extracted icon set and MS Sans Serif were removed from the tree. The interface is drawn
+         entirely from openly licensed vector geometry — Microsoft's MIT-licensed Fluent UI System
+         Icons, credited above — and it bundles no fonts at all, so it renders in whatever your
+         system uses.</p>
+    </div>
+  </section>
+
+  <section class="band band--rule">
+    <div class="shell prose">
+      <p class="eyebrow">Privacy and security</p>
+      <h2>What leaves your machine.</h2>
+      <p>The <strong>core IDE</strong> does not phone home, collect telemetry, or transmit your
+         projects anywhere — it reads and writes local files only.</p>
+      <p>The bundled <strong>AI Chat add-in</strong> is the exception, and it should be obvious
+         rather than buried here: it sends the code you show it to whichever API endpoint you
+         configure, using your key. It does nothing at all until you set one up.</p>
+      <p>Nothing distributed here is code-signed or notarised, and the
+         <a href="index.html#download">download page</a> says so plainly for both Windows and
+         macOS.</p>
+      <p>Please report vulnerabilities privately rather than in a public issue:
+         <a href="https://github.com/hexide-io/HexIDE/security/advisories/new">open a draft security
+         advisory</a>.</p>
+    </div>
+  </section>
+
+</main>
+
+<footer class="foot">
+  <div class="shell">
+    <div class="foot__top">
+      <div><strong class="foot__brand">HexIDE</strong><br>MIT licensed · Built in the open</div>
+      <nav class="foot__links" aria-label="Footer">
+        <a href="demos.html">Demos</a>
+        <a href="scope.html">Scope</a>
+        <a href="licence.html" aria-current="page">Licence</a>
+        <a href="https://github.com/hexide-io/HexIDE">Source</a>
+        <a href="mailto:hello@hexide.io">hello@hexide.io</a>
+        <a href="https://github.com/hexide-io/HexIDE/security/advisories/new">Report a vulnerability</a>
+      </nav>
+    </div>
+    <div class="foot__legal">
+      <!-- The trademark notice is deliberately absent from this footer: it appears verbatim as a
+           full section above, and repeating it twice on one page reads as boilerplate rather than
+           as a statement. -->
+      <p>Much of HexIDE was built in pair-programming with Claude (Anthropic).</p>
+      <p>© The HexIDE Authors.</p>
+    </div>
+  </div>
+</footer>
+
+<script src="assets/site.js"></script>
+</body>
+</html>

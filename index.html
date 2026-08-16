@@ -1,0 +1,365 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>HexIDE — an open, cross-platform IDE for Visual Basic 6</title>
+<meta name="description" content="An open, cross-platform IDE for Visual Basic 6. Forms, toolbox, properties and project explorer, running natively on Windows, macOS and Linux. MIT licensed.">
+<meta name="theme-color" content="#F07820">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://hexide.io/">
+<meta property="og:title" content="HexIDE — an open, cross-platform IDE for Visual Basic 6">
+<meta property="og:description" content="Forms, toolbox, properties and project explorer, running natively on Windows, macOS and Linux. Opens and runs real VB6 projects. Alpha.">
+<meta property="og:image" content="https://hexide.io/assets/shots/ide-designer.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="assets/hexide-logo.svg" type="image/svg+xml">
+<link rel="stylesheet" href="assets/site.css">
+</head>
+<body>
+
+<a class="skip" href="#main">Skip to content</a>
+
+<aside class="alert">
+  <div class="shell alert__in">
+    <b>Alpha</b>
+    <p>HexIDE opens and runs real VB6 projects, but <strong>saving is not yet round-trip
+       faithful</strong>: a save can delete binary companion files and rewrite class settings you
+       never touched. Work on a copy — not on a project you care about.
+       <a href="scope.html#saving">Exactly what goes wrong</a>.</p>
+  </div>
+</aside>
+
+<header class="masthead">
+  <div class="shell masthead__in">
+    <a class="brand" href="/">
+      <svg viewBox="0 0 200 200" aria-hidden="true" focusable="false">
+        <defs>
+          <radialGradient id="hx" cx="38%" cy="35%" r="65%" fx="38%" fy="35%">
+            <stop offset="0%" stop-color="#FFB347"/><stop offset="45%" stop-color="#F07820"/><stop offset="100%" stop-color="#C04A00"/>
+          </radialGradient>
+        </defs>
+        <path d="M171 59 112 18Q100 13 88 18L29 59v82l59 41q12 5 24 0l59-41Z" fill="url(#hx)"/>
+        <g fill="#fff" stroke="#fff" stroke-width="11">
+          <line x1="110.4" y1="94" x2="152" y2="70"/><circle cx="152" cy="70" r="12.5" stroke="none"/>
+          <line x1="100" y1="88" x2="100" y2="40"/><circle cx="100" cy="40" r="12.5" stroke="none"/>
+          <line x1="89.6" y1="94" x2="48" y2="70"/><circle cx="48" cy="70" r="12.5" stroke="none"/>
+          <line x1="89.6" y1="106" x2="48" y2="130"/><circle cx="48" cy="130" r="12.5" stroke="none"/>
+          <line x1="100" y1="112" x2="100" y2="160"/><circle cx="100" cy="160" r="12.5" stroke="none"/>
+          <line x1="110.4" y1="106" x2="152" y2="130"/><circle cx="152" cy="130" r="12.5" stroke="none"/>
+        </g>
+      </svg>
+      HexIDE
+    </a>
+    <p class="masthead__status">Alpha</p>
+    <nav class="nav" aria-label="Main">
+      <a href="demos.html">Demos</a>
+      <a href="scope.html">Scope</a>
+      <a href="https://github.com/hexide-io/HexIDE">Source</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+
+  <!-- ── Hero: headline left, the signature right ───────────────────────── -->
+  <section class="hero">
+    <div class="shell hero__grid">
+      <div>
+        <h1>Your favourite IDE, reinvented in the open.</h1>
+
+        <p class="lede">
+          A cross-platform recreation of the Visual Basic 6 workbench — forms, toolbox,
+          properties, project explorer — running natively on Windows, macOS and Linux.
+          It opens and runs real VB6 projects, and it is straight with you about what it
+          cannot yet hand back.
+        </p>
+
+        <!-- Download links point at /releases/latest rather than pinned asset URLs, so they stay
+             correct across releases without an edit. The filenames shown match what publish.yml
+             emits on the fix/release-pipeline branch (RID-specific, both flavours, six platforms);
+             re-check them if that workflow changes. -->
+        <div class="actions">
+          <a class="btn btn--primary" href="#download">
+            <svg width="15" height="15" viewBox="0 0 16 16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M8 1.5v9m0 0L4.5 7M8 10.5 11.5 7M2 13.5h12"/>
+            </svg>
+            Download for Windows
+          </a>
+          <a class="btn btn--ghost" href="demos.html">See it running</a>
+        </div>
+        <p class="dl-note">
+          Self-contained — nothing to install first.
+          <a href="#download">macOS, Linux and smaller builds</a>.
+        </p>
+      </div>
+
+      <!-- Not a picture of a Properties window. The tabs re-sort, and the
+           description pane follows the selected row, as it does in the product. -->
+      <div class="win">
+        <div class="win__bar"><span>Properties</span><span class="win__x" aria-hidden="true">✕</span></div>
+        <div class="win__object">HexIDE <em>Application</em></div>
+
+        <div class="win__tabs" role="tablist" aria-label="Property view" hidden>
+          <button class="ptab" type="button" role="tab" id="pt-a" aria-controls="pg-a" aria-selected="true">Alphabetic</button>
+          <button class="ptab" type="button" role="tab" id="pt-c" aria-controls="pg-c" aria-selected="false" tabindex="-1">Categorized</button>
+        </div>
+
+        <div class="grid" role="tabpanel" id="pg-a" aria-labelledby="pt-a">
+          <button class="row" type="button" data-k="Designer"    aria-pressed="true"  aria-describedby="d-Designer"><span class="row__k">Designer</span><span class="row__v">13 controls</span></button>
+          <button class="row" type="button" data-k="FileFormat"  aria-pressed="false" aria-describedby="d-FileFormat"><span class="row__k">FileFormat</span><span class="row__v">.vbp / .frm</span></button>
+          <button class="row" type="button" data-k="Interpreter" aria-pressed="false" aria-describedby="d-Interpreter"><span class="row__k">Interpreter</span><span class="row__v">Demonstrator</span></button>
+          <button class="row" type="button" data-k="Licence"     aria-pressed="false" aria-describedby="d-Licence"><span class="row__k">Licence</span><span class="row__v">MIT</span></button>
+          <button class="row" type="button" data-k="Localized"   aria-pressed="false" aria-describedby="d-Localized"><span class="row__k">Localized</span><span class="row__v">30 languages</span></button>
+          <button class="row" type="button" data-k="Platforms"   aria-pressed="false" aria-describedby="d-Platforms"><span class="row__k">Platforms</span><span class="row__v">Win, macOS, Linux</span></button>
+          <button class="row" type="button" data-k="Tests"       aria-pressed="false" aria-describedby="d-Tests"><span class="row__k">Tests</span><span class="row__v">1,731 passing</span></button>
+        </div>
+
+        <div class="grid" role="tabpanel" id="pg-c" aria-labelledby="pt-c" hidden>
+          <p class="grid__group">Workbench</p>
+          <button class="row" type="button" data-k="Designer"    aria-pressed="true"  aria-describedby="d-Designer"><span class="row__k">Designer</span><span class="row__v">13 controls</span></button>
+          <button class="row" type="button" data-k="FileFormat"  aria-pressed="false" aria-describedby="d-FileFormat"><span class="row__k">FileFormat</span><span class="row__v">.vbp / .frm</span></button>
+          <button class="row" type="button" data-k="Platforms"   aria-pressed="false" aria-describedby="d-Platforms"><span class="row__k">Platforms</span><span class="row__v">Win, macOS, Linux</span></button>
+          <p class="grid__group">Language</p>
+          <button class="row" type="button" data-k="Interpreter" aria-pressed="false" aria-describedby="d-Interpreter"><span class="row__k">Interpreter</span><span class="row__v">Demonstrator</span></button>
+          <button class="row" type="button" data-k="Tests"       aria-pressed="false" aria-describedby="d-Tests"><span class="row__k">Tests</span><span class="row__v">1,731 passing</span></button>
+          <p class="grid__group">Project</p>
+          <button class="row" type="button" data-k="Licence"     aria-pressed="false" aria-describedby="d-Licence"><span class="row__k">Licence</span><span class="row__v">MIT</span></button>
+          <button class="row" type="button" data-k="Localized"   aria-pressed="false" aria-describedby="d-Localized"><span class="row__k">Localized</span><span class="row__v">30 languages</span></button>
+        </div>
+
+        <!-- Visual pane. The authoritative text is in the .vh block and is referenced by
+             each row's aria-describedby, so there is no live region to machine-gun a
+             screen reader and no second copy to drift. -->
+        <div class="win__desc" aria-hidden="true">
+          <b id="desc-t">Designer</b>
+          <p id="desc-b">Drag a control onto a form, set its properties, wire an event. Eight-handle
+            resize, rubber-band select, the whole Format menu, and undo that covers moves as well as
+            edits.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- The carousel controls are document tabs, because that is how you switch views in the thing
+       being shown. Held to the same width as everything else: full-bleed made it read as a
+       detached band rather than part of the page. -->
+  <div class="shell">
+  <div class="frame">
+    <div class="frame__tabs" role="tablist" aria-label="Screenshots" hidden>
+      <button class="tab" type="button" role="tab" id="t-ide" aria-controls="p-ide" aria-selected="true">frmOrders (Form)</button>
+      <button class="tab" type="button" role="tab" id="t-cod" aria-controls="p-cod" aria-selected="false" tabindex="-1">clsOrder (Code)</button>
+      <button class="tab" type="button" role="tab" id="t-aur" aria-controls="p-aur" aria-selected="false" tabindex="-1">NeonAurora.exe</button>
+      <button class="tab" type="button" role="tab" id="t-ver" aria-controls="p-ver" aria-selected="false" tabindex="-1">NeonVertigo.exe</button>
+    </div>
+    <div class="frame__stage">
+      <div class="frame__panel" role="tabpanel" id="p-ide" aria-labelledby="t-ide" tabindex="0">
+        <!-- Follows the reader's OS theme. One request either way: the browser picks
+             a single source, it does not download both. -->
+        <picture>
+          <source media="(prefers-color-scheme: dark)" srcset="assets/shots/ide-designer-dark.png">
+          <img src="assets/shots/ide-designer.png" alt="HexIDE with an order-entry form open in the designer: toolbox docked left, the form on its dotted grid with text boxes, combo boxes, option buttons, a check box and command buttons, and the project explorer and properties window docked right." width="2100" height="1080">
+        </picture>
+        <p class="frame__cap">The designer, project explorer and properties window — where your hands expect them.</p>
+      </div>
+      <div class="frame__panel" role="tabpanel" id="p-cod" aria-labelledby="t-cod" tabindex="0" hidden>
+        <picture>
+          <source media="(prefers-color-scheme: dark)" srcset="assets/shots/ide-code-dark.png">
+          <img src="assets/shots/ide-code.png" alt="The HexIDE code editor showing a VB6 class with Property Get and Property Let procedures, with line numbers, folding markers, syntax colouring and a minimap." width="2100" height="1080" loading="lazy">
+        </picture>
+        <p class="frame__cap">The code window keeps both VB6 combos. Line numbers, folding and a minimap are the new part.</p>
+      </div>
+      <div class="frame__panel" role="tabpanel" id="p-aur" aria-labelledby="t-aur" tabindex="0" hidden>
+        <img src="assets/shots/neon-aurora.png" alt="NeonAurora running: a cluster of glowing purple and cyan spheres over neon horizontal beams, with magenta scrolling text." width="800" height="568" loading="lazy">
+        <p class="frame__cap">NeonAurora — per-pixel plasma, glenz vectors and a MIDI chiptune. Written in VB6, compiled by VB6.</p>
+      </div>
+      <div class="frame__panel" role="tabpanel" id="p-ver" aria-labelledby="t-ver" tabindex="0" hidden>
+        <img src="assets/shots/neon-vertigo.png" alt="NeonVertigo running: a rotating sphere of glowing vector balls shaded from magenta to blue." width="760" height="428" loading="lazy">
+        <p class="frame__cap">NeonVertigo — 130 Fibonacci-distributed vector balls, spun on two axes and painted back to front.</p>
+      </div>
+    </div>
+  </div>
+  </div>
+
+  <div class="vh">
+    <span id="d-Designer">Drag a control onto a form, set its properties, wire an event. Eight-handle resize, rubber-band select, the whole Format menu, and undo that covers moves as well as edits.</span>
+    <span id="d-FileFormat">Opens the real VB6 files — project, forms, classes, modules — rather than importing them. Writing them back faithfully is the current focus and is not finished, so work on a copy.</span>
+    <span id="d-Interpreter">Paste some VB6 and watch it run. A demonstrator with a deliberate ceiling — it exists to show the workbench working, not to migrate a codebase.</span>
+    <span id="d-Licence">MIT, both halves of the repository. No contributor licence agreement: contributions are inbound equals outbound.</span>
+    <span id="d-Localized">The entire interface in 30 languages, four of them right to left. 602 strings, with build-time coverage checks so no control can ship blank.</span>
+    <span id="d-Platforms">Native on Windows, macOS and Linux. Nothing to register, no installer, no Visual Studio required.</span>
+    <span id="d-Tests">Interpreter semantics are checked against the real 1998 compiler — verified against what VB6 actually does, rather than what it is remembered doing.</span>
+  </div>
+
+  <!-- ── What's true ────────────────────────────────────────────────────── -->
+  <section class="band">
+    <div class="shell">
+      <div class="claims">
+        <div class="claim claim--yes">
+          <p class="claim__k">Works</p>
+          <p>The workbench is real and finished enough to use: designer, toolbox, properties,
+             project explorer, menu editor, and a reader that opens the actual
+             <code>.vbp</code>/<code>.frm</code> files rather than importing them.</p>
+        </div>
+        <div class="claim claim--ltd">
+          <p class="claim__k">Bounded</p>
+          <p>The interpreter runs VB6 well enough to paste something in and watch it go. That is a
+             deliberate ceiling, not a stepping stone — and the limits are written down.</p>
+        </div>
+        <div class="claim claim--no">
+          <p class="claim__k">By design</p>
+          <p>No native compiler. No whole-program analysis. Those belong to a real language engine,
+             and there is a clean seam here for one.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Muscle memory ──────────────────────────────────────────────────── -->
+  <section class="band band--rule">
+    <div class="shell prose">
+      <p class="eyebrow">What you get</p>
+      <h2>A workbench, not a tribute act.</h2>
+      <p>Every window is where muscle memory expects it, and the keys still do what your hands
+         already know. <strong>F5</strong> runs. <strong>F4</strong> is properties.
+         <strong>F2</strong> is the object browser. <strong>Ctrl+G</strong> brings up the
+         Immediate window, where <code>Debug.Print</code> output lands.</p>
+      <p>Underneath it is a genuine VB6 file format implementation — it reads the real files rather
+         than importing them, which is why a project opens with its own structure intact.</p>
+      <p><strong>Writing them back is a different problem, and it is not solved yet.</strong> The
+         designer writer regenerates a form from an in-memory model instead of round-tripping it, so
+         none of the twenty-two Microsoft-authored forms in the reference corpus survives a save
+         byte-for-byte, and a save can lose companion binaries and rewrite class settings you never
+         edited. That is the current focus, it is tracked in the open, and until it lands you should
+         <a href="scope.html#saving">know exactly what a save changes</a>.</p>
+    </div>
+  </section>
+
+  <!-- ── Demos, on the designer grid ────────────────────────────────────── -->
+  <section class="band demos">
+    <div class="shell">
+      <div class="band__head">
+        <p class="eyebrow">Built with it</p>
+        <h2>Four small programs, and one of them is the point.</h2>
+        <p>Three demoscene intros, written by AI agents driving the running IDE through its
+           automation tools — a developer-build feature today — then compiled, unmodified, by the
+           real VB6 compiler. And one that isn't a demo at all.</p>
+      </div>
+
+      <div class="gallery">
+        <a class="card" href="demos.html#neon-aurora">
+          <img src="assets/shots/neon-aurora.png" alt="" loading="lazy" width="800" height="568">
+          <div class="card__body">
+            <p class="card__t">neon-aurora</p>
+            <p class="card__d">A six-part Amiga-style intro: raster plasma, copper bars, starfield,
+               glenz vector, vector balls, sine-scroller — with MIDI music.</p>
+          </div>
+        </a>
+        <a class="card" href="demos.html#neon-vertigo">
+          <img src="assets/shots/neon-vertigo.png" alt="" loading="lazy" width="760" height="428">
+          <div class="card__body">
+            <p class="card__t">neon-vertigo</p>
+            <p class="card__d">130 vector balls on a Fibonacci lattice, spun on two axes,
+               depth-shaded and painted back to front.</p>
+          </div>
+        </a>
+        <a class="card" href="demos.html#wild-ecstasy">
+          <img src="assets/shots/wild-ecstasy.png" alt="" loading="lazy" width="820" height="488">
+          <div class="card__body">
+            <p class="card__t">wild-ecstasy</p>
+            <p class="card__d">"HEXIDE" rippling on per-letter sine waves with colour cycling.
+               A form and a class, about a hundred lines together.</p>
+          </div>
+        </a>
+        <a class="card" href="demos.html#battleship">
+          <pre class="card__trace" aria-hidden="true">Firing...
+(0,0) HIT
+(0,1) SUNK
+(5,5) MISS
+(2,0) HIT
+(2,1) HIT
+(2,2) SUNK
+AllSunk=False</pre>
+          <div class="card__body">
+            <p class="card__t">battleship</p>
+            <p class="card__d">Not an intro — a cross-check. An object-oriented Battleship engine
+               that produces <strong>the same trace, line for line</strong>, on this interpreter and
+               inside a native executable from the real 1998 compiler.</p>
+          </div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Download ───────────────────────────────────────────────────────── -->
+  <section class="band" id="download">
+    <div class="shell">
+      <div class="band__head">
+        <p class="eyebrow">Get it</p>
+        <h2>Download</h2>
+        <p>Alpha. It will have rough edges, and the interpreter has known limits —
+           <a href="scope.html">they are all written down</a>. Nothing here is code-signed or
+           notarised: Windows shows a SmartScreen warning (<em>More info</em>, then <em>Run
+           anyway</em>), and on macOS you need to extract in Terminal, because unpacking with Finder
+           applies a quarantine flag an unsigned app cannot clear.</p>
+      </div>
+      <div class="claims">
+        <div class="claim claim--plain">
+          <p class="claim__k">Windows</p>
+          <p><a href="https://github.com/hexide-io/HexIDE/releases/latest"><code>hexide-windows-amd64-selfcontained.zip</code></a><br>
+             Also <a href="https://github.com/hexide-io/HexIDE/releases/latest">arm64</a>. Nothing to install first.</p>
+        </div>
+        <div class="claim claim--plain">
+          <p class="claim__k">macOS</p>
+          <p><a href="https://github.com/hexide-io/HexIDE/releases/latest"><code>hexide-macos-arm64-selfcontained.tar.gz</code></a><br>
+             Apple silicon; Intel Macs take <a href="https://github.com/hexide-io/HexIDE/releases/latest">amd64</a>. Extract in Terminal with
+             <code>tar -xzf</code>.</p>
+        </div>
+        <div class="claim claim--plain">
+          <p class="claim__k">Linux</p>
+          <p><a href="https://github.com/hexide-io/HexIDE/releases/latest"><code>hexide-linux-amd64-selfcontained.tar.gz</code></a><br>
+             Also <a href="https://github.com/hexide-io/HexIDE/releases/latest">arm64</a>. Needs your distro's X11 and fontconfig libraries.</p>
+        </div>
+      </div>
+      <p class="dl-note">
+        Already have the <a href="https://dotnet.microsoft.com/download/dotnet/10.0">.NET&nbsp;10
+        runtime</a>? The framework-dependent builds are about a third of the size. Or
+        <a href="https://github.com/hexide-io/HexIDE">build it from source</a>.
+      </p>
+    </div>
+  </section>
+
+</main>
+
+<footer class="foot">
+  <div class="shell">
+    <div class="foot__top">
+      <div>
+        <strong class="foot__brand">HexIDE</strong><br>
+        MIT licensed · Built in the open
+      </div>
+      <nav class="foot__links" aria-label="Footer">
+        <a href="demos.html">Demos</a>
+        <a href="scope.html">Scope</a>
+        <a href="licence.html">Licence</a>
+        <a href="https://github.com/hexide-io/HexIDE">Source</a>
+        <a href="mailto:hello@hexide.io">hello@hexide.io</a>
+        <a href="https://github.com/hexide-io/HexIDE/security/advisories/new">Report a vulnerability</a>
+      </nav>
+    </div>
+    <div class="foot__legal">
+      <p>“Visual Basic”, “VB”, and “VBA” are trademarks of Microsoft Corporation. HexIDE is an
+         independent, community-built project — not affiliated with, endorsed by, or sponsored by
+         Microsoft — and uses these names only descriptively to indicate VB6 file-format and
+         workflow compatibility.</p>
+      <p>Built on the work of many others — <a href=licence.html>the attribution list and full
+         third-party notices are here</a>.</p>
+      <p>Much of HexIDE was built in pair-programming with Claude (Anthropic).</p>
+      <p>© The HexIDE Authors.</p>
+    </div>
+  </div>
+</footer>
+
+<script src="assets/site.js"></script>
+
+</body>
+</html>

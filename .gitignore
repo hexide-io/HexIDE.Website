@@ -1,0 +1,5 @@
+node_modules/
+package-lock.json
+
+# Screenshots are generated on demand; there is no reason to version them.
+tools/shots/

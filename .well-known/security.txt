@@ -1,0 +1,13 @@
+# Security contact information for HexIDE — https://hexide.io
+# https://www.rfc-editor.org/rfc/rfc9116
+#
+# Contact fields are in order of preference. A private security advisory on
+# GitHub is preferred over email: it gives the report a triage queue, a
+# disclosure timeline and a CVE path, none of which a mailbox provides.
+
+Contact: https://github.com/hexide-io/HexIDE/security/advisories/new
+Contact: mailto:security@hexide.io
+Policy: https://github.com/hexide-io/HexIDE/blob/HEAD/SECURITY.md
+Preferred-Languages: en
+Canonical: https://hexide.io/.well-known/security.txt
+Expires: 2027-08-16T00:00:00.000Z
