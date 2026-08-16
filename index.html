@@ -157,16 +157,15 @@
              a single source, it does not download both. -->
         <picture>
           <source media="(prefers-color-scheme: dark)" srcset="assets/shots/ide-designer-dark.png">
-          <img src="assets/shots/ide-designer.png" alt="HexIDE with an order-entry form open in the designer: toolbox docked left, the form on its dotted grid with text boxes, combo boxes, check boxes and command buttons, and the project explorer and properties window docked right." width="2100" height="1080">
+          <img src="assets/shots/ide-designer.png" alt="HexIDE with an order-entry form open in the designer: toolbox docked left, the form on its dotted grid with text boxes, combo boxes, option buttons, a check box and command buttons, and the project explorer and properties window docked right." width="2100" height="1080">
         </picture>
         <p class="frame__cap">The designer, project explorer and properties window — where your hands expect them.</p>
       </div>
-      <!-- TODO: no dark variant yet. VB6.xshd.xml hardcodes light syntax colours with no
-           theme-aware counterpart, so keywords render at roughly 1.1:1 on the dark packs.
-           Shipping that shot would advertise the bug. Restore the <picture> here once the
-           highlighting is theme-aware. -->
       <div class="frame__panel" role="tabpanel" id="p-cod" aria-labelledby="t-cod" tabindex="0" hidden>
-        <img src="assets/shots/ide-code.png" alt="The HexIDE code editor showing a VB6 class with Property Get and Property Let procedures, with line numbers, folding markers, syntax colouring and a minimap." width="2100" height="1080" loading="lazy">
+        <picture>
+          <source media="(prefers-color-scheme: dark)" srcset="assets/shots/ide-code-dark.png">
+          <img src="assets/shots/ide-code.png" alt="The HexIDE code editor showing a VB6 class with Property Get and Property Let procedures, with line numbers, folding markers, syntax colouring and a minimap." width="2100" height="1080" loading="lazy">
+        </picture>
         <p class="frame__cap">The code window keeps both VB6 combos. Line numbers, folding and a minimap are the new part.</p>
       </div>
       <div class="frame__panel" role="tabpanel" id="p-aur" aria-labelledby="t-aur" tabindex="0" hidden>
