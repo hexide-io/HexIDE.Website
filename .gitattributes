@@ -1,0 +1,7 @@
+# Served files keep LF regardless of platform. CNAME in particular: a trailing
+# CR can stop GitHub Pages recognising the custom domain.
+* text=auto eol=lf
+CNAME  text eol=lf
+*.png  binary
+*.jpg  binary
+*.webp binary

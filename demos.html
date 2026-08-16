@@ -1,0 +1,187 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Demos — programs written in HexIDE, compiled by VB6</title>
+<meta name="description" content="Four small VB6 programs built in HexIDE: three demoscene intros and one fidelity cross-check whose output matches the real 1998 compiler line for line.">
+<meta name="theme-color" content="#F07820">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://hexide.io/demos.html">
+<meta property="og:title" content="Demos — built in HexIDE, compiled by VB6">
+<meta property="og:description" content="Three demoscene intros and one fidelity cross-check whose output matches the real 1998 compiler line for line.">
+<meta property="og:image" content="https://hexide.io/assets/shots/neon-aurora.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="assets/hexide-logo.svg" type="image/svg+xml">
+<link rel="stylesheet" href="assets/site.css">
+</head>
+<body>
+
+<a class="skip" href="#main">Skip to content</a>
+
+<aside class="alert">
+  <div class="shell alert__in">
+    <b>Alpha</b>
+    <p>HexIDE opens and runs real VB6 projects, but <strong>saving is not yet round-trip
+       faithful</strong>: a save can delete binary companion files and rewrite class settings you
+       never touched. Work on a copy — not on a project you care about.
+       <a href="scope.html#saving">Exactly what goes wrong</a>.</p>
+  </div>
+</aside>
+
+<header class="masthead">
+  <div class="shell masthead__in">
+    <a class="brand" href="index.html">
+      <svg viewBox="0 0 200 200" aria-hidden="true" focusable="false">
+        <defs><radialGradient id="hx" cx="38%" cy="35%" r="65%" fx="38%" fy="35%">
+          <stop offset="0%" stop-color="#FFB347"/><stop offset="45%" stop-color="#F07820"/><stop offset="100%" stop-color="#C04A00"/>
+        </radialGradient></defs>
+        <path d="M171 59 112 18Q100 13 88 18L29 59v82l59 41q12 5 24 0l59-41Z" fill="url(#hx)"/>
+        <g fill="#fff" stroke="#fff" stroke-width="11">
+          <line x1="110.4" y1="94" x2="152" y2="70"/><circle cx="152" cy="70" r="12.5" stroke="none"/>
+          <line x1="100" y1="88" x2="100" y2="40"/><circle cx="100" cy="40" r="12.5" stroke="none"/>
+          <line x1="89.6" y1="94" x2="48" y2="70"/><circle cx="48" cy="70" r="12.5" stroke="none"/>
+          <line x1="89.6" y1="106" x2="48" y2="130"/><circle cx="48" cy="130" r="12.5" stroke="none"/>
+          <line x1="100" y1="112" x2="100" y2="160"/><circle cx="100" cy="160" r="12.5" stroke="none"/>
+          <line x1="110.4" y1="106" x2="152" y2="130"/><circle cx="152" cy="130" r="12.5" stroke="none"/>
+        </g>
+      </svg>
+      HexIDE
+    </a>
+    <p class="masthead__status">Alpha</p>
+    <nav class="nav" aria-label="Main">
+      <a href="demos.html" aria-current="page">Demos</a>
+      <a href="scope.html">Scope</a>
+      <a href="https://github.com/hexide-io/HexIDE">Source</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+
+  <section class="band">
+    <div class="shell prose">
+      <p class="eyebrow">Demos</p>
+      <h1>Four small programs, and one of them is the point.</h1>
+      <p>Three of these are demoscene intros — the sort of thing that used to arrive on a floppy
+         with a scroller and a chiptune. Two were written end to end by AI agents driving the
+         running IDE through its automation tools; the six-part one was authored by a fan-out of
+         agents and integrated live through the IDE the same way. All three were then compiled,
+         unmodified, by the real VB6 compiler — the six-part one clean on the first attempt.</p>
+      <p>The fourth is not a demo. It is the reason to trust the other three.</p>
+      <p>Every one of them is plain VB6 source in the repository. Pre-built binaries are committed
+         alongside it for convenience, but they are unsigned, so build them yourself if that
+         matters to you.</p>
+    </div>
+  </section>
+
+  <section class="band band--rule">
+    <div class="shell">
+
+      <article class="demo" id="neon-aurora">
+        <img src="assets/shots/neon-aurora.png" alt="A cluster of glowing purple and cyan spheres over neon horizontal beams, with magenta text scrolling across." width="800" height="600">
+        <div>
+          <h2 class="demo__t">neon-aurora</h2>
+          <p>A six-part Amiga-style intro: raster plasma, copper bars, a 3D starfield, a glenz
+             vector, vector balls and a sine-scroller — with real MIDI chiptune music underneath.</p>
+          <p>The plasma is computed per pixel into a 32-bit device-independent bitmap and blitted
+             with <code>StretchBlt</code>; the music goes out through <code>midiOutShort</code>.
+             Both of those are Windows API work, in VB6, written by an agent. It reflows when you
+             resize the window.</p>
+          <p class="demo__meta">6 classes · 2 modules · 1 form</p>
+        </div>
+      </article>
+
+      <article class="demo" id="neon-vertigo">
+        <img src="assets/shots/neon-vertigo.png" alt="A rotating sphere made of glowing vector balls, shaded from magenta through to blue." width="760" height="460" loading="lazy" decoding="async">
+        <div>
+          <h2 class="demo__t">neon-vertigo</h2>
+          <p>130 vector balls distributed over a sphere on a Fibonacci lattice, spun on two axes
+             through a pair of rotation matrices, projected with perspective, depth-shaded from
+             magenta to blue and painted back to front.</p>
+          <p>It is a painter's-algorithm sort and a lot of trigonometry, which is exactly what this
+             sort of thing was in 1996.</p>
+          <p class="demo__meta">1 form</p>
+        </div>
+      </article>
+
+      <article class="demo" id="wild-ecstasy">
+        <img src="assets/shots/wild-ecstasy.png" alt="The word HEXIDE rippling on per-letter sine waves in cycling colours." width="820" height="520" loading="lazy" decoding="async">
+        <div>
+          <h2 class="demo__t">wild-ecstasy</h2>
+          <p>“HEXIDE” on a per-character sine wave with the colours cycling through the spectrum.
+             The smallest thing here — a form and a class, about a hundred lines together — and the
+             best one to read first if you want to see what the interpreter handles.</p>
+          <p class="demo__meta">1 class · 1 form</p>
+        </div>
+      </article>
+
+      <article class="demo" id="battleship">
+        <pre class="card__trace demo__trace">Firing...
+(0,0) HIT
+(0,1) SUNK
+(5,5) MISS
+(2,0) HIT
+(2,1) HIT
+(2,2) SUNK
+AllSunk=False</pre>
+        <div>
+          <h2 class="demo__t">battleship</h2>
+          <p>Not an intro. An object-oriented Battleship engine — four classes, properties, an
+             object array holding the fleet, and <code>WithEvents</code> raising the hits — written
+             as ordinary VB6 with no graphics at all.</p>
+          <p>It exists to be run twice. The engine — those four classes, unchanged — runs on
+             HexIDE's interpreter as a regression test, and inside a native executable built by the
+             real 1998 compiler. <strong>That trace is what both of them produce, line for
+             line.</strong> Only the driver around it differs: the archived project writes to a
+             file, which needs file I/O the interpreter does not have, so the test harness prints
+             to Debug instead.</p>
+          <p>That is the whole claim, and it is deliberately narrow. A tree-walking interpreter
+             written in 2026 and a compiler shipped in 1998 agreeing exactly — on classes, events
+             and object arrays — is the difference between “we implemented VB6” and “we checked”.</p>
+          <p class="demo__meta">4 classes · 1 module · no forms</p>
+        </div>
+      </article>
+
+    </div>
+  </section>
+
+  <section class="band band--rule">
+    <div class="shell prose">
+      <p class="eyebrow">Read the source</p>
+      <h2>All four are in the repository.</h2>
+      <p>Each lives in its own folder with the complete, self-contained VB6 source and a README
+         explaining how the effect works. If you have VB6 installed you can rebuild any of them
+         with <code>VB6.EXE /make</code>.</p>
+      <p><a href="https://github.com/hexide-io/HexIDE/tree/HEAD/demo">Browse the demos on GitHub</a></p>
+    </div>
+  </section>
+
+</main>
+
+<footer class="foot">
+  <div class="shell">
+    <div class="foot__top">
+      <div><strong class="foot__brand">HexIDE</strong><br>MIT licensed · Built in the open</div>
+      <nav class="foot__links" aria-label="Footer">
+        <a href="demos.html" aria-current="page">Demos</a>
+        <a href="scope.html">Scope</a>
+        <a href="licence.html">Licence</a>
+        <a href="https://github.com/hexide-io/HexIDE">Source</a>
+        <a href="https://github.com/hexide-io/HexIDE/security/advisories/new">Report a vulnerability</a>
+      </nav>
+    </div>
+    <div class="foot__legal">
+      <p>“Visual Basic”, “VB”, and “VBA” are trademarks of Microsoft Corporation. HexIDE is an
+         independent, community-built project — not affiliated with, endorsed by, or sponsored by
+         Microsoft — and uses these names only descriptively to indicate VB6 file-format and
+         workflow compatibility.</p>
+      <p>Much of HexIDE was built in pair-programming with Claude (Anthropic).</p>
+      <p>© The HexIDE Authors.</p>
+    </div>
+  </div>
+</footer>
+
+<script src="assets/site.js"></script>
+</body>
+</html>

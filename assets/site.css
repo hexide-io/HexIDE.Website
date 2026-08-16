@@ -1,0 +1,707 @@
+/* ==========================================================================
+   hexide.io
+   Zero-build. No framework, no fonts to fetch, no JS required to read a word.
+
+   Every colour below is sampled from the product's own theme files:
+   Themes/Classic.axaml, Themes/Packs/Dark.json, Icons/AppIcon/hexide-logo.svg.
+   Nothing here is a stock palette.
+
+   Contrast: every text/background pair in both themes clears WCAG AA (4.5:1),
+   and every focus indicator clears 3:1 against all four surfaces it can land
+   on. Graphic tokens (--run/--brk/--stop) are kept for marks only; text uses
+   the -text twins, because the graphic values do not clear AA as type.
+   ========================================================================== */
+
+/* --- Tokens ------------------------------------------------------------- */
+
+:root {
+  /* Sampled: Classic.axaml */
+  --navy:        #000080;  /* ActiveTitleBar, Highlight                      */
+  --navy-ink:    #ffffff;
+  --surface:     #f0f0f0;  /* SystemColors.Control                          */
+  --surface-2:   #e6e8ea;
+  --workspace:   #ababab;  /* MDI AppWorkspace — the letterbox colour        */
+  --rule:        #d2d5d9;
+  --rule-strong: #808080;  /* SystemColors.ControlDark                       */
+  --grid-dot:    #474747;  /* FormGridPatternBrush                           */
+
+  /* Sampled: hexide-logo.svg */
+  --accent:      #f07820;
+  --accent-lift: #ffb347;
+  --accent-deep: #c04a00;
+  --accent-text: #a8500f;  /* 5.50:1 — the orange, but legible as type       */
+
+  /* Sampled: Classic.axaml's WarningBanner brushes — the site's warning strip is the same
+     colour as the IDE's own. */
+  --warn-bg:     #fff4ce;
+  --warn-edge:   #d9a400;
+  --warn-ink:    #5c4400;
+
+  /* Debug transport semantics. Marks only; never type. */
+  --run:         #2fa24b;
+  --brk:         #e0a22e;
+  --stop:        #d6473f;
+
+  --paper:       #ffffff;
+  --ink:         #16181c;
+  --ink-2:       #4a4f57;
+  --ink-3:       #5f646c;  /* 5.96 on paper / 4.85 on surface-2              */
+
+  /* Primary action: the title-bar navy, not the brand orange. White on
+     #f07820 is 2.83:1 and fails AA outright; navy carries white at 16:1 —
+     and it is the colour VB6 actually used for the thing you clicked. */
+  --cta:         #000080;
+  --cta-hover:   #0000b3;  /* SystemAccentColorLight1                        */
+  --cta-ink:     #ffffff;
+
+  /* Two-tone focus ring. No single colour clears 3:1 against paper, surface,
+     workspace grey AND the near-black trace tile at once. */
+  --focus-a:     #16181c;
+  --focus-b:     #ffffff;
+
+  --shadow: 0 1px 2px rgb(22 24 28 / .06), 0 8px 28px -12px rgb(22 24 28 / .18);
+
+  --sans: system-ui, -apple-system, "Segoe UI Variable Text", "Segoe UI",
+          Roboto, "Helvetica Neue", Arial, sans-serif;
+  --mono: ui-monospace, "Cascadia Mono", "Segoe UI Mono", "SF Mono", Menlo,
+          Consolas, monospace;
+
+  --measure: 68ch;
+  --gutter: clamp(1.25rem, 4vw, 2.5rem);
+  --shell: 1140px;
+  --radius: 3px;         /* VB6 chrome is square; 3px keeps it from feeling brittle */
+}
+
+/* Dark: sampled from Themes/Packs/Dark.json (#1E1E1E / #252526 / #D4D4D4).
+   The navy is lifted — #000080 on #1E1E1E is unreadable. It stays the
+   title-bar blue in identity, not in hex. */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --navy:        #6d86d8;
+    --navy-ink:    #0d1020;
+    --surface:     #252526;
+    --surface-2:   #2d2d30;
+    --workspace:   #191919;
+    --rule:        #3a3a3d;
+    --rule-strong: #55585c;
+    --grid-dot:    #6a6a6a;
+    --accent:      #f5913a;
+    --accent-lift: #ffc06b;
+    --accent-deep: #e0691a;
+    --accent-text: #f5913a;
+    --paper:       #1e1e1e;
+    --ink:         #d4d4d4;
+    --ink-2:       #a3a8b0;
+    --ink-3:       #9aa0a8;
+    --cta:         #6d86d8;
+    --cta-hover:   #8ba0e4;
+    --cta-ink:     #0d1020;
+    --warn-bg:     #3a2e00;
+    --warn-edge:   #e0a22e;
+    --warn-ink:    #ffe9a8;
+    --focus-a:     #d4d4d4;
+    --focus-b:     #0d1020;
+    --shadow: 0 1px 2px rgb(0 0 0 / .4), 0 8px 28px -12px rgb(0 0 0 / .7);
+  }
+}
+:root[data-theme="dark"] {
+  --navy:        #6d86d8;
+  --navy-ink:    #0d1020;
+  --surface:     #252526;
+  --surface-2:   #2d2d30;
+  --workspace:   #191919;
+  --rule:        #3a3a3d;
+  --rule-strong: #55585c;
+  --grid-dot:    #6a6a6a;
+  --accent:      #f5913a;
+  --accent-lift: #ffc06b;
+  --accent-deep: #e0691a;
+  --accent-text: #f5913a;
+  --paper:       #1e1e1e;
+  --ink:         #d4d4d4;
+  --ink-2:       #a3a8b0;
+  --ink-3:       #9aa0a8;
+  --cta:         #6d86d8;
+  --cta-hover:   #8ba0e4;
+  --cta-ink:     #0d1020;
+  --warn-bg:     #3a2e00;
+  --warn-edge:   #e0a22e;
+  --warn-ink:    #ffe9a8;
+  --focus-a:     #d4d4d4;
+  --focus-b:     #0d1020;
+  --shadow: 0 1px 2px rgb(0 0 0 / .4), 0 8px 28px -12px rgb(0 0 0 / .7);
+}
+
+/* --- Base --------------------------------------------------------------- */
+
+*, *::before, *::after { box-sizing: border-box; }
+
+/* Clears the 60px sticky masthead when focus or a fragment link scrolls. */
+/* 6.5rem, not 5: at 320px the masthead wraps to two rows (~93px), so a smaller value drops the
+   fragment target under the sticky bar. */
+html { -webkit-text-size-adjust: 100%; scroll-padding-top: 6.5rem; }
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--sans);
+  font-size: 17px;
+  line-height: 1.6;
+  overflow-x: hidden;
+  /* Only 400/600/700 are used anywhere: the declared fallbacks (Segoe UI,
+     Roboto, Helvetica Neue, Arial) are static families, so intermediate
+     weights snap silently — and synthesis is off, so nothing fakes them. */
+  font-synthesis-weight: none;
+}
+
+img, svg { max-width: 100%; display: block; }
+
+a { color: inherit; }
+
+:where(a, button, summary, [tabindex]):focus-visible {
+  outline: 2px solid var(--focus-a);
+  outline-offset: 2px;
+  box-shadow: 0 0 0 4px var(--focus-b);
+}
+/* Controls sitting flush inside an overflow-clipped ancestor: draw inside,
+   or the ring is clipped away entirely. */
+.tab:focus-visible,
+.ptab:focus-visible,
+.row:focus-visible {
+  outline-offset: -2px;
+  box-shadow: inset 0 0 0 4px var(--focus-b);
+}
+
+.shell {
+  width: 100%;
+  max-width: var(--shell);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+.eyebrow {
+  font-family: var(--mono);
+  font-size: .6875rem;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--ink-2);
+  margin: 0 0 1rem;
+}
+
+/* Available to assistive tech, invisible on screen. Holds the property
+   descriptions that each row points at with aria-describedby. */
+.vh {
+  position: absolute; width: 1px; height: 1px;
+  margin: -1px; padding: 0; border: 0;
+  overflow: hidden; white-space: nowrap;
+  clip-path: inset(50%);
+}
+
+.skip {
+  position: absolute; left: -9999px;
+  background: var(--navy); color: var(--navy-ink);
+  padding: .6rem 1rem; z-index: 100;
+}
+.skip:focus { left: 1rem; top: 1rem; }
+
+/* --- Alpha warning strip ------------------------------------------------ */
+
+/* Above the masthead and not sticky: it should be read once, not nag. Uses the IDE's own
+   WarningBanner colours, so the site warns in the same voice the product does. */
+.alert {
+  background: var(--warn-bg);
+  color: var(--warn-ink);
+  border-bottom: 1px solid var(--warn-edge);
+  font-size: .875rem;
+  line-height: 1.5;
+}
+.alert__in {
+  display: flex; gap: .75rem; align-items: baseline;
+  padding-block: .7rem;
+}
+.alert b {
+  font-family: var(--mono); font-size: .6875rem;
+  letter-spacing: .14em; text-transform: uppercase;
+  flex: none; padding-top: .12rem;
+}
+.alert p { margin: 0; max-width: var(--measure); }
+.alert a { color: inherit; text-underline-offset: .18em; }
+
+/* --- Masthead ----------------------------------------------------------- */
+
+.masthead {
+  border-bottom: 1px solid var(--rule);
+  background: var(--paper);
+  position: sticky; top: 0; z-index: 20;
+}
+.masthead__in {
+  display: flex; align-items: center; gap: .75rem 1.5rem;
+  flex-wrap: wrap;                 /* 320px: nav drops rather than clipping */
+  min-height: 60px;
+  padding-block: .5rem;
+}
+.brand {
+  display: inline-flex; align-items: center; gap: .6rem;
+  text-decoration: none; font-weight: 600;
+  letter-spacing: -.018em; font-size: 1.0625rem;
+  margin-right: auto;
+}
+.brand svg { width: 26px; height: 26px; flex: none; }
+
+/* The status cell, as the product's own status bar renders it — not a pill. */
+.masthead__status {
+  font-family: var(--mono); font-size: .6875rem;
+  letter-spacing: .1em; text-transform: uppercase;
+  color: var(--ink-2);
+  padding: .2rem .55rem;
+  border: 1px solid var(--rule-strong);
+  background: var(--surface);
+}
+
+.nav { display: flex; align-items: center; gap: clamp(.9rem, 2.5vw, 1.75rem); }
+.nav a {
+  text-decoration: none; color: var(--ink-2);
+  font-size: .9375rem; font-weight: 400;
+  padding-block: .35rem;
+  border-bottom: 2px solid transparent;
+}
+.nav a:hover { color: var(--ink); border-bottom-color: var(--accent-text); }
+/* aria-current needs a visual counterpart or sighted users get no current-page cue at all.
+   --accent rather than --accent-text so "current" does not read as "hovered". */
+.nav a[aria-current="page"] {
+  color: var(--ink); border-bottom-color: var(--accent); font-weight: 600;
+}
+.foot__links a[aria-current="page"] { color: var(--ink); text-decoration: underline; }
+
+/* --- Hero --------------------------------------------------------------- */
+
+.hero { padding-block: clamp(3rem, 8vw, 5.5rem) 0; }
+
+/* The signature sits beside the headline, not below the fold being explained.
+   The screenshot goes full-bleed underneath. */
+.hero__grid {
+  display: grid;
+  gap: clamp(2.5rem, 5vw, 4rem);
+  grid-template-columns: 1fr;
+  align-items: start;
+}
+@media (min-width: 1000px) {
+  .hero__grid { grid-template-columns: minmax(0, 1fr) minmax(330px, 390px); }
+}
+
+/* Full-bleed: the frame lives outside .shell, so no 100vw scrollbar games. */
+.frame--bleed {
+  margin-top: clamp(2.5rem, 6vw, 4rem);
+  border-inline: 0;
+  border-radius: 0;
+}
+
+h1 {
+  font-size: clamp(2.35rem, 6.2vw, 4.1rem);
+  line-height: 1.02;
+  letter-spacing: -.032em;
+  font-weight: 700;
+  margin: 0 0 1.25rem;
+  max-width: 22ch;
+  text-wrap: balance;
+}
+
+.lede {
+  font-size: clamp(1.0625rem, 1.6vw, 1.25rem);
+  color: var(--ink-2);
+  max-width: 56ch;
+  margin: 0 0 2rem;
+  text-wrap: pretty;
+}
+.lede code, .claim code, .prose code {
+  font-family: var(--mono); font-size: .92em;
+  background: var(--surface); border: 1px solid var(--rule);
+  padding: .06em .32em; border-radius: var(--radius);
+  color: var(--ink);
+}
+
+/* --- Actions ------------------------------------------------------------ */
+
+.actions { display: flex; flex-wrap: wrap; gap: .75rem; align-items: center; }
+
+.btn {
+  display: inline-flex; align-items: center; gap: .55rem;
+  font: inherit; font-weight: 600; font-size: .9375rem;
+  padding: .72rem 1.15rem;
+  border-radius: var(--radius);
+  border: 1px solid transparent;
+  text-decoration: none; cursor: pointer;
+  transition: background-color .12s ease, border-color .12s ease, color .12s ease;
+}
+.btn--primary {
+  background: var(--cta); color: var(--cta-ink);
+  border-color: var(--cta);
+}
+.btn--primary:hover { background: var(--cta-hover); border-color: var(--cta-hover); }
+.btn--ghost {
+  background: transparent; color: var(--ink);
+  border-color: var(--rule-strong);
+}
+.btn--ghost:hover { background: var(--surface); }
+
+.dl-note { margin: 1rem 0 0; font-size: .875rem; color: var(--ink-3); }
+.dl-note a { color: var(--ink-2); text-underline-offset: .18em; }
+.dl-note a:hover { color: var(--accent-text); }
+
+/* --- The framed screenshot: tabs are the carousel ----------------------- */
+
+.frame {
+  margin-top: clamp(2.5rem, 6vw, 4rem);
+  border: 1px solid var(--rule-strong);
+  border-radius: var(--radius);
+  background: var(--surface);
+  box-shadow: var(--shadow);
+  overflow: hidden;
+}
+
+.frame__tabs {
+  display: flex; gap: 0;
+  border-bottom: 1px solid var(--rule-strong);
+  background: var(--surface-2);
+  overflow-x: auto;
+  scrollbar-width: thin;
+}
+.frame__tabs[hidden] { display: none; }
+
+.tab {
+  font: inherit;
+  font-family: var(--mono);
+  font-size: .75rem;
+  letter-spacing: .01em;
+  white-space: nowrap;
+  padding: .55rem .95rem;
+  background: transparent;
+  color: var(--ink-2);
+  border: 0;
+  border-right: 1px solid var(--rule);
+  cursor: pointer;
+}
+.tab:hover { background: var(--surface); color: var(--ink); }
+.tab[aria-selected="true"] { background: var(--navy); color: var(--navy-ink); }
+
+.frame__stage {
+  background: var(--workspace);   /* the MDI workspace — letterboxes any aspect */
+  display: grid;
+  place-items: center;
+  min-height: 220px;
+}
+.frame__panel { width: 100%; position: relative; }
+.frame__panel[hidden] { display: none; }
+/* width:auto, not 100%: the demo shots are 760-800px wide and were being upscaled ~1.9x at desktop
+   widths — visibly soft, and it defeated the workspace-grey letterboxing above. The 2100px IDE
+   screenshots still fill the frame. */
+.frame__panel img { width: auto; max-width: 100%; height: auto; margin-inline: auto; }
+/* The panel is filled edge-to-edge by its image, so an inset shadow would sit
+   behind it. A pseudo-element paints above. */
+.frame__panel:focus-visible { outline: none; box-shadow: none; }
+.frame__panel:focus-visible::after {
+  content: ""; position: absolute; inset: 0; pointer-events: none;
+  outline: 3px solid var(--focus-a); outline-offset: -3px;
+  box-shadow: inset 0 0 0 6px var(--focus-b);
+}
+
+.frame__cap {
+  margin: 0;                        /* flush chrome bar, not a paragraph */
+  font-family: var(--mono); font-size: .75rem;
+  color: var(--ink-3);
+  padding: .6rem .95rem;
+  border-top: 1px solid var(--rule);
+  background: var(--surface);
+}
+
+/* --- Section rhythm ----------------------------------------------------- */
+
+.band { padding-block: clamp(3.5rem, 9vw, 6rem); }
+.band--rule { border-top: 1px solid var(--rule); }
+
+.band__head { max-width: var(--measure); margin-bottom: 2.5rem; }
+.band__head h2 {
+  font-size: clamp(1.6rem, 3.4vw, 2.25rem);
+  line-height: 1.12; letter-spacing: -.022em; font-weight: 700;
+  margin: 0 0 .75rem; text-wrap: balance;
+}
+/* :where() keeps specificity at zero so .eyebrow and .claim__k are not
+   silently overridden by a descendant paragraph rule. */
+:where(.band__head) p { margin: 0; color: var(--ink-2); text-wrap: pretty; }
+
+/* --- Honest-claim strip ------------------------------------------------- */
+
+.claims {
+  display: grid; gap: 1px;
+  grid-template-columns: 1fr;
+  background: var(--rule);
+  border: 1px solid var(--rule);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+/* Exactly three children: 1-up or 3-up, never a 2-up state with an empty
+   cell painting a solid grey tile. */
+@media (min-width: 800px) { .claims { grid-template-columns: repeat(3, 1fr); } }
+
+.claim { background: var(--paper); padding: 1.5rem 1.35rem; }
+.claim__k {
+  font-family: var(--mono); font-size: .6875rem;
+  letter-spacing: .14em; text-transform: uppercase;
+  color: var(--ink-2);
+  margin: 0 0 .6rem;
+  display: inline-flex; align-items: center; gap: .5rem;
+}
+/* Neutral marks — filled, half, hollow. Traffic lights read as a severity
+   scale, and "by design" in red says "broken" at a glance. */
+.claim__k::before {
+  content: ""; width: 9px; height: 9px; flex: none;
+  border: 1.5px solid currentColor;
+}
+.claim--yes .claim__k::before { background: currentColor; }
+.claim--ltd .claim__k::before {
+  background: linear-gradient(135deg, currentColor 50%, transparent 50%);
+}
+:where(.claim) p { margin: 0; font-size: .9375rem; color: var(--ink-2); }
+.claim--plain .claim__k::before { display: none; }
+.claim a { color: var(--ink); text-underline-offset: .18em; }
+.claim a:hover { color: var(--accent-text); }
+
+/* --- Signature: the Properties window ----------------------------------- */
+
+.win {
+  border: 1px solid var(--rule-strong);
+  border-radius: var(--radius);
+  background: var(--surface);
+  box-shadow: var(--shadow);
+  overflow: hidden;
+  font-size: .875rem;
+}
+.win__bar {
+  display: flex; align-items: center; gap: .5rem;
+  background: var(--navy); color: var(--navy-ink);
+  padding: .4rem .55rem;
+  font-family: var(--mono); font-size: .75rem;
+  letter-spacing: .04em;
+}
+.win__bar span { margin-right: auto; }
+.win__x {
+  width: 15px; height: 13px; display: grid; place-items: center;
+  border: 1px solid currentColor; border-radius: 1px;
+  font-size: .625rem; line-height: 1; opacity: .85;
+}
+.win__object {
+  display: flex; align-items: center; gap: .5rem;
+  padding: .45rem .6rem;
+  border-bottom: 1px solid var(--rule);
+  font-weight: 600;
+}
+.win__object em { font-style: normal; font-weight: 400; color: var(--ink-2); margin-left: auto; }
+
+.win__tabs { display: flex; border-bottom: 1px solid var(--rule); }
+.win__tabs[hidden] { display: none; }
+.ptab {
+  font: inherit; font-size: .8125rem;
+  flex: 1; padding: .4rem .5rem;
+  background: var(--surface-2); color: var(--ink-2);
+  border: 0; border-right: 1px solid var(--rule);
+  cursor: pointer;
+}
+.ptab:last-child { border-right: 0; }
+.ptab[aria-selected="true"] {
+  background: var(--paper); color: var(--ink); font-weight: 600;
+  box-shadow: inset 0 -2px 0 var(--accent);
+}
+
+.grid { background: var(--paper); }
+.grid[hidden] { display: none; }
+.grid__group {
+  margin: 0;                        /* flush header, not a paragraph */
+  font-family: var(--mono); font-size: .6875rem;
+  letter-spacing: .12em; text-transform: uppercase;
+  color: var(--ink-3);
+  padding: .55rem .6rem .3rem;
+  background: var(--surface-2);
+  border-block: 1px solid var(--rule);
+}
+.row {
+  display: grid; grid-template-columns: 12ch 1fr;
+  width: 100%; text-align: left;
+  font: inherit; font-size: .8125rem;
+  background: transparent; border: 0;
+  border-bottom: 1px solid var(--rule);
+  padding: 0; cursor: pointer;
+}
+.row > * { padding: .38rem .6rem; }
+.row__k { color: var(--ink-2); border-right: 1px solid var(--rule); }
+.row__v { font-family: var(--mono); color: var(--ink); overflow-wrap: anywhere; }
+.row:hover { background: var(--surface-2); }
+.row[aria-pressed="true"] { background: var(--navy); }
+.row[aria-pressed="true"] .row__k,
+.row[aria-pressed="true"] .row__v { color: var(--navy-ink); }
+
+.win__desc {
+  padding: .7rem .6rem .85rem;
+  border-top: 1px solid var(--rule-strong);
+  background: var(--surface);
+  min-height: 5.75rem;
+}
+.win__desc b { display: block; font-size: .8125rem; margin-bottom: .2rem; }
+.win__desc p { margin: 0; font-size: .8125rem; color: var(--ink-2); line-height: 1.5; }
+
+/* :is(h1, h2) — the inner pages open with an h1 for document structure, but must not inherit the
+   global h1's 4.1rem hero clamp. Specificity (0,1,1) beats the bare element selector. */
+.prose :is(h1, h2) {
+  font-size: clamp(1.6rem, 3.4vw, 2.25rem);
+  line-height: 1.12; letter-spacing: -.022em; font-weight: 700;
+  margin: 0 0 .75rem; max-width: 20ch; text-wrap: balance;
+}
+:where(.prose) p { max-width: var(--measure); color: var(--ink-2); text-wrap: pretty; }
+.prose p + p { margin-top: 1rem; }
+.prose strong { color: var(--ink); font-weight: 600; }
+
+/* --- Demos, on the form-designer grid ----------------------------------- */
+
+.demos {
+  position: relative;
+  background: var(--surface);
+  border-block: 1px solid var(--rule);
+}
+.demos::before {
+  content: "";
+  position: absolute; inset: 0;
+  background-image: radial-gradient(var(--grid-dot) 1px, transparent 1.2px);
+  background-size: 8px 8px;
+  opacity: .3;
+  pointer-events: none;
+}
+.demos > * { position: relative; }
+
+.gallery { display: grid; gap: 1.25rem; grid-template-columns: 1fr; }
+@media (min-width: 620px)  { .gallery { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 1040px) { .gallery { grid-template-columns: repeat(4, 1fr); } }
+
+.card {
+  position: relative;
+  background: var(--paper);
+  border: 1px solid var(--rule-strong);
+  border-radius: var(--radius);
+  text-decoration: none;
+  display: flex; flex-direction: column;
+}
+/* VB6 windows do not levitate. On hover the card gets the eight selection
+   handles the designer would draw around it. */
+.card::after {
+  content: ""; position: absolute; inset: -4px; pointer-events: none;
+  opacity: 0; transition: opacity .12s ease;
+  background:
+    linear-gradient(var(--navy), var(--navy)) 0    0    / 7px 7px no-repeat,
+    linear-gradient(var(--navy), var(--navy)) 50%  0    / 7px 7px no-repeat,
+    linear-gradient(var(--navy), var(--navy)) 100% 0    / 7px 7px no-repeat,
+    linear-gradient(var(--navy), var(--navy)) 0    50%  / 7px 7px no-repeat,
+    linear-gradient(var(--navy), var(--navy)) 100% 50%  / 7px 7px no-repeat,
+    linear-gradient(var(--navy), var(--navy)) 0    100% / 7px 7px no-repeat,
+    linear-gradient(var(--navy), var(--navy)) 50%  100% / 7px 7px no-repeat,
+    linear-gradient(var(--navy), var(--navy)) 100% 100% / 7px 7px no-repeat;
+}
+.card:hover::after, .card:focus-visible::after { opacity: 1; }
+.card img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; background: #000; }
+.card__trace {
+  margin: 0; aspect-ratio: 4 / 3; min-block-size: min-content;
+  display: grid; align-content: center;
+  padding: 1rem 1.2rem;
+  background: #0b0b0d; color: #d8dee9;   /* a console does not follow the page theme */
+  font-family: var(--mono); font-size: .75rem; line-height: 1.7;
+  white-space: pre; overflow: hidden;
+}
+.card__body { padding: .9rem 1rem 1.1rem; }
+.card__t { font-family: var(--mono); font-size: .8125rem; margin: 0 0 .35rem; }
+.card__d { margin: 0; font-size: .875rem; color: var(--ink-2); }
+
+/* --- Wall / attribution list -------------------------------------------- */
+
+/* A definition list, because that is what it is: a term and its description. Built from ul + b + span
+   it announced as one undifferentiated run per item. The wrapping <div> per row is valid HTML5 inside
+   a <dl> and is what makes the two-column grid work. */
+.walls { margin: 0; padding: 0; }
+.walls > div {
+  display: grid; gap: .25rem 2rem;
+  padding: .9rem 0;
+  border-bottom: 1px solid var(--rule);
+}
+.walls > div:first-child { border-top: 1px solid var(--rule); }
+@media (min-width: 760px) { .walls > div { grid-template-columns: 15rem 1fr; } }
+.walls dt { font-weight: 600; color: var(--ink); }
+.walls dd {
+  margin: 0; color: var(--ink-2); font-size: .9375rem;
+  max-width: var(--measure);   /* these sit in a bare .shell, so nothing else caps the line length */
+}
+.walls code {
+  font-family: var(--mono); font-size: .9em; color: var(--ink);
+  background: var(--surface); border: 1px solid var(--rule);
+  padding: .04em .3em; border-radius: var(--radius);
+}
+.walls + .dl-note { margin-top: 1.5rem; }
+
+/* --- Demo detail --------------------------------------------------------- */
+
+.demo {
+  display: grid; gap: 1.5rem 2.5rem;
+  padding-block: 2.5rem;
+  border-bottom: 1px solid var(--rule);
+  align-items: start;
+}
+.demo:first-of-type { padding-top: 0; }
+.demo:last-of-type { border-bottom: 0; padding-bottom: 0; }
+@media (min-width: 820px) { .demo { grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); } }
+.demo img, .demo__trace {
+  width: 100%; border: 1px solid var(--rule-strong); border-radius: var(--radius);
+}
+/* Here the trace is content rather than decoration, so it must scroll rather than clip silently. */
+.demo__trace { aspect-ratio: auto; overflow-x: auto; overflow-y: hidden; }
+.demo__t {
+  font-family: var(--mono); font-size: 1rem; font-weight: 600;
+  margin: 0 0 .75rem; color: var(--ink);
+}
+.demo p { margin: 0 0 .8rem; color: var(--ink-2); font-size: .9375rem; }
+.demo p:last-child { margin-bottom: 0; }
+.demo strong { color: var(--ink); font-weight: 600; }
+.demo code {
+  font-family: var(--mono); font-size: .9em; color: var(--ink);
+  background: var(--surface); border: 1px solid var(--rule);
+  padding: .04em .3em; border-radius: var(--radius);
+}
+.demo__meta {
+  font-family: var(--mono); font-size: .75rem;
+  letter-spacing: .06em; color: var(--ink-3);
+}
+
+/* --- Footer ------------------------------------------------------------- */
+
+.foot {
+  border-top: 1px solid var(--rule);
+  padding-block: 3rem 3.5rem;
+  font-size: .875rem; color: var(--ink-3);
+}
+.foot__top {
+  display: flex; flex-wrap: wrap; gap: 1.5rem 2.5rem;
+  align-items: baseline; margin-bottom: 2rem;
+}
+.foot__links { display: flex; flex-wrap: wrap; gap: 1.25rem; margin-left: auto; }
+.foot__links a { color: var(--ink-2); text-decoration: none; }
+.foot__links a:hover { color: var(--accent-text); }
+.foot__brand { color: var(--ink); font-weight: 600; }
+.foot__legal { max-width: 78ch; }
+.foot__legal p { margin: 0 0 .75rem; line-height: 1.55; }
+.foot__legal a { color: var(--ink-2); }
+.foot__legal a:hover { color: var(--accent-text); }
+
+/* --- Motion ------------------------------------------------------------- */
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: .001ms !important;
+    transition-duration: .001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
