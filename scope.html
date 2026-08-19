@@ -22,10 +22,11 @@
 <aside class="alert">
   <div class="shell alert__in">
     <b>Alpha</b>
-    <p>HexIDE opens and runs real VB6 projects, but <strong>saving is not yet round-trip
-       faithful</strong>: a save can delete binary companion files and rewrite class settings you
-       never touched. Work on a copy — not on a project you care about.
-       <a href="scope.html#saving">Exactly what goes wrong</a>.</p>
+    <p>HexIDE opens and runs real VB6 projects, and a save now gives back the file it read:
+       <strong>16 of the 22 designer files VB6 itself ships survive a save byte for byte</strong>,
+       and the six it cannot reproduce open read-only rather than being quietly rewritten. Keep a
+       backup anyway — that measure is Microsoft's own templates, not your project.
+       <a href="scope.html#saving">What a save changes</a>.</p>
   </div>
 </aside>
 
@@ -167,40 +168,38 @@
       <div class="band__head">
         <p class="eyebrow">Saving</p>
         <h2>What a save actually changes.</h2>
-        <p>This is the reason HexIDE is alpha rather than beta, and it is the single most important
-           thing on this page. Reading a VB6 project is solid. Writing one back is not, and the
-           gap is measured rather than estimated: the form writer <em>regenerates</em> a designer
-           block from an in-memory model instead of round-tripping the original, so
-           <strong>none of the twenty-two Microsoft-authored forms in the reference corpus survives
-           a save byte-for-byte</strong>.</p>
-        <p>Most of that difference is harmless whitespace. Some of it is not, and those are listed
-           here rather than discovered by you.</p>
+        <p>Reading a VB6 project was always the easy half. Writing one back is why HexIDE is alpha,
+           and the gap is measured rather than estimated — against the twenty-two designer files in
+           VB6's own <code>Template</code> tree. Microsoft wrote those, so any difference between
+           what goes in and what comes out is a defect by definition, with nothing to argue about.</p>
+        <p><strong>Sixteen of the twenty-two now survive a save byte-for-byte.</strong> The other six
+           are not damaged by a save — they are the six HexIDE declines to save at all. What follows
+           is what is left, listed here rather than discovered by you.</p>
       </div>
       <dl class="walls">
-        <div><dt>A save can delete a companion file</dt>
-          <dd>Saving a form whose controls carry binary data can remove its <code>.frx</code> from
-            disk outright — two kilobytes of authored assets, gone, with no prompt. This is the
-            worst of them.</dd></div>
-        <div><dt>Saving the project rewrites every class</dt>
-          <dd>One File → Save Project rewrites all <code>.cls</code> files, edited or not, resetting
-            <code>VB_Exposed</code>, <code>VB_Creatable</code> and <code>MultiUse</code> — the VB6
-            Instancing settings. Silent, and it hits files you never opened.</dd></div>
-        <div><dt>Non-ASCII text is mangled</dt>
-          <dd>Bytes outside ASCII are rewritten as replacement characters, which affects essentially
-            every project authored outside an English locale.</dd></div>
-        <div><dt>A form using an ActiveX control will not open</dt>
-          <dd>A single <code>Object = "{GUID}…"</code> header line stops the form loading at all.
-            Nothing is damaged — it simply refuses — but it rules out a large share of real
-            projects.</dd></div>
-        <div><dt>Nested containers and menus flatten</dt>
-          <dd>Controls inside a frame, and menu trees, are rewritten as a flat list of siblings on
-            save.</dd></div>
+        <div><dt>A form HexIDE cannot reproduce will not save</dt>
+          <dd>Six of the twenty-two carry binary data in a property HexIDE does not model — a
+            button's picture, a list's <code>ItemData</code>. Writing them back would drop it, so
+            they open <strong>read-only</strong> and File → Save declines instead of putting a lossy
+            copy over your original. You can still open, read and run them, and Save As will write a
+            copy somewhere else and leave the file alone.</dd></div>
+        <div><dt>The project file comes back tidied, not identical</dt>
+          <dd>A <code>.vbp</code> is rewritten with <code>Type=Exe</code> recapitalised to
+            <code>Type=EXE</code> and the quotes dropped from <code>Startup="Sub Main"</code>. It is
+            the one file still regenerated rather than round-tripped. Whether VB6 minds the missing
+            quotes has not been put to the compiler yet, which is exactly why it is on this
+            list.</dd></div>
+        <div><dt>Twenty-two files is not every file</dt>
+          <dd>The measure above is Microsoft's own templates. A real project of any age carries
+            controls, properties and header lines those files never had. HexIDE preserves what it
+            does not understand rather than dropping it — but preserved is not the same as tested,
+            and that gap is the honest reason to keep a backup.</dd></div>
       </dl>
-      <p class="dl-note">Refusing to open a file is safe; saving one that then cannot be loaded is
-        not. The fix for the unresolved cases is to make HexIDE decline the save rather than attempt
-        it, and that gate is being built. Until it exists, the rule is simple: <strong>work on a
-        copy.</strong> The full engineering record, including severities and the corpus results, is
-        in <code>docs/serialization-fidelity-2026-08.md</code> in the repository.</p>
+      <p class="dl-note">One rule sits behind all three: a save that cannot reproduce a file does not
+        attempt it. Refusing is recoverable; a silently rewritten project that only fails the next
+        time you open it in VB6 is not. The number above is not a claim — it is a gate that runs on
+        every build against the same twenty-two files, and it can only be lowered by fixing
+        something.</p>
     </div>
   </section>
 

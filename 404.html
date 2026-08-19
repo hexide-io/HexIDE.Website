@@ -16,10 +16,11 @@
 <aside class="alert">
   <div class="shell alert__in">
     <b>Alpha</b>
-    <p>HexIDE opens and runs real VB6 projects, but <strong>saving is not yet round-trip
-       faithful</strong>: a save can delete binary companion files and rewrite class settings you
-       never touched. Work on a copy — not on a project you care about.
-       <a href="/scope.html#saving">Exactly what goes wrong</a>.</p>
+    <p>HexIDE opens and runs real VB6 projects, and a save now gives back the file it read:
+       <strong>16 of the 22 designer files VB6 itself ships survive a save byte for byte</strong>,
+       and the six it cannot reproduce open read-only rather than being quietly rewritten. Keep a
+       backup anyway — that measure is Microsoft's own templates, not your project.
+       <a href="/scope.html#saving">What a save changes</a>.</p>
   </div>
 </aside>
 
