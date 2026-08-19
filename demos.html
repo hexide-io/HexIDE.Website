@@ -4,12 +4,12 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Demos — programs written in HexIDE, compiled by VB6</title>
-<meta name="description" content="Four small VB6 programs built in HexIDE: three demoscene intros and one fidelity cross-check whose output matches the real 1998 compiler line for line.">
+<meta name="description" content="Five small VB6 programs built in HexIDE: three demoscene intros, a fidelity cross-check whose output matches the real 1998 compiler line for line, and a tour of the menu surface.">
 <meta name="theme-color" content="#F07820">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://hexide.io/demos.html">
 <meta property="og:title" content="Demos — built in HexIDE, compiled by VB6">
-<meta property="og:description" content="Three demoscene intros and one fidelity cross-check whose output matches the real 1998 compiler line for line.">
+<meta property="og:description" content="Three demoscene intros, a fidelity cross-check matching the real 1998 compiler line for line, and a tour of the menu surface.">
 <meta property="og:image" content="https://hexide.io/assets/shots/neon-aurora.png">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="assets/hexide-logo.svg" type="image/svg+xml">
@@ -64,16 +64,20 @@
   <section class="band">
     <div class="shell prose">
       <p class="eyebrow">Demos</p>
-      <h1>Four small programs, and one of them is the point.</h1>
+      <h1>Five small programs, and two of them aren't demos.</h1>
       <p>Three of these are demoscene intros — the sort of thing that used to arrive on a floppy
          with a scroller and a chiptune. Two were written end to end by AI agents driving the
          running IDE through its automation tools; the six-part one was authored by a fan-out of
          agents and integrated live through the IDE the same way. All three were then compiled,
          unmodified, by the real VB6 compiler — the six-part one clean on the first attempt.</p>
-      <p>The fourth is not a demo. It is the reason to trust the other three.</p>
-      <p>Every one of them is plain VB6 source in the repository. Pre-built binaries are committed
-         alongside it for convenience, but they are unsigned, so build them yourself if that
-         matters to you.</p>
+      <p>The other two are not intros. <strong>battleship</strong> is the reason to trust the first
+         three: the same source, running identically on this interpreter and on the real 1998
+         compiler. <strong>bill-of-fare</strong> is the reason to distrust a green test suite —
+         every part of it shipped broken at some point, and every one of those defects was found by
+         a person opening the menu and looking.</p>
+      <p>Every one of them is plain VB6 source in the repository. The built executables are
+         deliberately <em>not</em> committed: the tree-hygiene guard rejects a build artefact and CI
+         enforces it, so each ships as source you rebuild rather than a binary you trust.</p>
     </div>
   </section>
 
@@ -145,13 +149,32 @@ AllSunk=False</pre>
         </div>
       </article>
 
+      <article class="demo" id="bill-of-fare">
+        <img src="assets/shots/bill-of-fare.png" alt="A VB6 form with its File menu open, showing separators, right-aligned keyboard shortcuts and a greyed-out item." width="628" height="322" loading="lazy" decoding="async">
+        <div>
+          <h2 class="demo__t">bill-of-fare</h2>
+          <p>Also not an intro. A tour of the VB6 <strong>menu</strong> surface — a menu bar, submenus
+             nested two deep, separators, shortcuts that fire from anywhere, access keys, a disabled
+             item, and click dispatch to the event procedure. <em>Bill of fare</em> is the old term
+             for a menu, which is the joke and the whole subject.</p>
+          <p>Every element in that one screenshot was broken at some point. The bar was empty; then
+             the separators drew nothing; then a two-pixel dot; then near-black. <strong>Each of
+             those shipped under a green test suite</strong>, and each was found by a person opening
+             the menu and looking at it.</p>
+          <p>That is why it is archived rather than deleted. The assertions that passed throughout
+             were true and useless — <em>the item exists</em>, <em>the background is not null</em> —
+             and a picture of an open menu is the only artefact that would have caught any of it.</p>
+          <p class="demo__meta">1 form · 16 menu items · 3 separators · 5 shortcuts</p>
+        </div>
+      </article>
+
     </div>
   </section>
 
   <section class="band band--rule">
     <div class="shell prose">
       <p class="eyebrow">Read the source</p>
-      <h2>All four are in the repository.</h2>
+      <h2>All five are in the repository.</h2>
       <p>Each lives in its own folder with the complete, self-contained VB6 source and a README
          explaining how the effect works. If you have VB6 installed you can rebuild any of them
          with <code>VB6.EXE /make</code>.</p>
