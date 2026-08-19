@@ -22,10 +22,11 @@
 <aside class="alert">
   <div class="shell alert__in">
     <b>Alpha</b>
-    <p>HexIDE opens and runs real VB6 projects, but <strong>saving is not yet round-trip
-       faithful</strong>: a save can delete binary companion files and rewrite class settings you
-       never touched. Work on a copy — not on a project you care about.
-       <a href="scope.html#saving">Exactly what goes wrong</a>.</p>
+    <p>HexIDE opens and runs real VB6 projects, and a save now gives back the file it read:
+       <strong>16 of the 22 designer files VB6 itself ships survive a save byte for byte</strong>,
+       and the six it cannot reproduce open read-only rather than being quietly rewritten. Keep a
+       backup anyway — that measure is Microsoft's own templates, not your project.
+       <a href="scope.html#saving">What a save changes</a>.</p>
   </div>
 </aside>
 
@@ -116,7 +117,7 @@
           <button class="row" type="button" data-k="Licence"     aria-pressed="false" aria-describedby="d-Licence"><span class="row__k">Licence</span><span class="row__v">MIT</span></button>
           <button class="row" type="button" data-k="Localized"   aria-pressed="false" aria-describedby="d-Localized"><span class="row__k">Localized</span><span class="row__v">30 languages</span></button>
           <button class="row" type="button" data-k="Platforms"   aria-pressed="false" aria-describedby="d-Platforms"><span class="row__k">Platforms</span><span class="row__v">Win, macOS, Linux</span></button>
-          <button class="row" type="button" data-k="Tests"       aria-pressed="false" aria-describedby="d-Tests"><span class="row__k">Tests</span><span class="row__v">1,731 passing</span></button>
+          <button class="row" type="button" data-k="Tests"       aria-pressed="false" aria-describedby="d-Tests"><span class="row__k">Tests</span><span class="row__v">1,880 passing</span></button>
         </div>
 
         <div class="grid" role="tabpanel" id="pg-c" aria-labelledby="pt-c" hidden>
@@ -126,7 +127,7 @@
           <button class="row" type="button" data-k="Platforms"   aria-pressed="false" aria-describedby="d-Platforms"><span class="row__k">Platforms</span><span class="row__v">Win, macOS, Linux</span></button>
           <p class="grid__group">Language</p>
           <button class="row" type="button" data-k="Interpreter" aria-pressed="false" aria-describedby="d-Interpreter"><span class="row__k">Interpreter</span><span class="row__v">Demonstrator</span></button>
-          <button class="row" type="button" data-k="Tests"       aria-pressed="false" aria-describedby="d-Tests"><span class="row__k">Tests</span><span class="row__v">1,731 passing</span></button>
+          <button class="row" type="button" data-k="Tests"       aria-pressed="false" aria-describedby="d-Tests"><span class="row__k">Tests</span><span class="row__v">1,880 passing</span></button>
           <p class="grid__group">Project</p>
           <button class="row" type="button" data-k="Licence"     aria-pressed="false" aria-describedby="d-Licence"><span class="row__k">Licence</span><span class="row__v">MIT</span></button>
           <button class="row" type="button" data-k="Localized"   aria-pressed="false" aria-describedby="d-Localized"><span class="row__k">Localized</span><span class="row__v">30 languages</span></button>
@@ -187,7 +188,7 @@
 
   <div class="vh">
     <span id="d-Designer">Drag a control onto a form, set its properties, wire an event. Eight-handle resize, rubber-band select, the whole Format menu, and undo that covers moves as well as edits.</span>
-    <span id="d-FileFormat">Opens the real VB6 files — project, forms, classes, modules — rather than importing them. Writing them back faithfully is the current focus and is not finished, so work on a copy.</span>
+    <span id="d-FileFormat">Opens the real VB6 files — project, forms, classes, modules — rather than importing them. Writing them back is faithful for sixteen of the twenty-two designer files VB6 itself ships; the six it cannot reproduce open read-only.</span>
     <span id="d-Interpreter">Paste some VB6 and watch it run. A demonstrator with a deliberate ceiling — it exists to show the workbench working, not to migrate a codebase.</span>
     <span id="d-Licence">MIT, both halves of the repository. No contributor licence agreement: contributions are inbound equals outbound.</span>
     <span id="d-Localized">The entire interface in 30 languages, four of them right to left. 602 strings, with build-time coverage checks so no control can ship blank.</span>
@@ -230,12 +231,14 @@
          Immediate window, where <code>Debug.Print</code> output lands.</p>
       <p>Underneath it is a genuine VB6 file format implementation — it reads the real files rather
          than importing them, which is why a project opens with its own structure intact.</p>
-      <p><strong>Writing them back is a different problem, and it is not solved yet.</strong> The
-         designer writer regenerates a form from an in-memory model instead of round-tripping it, so
-         none of the twenty-two Microsoft-authored forms in the reference corpus survives a save
-         byte-for-byte, and a save can lose companion binaries and rewrite class settings you never
-         edited. That is the current focus, it is tracked in the open, and until it lands you should
-         <a href="scope.html#saving">know exactly what a save changes</a>.</p>
+      <p><strong>Writing them back was the harder half, and most of it is now done.</strong> The
+         designer writer used to rebuild a form from an in-memory model in its own shape; it now
+         reproduces the original — the order VB6 writes properties in, the column its values line up
+         on, the comment it puts beside an enum, and both of the two rectangles a form actually has.
+         <strong>Sixteen of the twenty-two Microsoft-authored forms in the reference corpus survive a
+         save byte-for-byte</strong>, and the six that do not are the six HexIDE opens read-only
+         rather than damage. That is measured on every build, and you can still
+         <a href="scope.html#saving">see exactly what a save changes</a>.</p>
     </div>
   </section>
 
