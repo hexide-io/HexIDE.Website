@@ -23,9 +23,9 @@
   <div class="shell alert__in">
     <b>Alpha</b>
     <p>HexIDE opens and runs real VB6 projects, and a save now gives back the file it read:
-       <strong>16 of the 22 designer files VB6 itself ships survive a save byte for byte</strong>,
-       and the six it cannot reproduce open read-only rather than being quietly rewritten. Keep a
-       backup anyway — that measure is Microsoft's own templates, not your project.
+       <strong>21 of the 22 designer files VB6 itself ships survive a save byte for byte</strong>,
+       and the one it cannot — an ActiveX form — opens read-only rather than being quietly rewritten.
+       Keep a backup anyway: that measure is Microsoft's own templates, not your project.
        <a href="scope.html#saving">What a save changes</a>.</p>
   </div>
 </aside>
@@ -117,7 +117,7 @@
           <button class="row" type="button" data-k="Licence"     aria-pressed="false" aria-describedby="d-Licence"><span class="row__k">Licence</span><span class="row__v">MIT</span></button>
           <button class="row" type="button" data-k="Localized"   aria-pressed="false" aria-describedby="d-Localized"><span class="row__k">Localized</span><span class="row__v">30 languages</span></button>
           <button class="row" type="button" data-k="Platforms"   aria-pressed="false" aria-describedby="d-Platforms"><span class="row__k">Platforms</span><span class="row__v">Win, macOS, Linux</span></button>
-          <button class="row" type="button" data-k="Tests"       aria-pressed="false" aria-describedby="d-Tests"><span class="row__k">Tests</span><span class="row__v">1,880 passing</span></button>
+          <button class="row" type="button" data-k="Tests"       aria-pressed="false" aria-describedby="d-Tests"><span class="row__k">Tests</span><span class="row__v">1,891 passing</span></button>
         </div>
 
         <div class="grid" role="tabpanel" id="pg-c" aria-labelledby="pt-c" hidden>
@@ -127,7 +127,7 @@
           <button class="row" type="button" data-k="Platforms"   aria-pressed="false" aria-describedby="d-Platforms"><span class="row__k">Platforms</span><span class="row__v">Win, macOS, Linux</span></button>
           <p class="grid__group">Language</p>
           <button class="row" type="button" data-k="Interpreter" aria-pressed="false" aria-describedby="d-Interpreter"><span class="row__k">Interpreter</span><span class="row__v">Demonstrator</span></button>
-          <button class="row" type="button" data-k="Tests"       aria-pressed="false" aria-describedby="d-Tests"><span class="row__k">Tests</span><span class="row__v">1,880 passing</span></button>
+          <button class="row" type="button" data-k="Tests"       aria-pressed="false" aria-describedby="d-Tests"><span class="row__k">Tests</span><span class="row__v">1,891 passing</span></button>
           <p class="grid__group">Project</p>
           <button class="row" type="button" data-k="Licence"     aria-pressed="false" aria-describedby="d-Licence"><span class="row__k">Licence</span><span class="row__v">MIT</span></button>
           <button class="row" type="button" data-k="Localized"   aria-pressed="false" aria-describedby="d-Localized"><span class="row__k">Localized</span><span class="row__v">30 languages</span></button>
@@ -188,7 +188,7 @@
 
   <div class="vh">
     <span id="d-Designer">Drag a control onto a form, set its properties, wire an event. Eight-handle resize, rubber-band select, the whole Format menu, and undo that covers moves as well as edits.</span>
-    <span id="d-FileFormat">Opens the real VB6 files — project, forms, classes, modules — rather than importing them. Writing them back is faithful for sixteen of the twenty-two designer files VB6 itself ships; the six it cannot reproduce open read-only.</span>
+    <span id="d-FileFormat">Opens the real VB6 files — project, forms, classes, modules — rather than importing them. Writing them back is faithful for twenty-one of the twenty-two designer files VB6 itself ships, companion binaries included; the one it cannot reproduce hosts an ActiveX control and opens read-only.</span>
     <span id="d-Interpreter">Paste some VB6 and watch it run. A demonstrator with a deliberate ceiling — it exists to show the workbench working, not to migrate a codebase.</span>
     <span id="d-Licence">MIT, both halves of the repository. No contributor licence agreement: contributions are inbound equals outbound.</span>
     <span id="d-Localized">The entire interface in 30 languages, four of them right to left. 602 strings, with build-time coverage checks so no control can ship blank.</span>
@@ -235,9 +235,10 @@
          designer writer used to rebuild a form from an in-memory model in its own shape; it now
          reproduces the original — the order VB6 writes properties in, the column its values line up
          on, the comment it puts beside an enum, and both of the two rectangles a form actually has.
-         <strong>Sixteen of the twenty-two Microsoft-authored forms in the reference corpus survive a
-         save byte-for-byte</strong>, and the six that do not are the six HexIDE opens read-only
-         rather than damage. That is measured on every build, and you can still
+         <strong>Twenty-one of the twenty-two Microsoft-authored forms in the reference corpus
+         survive a save byte-for-byte</strong> — companion binaries included — and the one that does
+         not hosts an ActiveX control, so HexIDE opens it read-only rather than damage it. That is
+         measured on every build, and you can still
          <a href="scope.html#saving">see exactly what a save changes</a>.</p>
     </div>
   </section>
