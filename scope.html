@@ -23,9 +23,9 @@
   <div class="shell alert__in">
     <b>Alpha</b>
     <p>HexIDE opens and runs real VB6 projects, and a save now gives back the file it read:
-       <strong>16 of the 22 designer files VB6 itself ships survive a save byte for byte</strong>,
-       and the six it cannot reproduce open read-only rather than being quietly rewritten. Keep a
-       backup anyway — that measure is Microsoft's own templates, not your project.
+       <strong>21 of the 22 designer files VB6 itself ships survive a save byte for byte</strong>,
+       and the one it cannot — an ActiveX form — opens read-only rather than being quietly rewritten.
+       Keep a backup anyway: that measure is Microsoft's own templates, not your project.
        <a href="scope.html#saving">What a save changes</a>.</p>
   </div>
 </aside>
@@ -172,17 +172,20 @@
            and the gap is measured rather than estimated — against the twenty-two designer files in
            VB6's own <code>Template</code> tree. Microsoft wrote those, so any difference between
            what goes in and what comes out is a defect by definition, with nothing to argue about.</p>
-        <p><strong>Sixteen of the twenty-two now survive a save byte-for-byte.</strong> The other six
-           are not damaged by a save — they are the six HexIDE declines to save at all. What follows
-           is what is left, listed here rather than discovered by you.</p>
+        <p><strong>Twenty-one of the twenty-two now survive a save byte-for-byte</strong>, companion
+           binaries included. The one that does not is not damaged by a save either — it is the one
+           HexIDE declines to save at all. What follows is what is left, listed here rather than
+           discovered by you.</p>
       </div>
       <dl class="walls">
-        <div><dt>A form HexIDE cannot reproduce will not save</dt>
-          <dd>Six of the twenty-two carry binary data in a property HexIDE does not model — a
-            button's picture, a list's <code>ItemData</code>. Writing them back would drop it, so
-            they open <strong>read-only</strong> and File → Save declines instead of putting a lossy
-            copy over your original. You can still open, read and run them, and Save As will write a
-            copy somewhere else and leave the file alone.</dd></div>
+        <div><dt>A form hosting an ActiveX control will not save</dt>
+          <dd>One of the twenty-two keeps its images inside a third-party <code>ImageList</code>
+            control. HexIDE cannot host those, so it cannot reproduce what they hold — and rather
+            than write a form with the pictures silently missing, it opens the file
+            <strong>read-only</strong> and File&nbsp;→&nbsp;Save declines. You can still open, read
+            and run it, and Save As writes a copy elsewhere and leaves the original alone.
+            <br><br>This one will not move until ActiveX hosting does, which is why the number above
+            is twenty-one rather than twenty-two.</dd></div>
         <div><dt>The project file comes back tidied, not identical</dt>
           <dd>A <code>.vbp</code> is rewritten with <code>Type=Exe</code> recapitalised to
             <code>Type=EXE</code> and the quotes dropped from <code>Startup="Sub Main"</code>. It is
