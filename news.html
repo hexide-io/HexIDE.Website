@@ -1,0 +1,208 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>News: HexIDE</title>
+<meta name="description" content="Release notes for HexIDE, the open, cross-platform IDE for Visual Basic 6: what changed in each release, what to watch for before you upgrade, and what is still missing.">
+<meta name="theme-color" content="#F07820">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://hexide.io/news.html">
+<meta property="og:title" content="News: HexIDE">
+<meta property="og:description" content="A release every second Monday, and a post here for each one.">
+<meta property="og:image" content="https://hexide.io/assets/shots/ide-designer.png">
+<link rel="icon" href="assets/hexide-logo.svg" type="image/svg+xml">
+<link rel="alternate" type="application/atom+xml" title="HexIDE news" href="news.xml">
+<link rel="stylesheet" href="assets/site.css">
+</head>
+<body>
+
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="masthead">
+  <div class="shell masthead__in">
+    <a class="brand" href="/">
+      <svg viewBox="0 0 200 200" aria-hidden="true" focusable="false">
+        <defs>
+          <radialGradient id="hx" cx="38%" cy="35%" r="65%" fx="38%" fy="35%">
+            <stop offset="0%" stop-color="#FFB347"/><stop offset="45%" stop-color="#F07820"/><stop offset="100%" stop-color="#C04A00"/>
+          </radialGradient>
+        </defs>
+        <path d="M171 59 112 18Q100 13 88 18L29 59v82l59 41q12 5 24 0l59-41Z" fill="url(#hx)"/>
+        <g fill="#fff" stroke="#fff" stroke-width="11">
+          <line x1="110.4" y1="94" x2="152" y2="70"/><circle cx="152" cy="70" r="12.5" stroke="none"/>
+          <line x1="100" y1="88" x2="100" y2="40"/><circle cx="100" cy="40" r="12.5" stroke="none"/>
+          <line x1="89.6" y1="94" x2="48" y2="70"/><circle cx="48" cy="70" r="12.5" stroke="none"/>
+          <line x1="89.6" y1="106" x2="48" y2="130"/><circle cx="48" cy="130" r="12.5" stroke="none"/>
+          <line x1="100" y1="112" x2="100" y2="160"/><circle cx="100" cy="160" r="12.5" stroke="none"/>
+          <line x1="110.4" y1="106" x2="152" y2="130"/><circle cx="152" cy="130" r="12.5" stroke="none"/>
+        </g>
+      </svg>
+      HexIDE
+    </a>
+    <span class="chip">Alpha</span>
+    <nav class="nav" aria-label="Main">
+      <a href="news.html" aria-current="page">News</a>
+      <a href="demos.html">Demos</a>
+      <a href="scope.html">Scope</a>
+      <a href="licence.html">Licence</a>
+      <a href="https://github.com/hexide-io/HexIDE">Source</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+  <section class="band" style="padding-bottom: 24px">
+    <div class="shell prose">
+      <p class="eyebrow">News</p>
+      <h1 class="page-title">What's new in HexIDE.</h1>
+      <p class="lede" style="margin-bottom: 0">A new release every second Monday, and a post here for each one: what
+         changed, what to watch for before you upgrade, and what is still missing.</p>
+    </div>
+  </section>
+
+  <!-- One page, each release in full, newest first (decided on #9). A release adds an <article> here, a row to
+       the Releases list, and an <entry> to news.xml with the same id and words. -->
+  <section class="band" style="padding-top: 24px">
+    <div class="shell newsgrid">
+      <aside class="newsnav" aria-label="Releases">
+        <h2>Releases</h2>
+        <ul>
+          <li><a href="#v0-3-0"><span>0.3.0</span><time datetime="2026-10-26">26 Oct 2026</time></a></li>
+          <li><a href="#v0-2-0"><span>0.2.0</span><time datetime="2026-09-24">24 Sep 2026</time></a></li>
+          <li><a href="#v0-1-0"><span>0.1.0</span><time datetime="2026-08-16">16 Aug 2026</time></a></li>
+        </ul>
+        <h2>Next</h2>
+        <p>The next release is due on <time datetime="2026-11-09">Monday 9 November</time>.</p>
+        <h2>Follow</h2>
+        <ul>
+          <li><a class="feed" href="news.xml"><span>Atom feed</span><span class="muted">/news.xml</span></a></li>
+          <li><a href="https://github.com/hexide-io/HexIDE/releases"><span>GitHub releases</span></a></li>
+        </ul>
+      </aside>
+
+      <div class="newsmain">
+        <div class="subscribe">
+          <svg viewBox="0 0 16 16" aria-hidden="true" fill="var(--accent)"><circle cx="3" cy="13" r="2"/><path d="M1 6.5v2.2A6.3 6.3 0 0 1 7.3 15h2.2A8.5 8.5 0 0 0 1 6.5Zm0-5v2.2A11.3 11.3 0 0 1 12.3 15h2.2A13.5 13.5 0 0 0 1 1.5Z"/></svg>
+          <p>Paste <code>https://hexide.io/news.xml</code> into any feed reader to hear about each release.</p>
+          <a class="btn btn--ghost btn--small" href="news.xml">Atom feed</a>
+        </div>
+
+        <article class="entry" id="v0-3-0">
+          <p class="entry__meta"><span class="tag">Release</span><time datetime="2026-10-26">26 October 2026</time></p>
+          <h2>HexIDE 0.3.0: every template form saves, and F5 runs real programs</h2>
+          <p>0.3.0 is a month of work: about 460 changes since 0.2.0, none of which was in a download until now.
+             From here there is a release every second Monday, so they reach you in a fortnight rather than when
+             somebody remembers.</p>
+
+          <h3>Saving</h3>
+          <p>All 22 of the designer files VB6 itself ships now survive a save byte for byte, up from 21, and VB6's own
+             <code>.vbp</code> files round-trip with their line order and description kept. Sources are read in your
+             machine's ANSI code page and keep their encoding, and an edit that code page can't hold is refused before
+             anything is written.</p>
+
+          <h3>Running</h3>
+          <p>A form is a real object now. Several forms work with <code>Load</code>, <code>Show</code>,
+             <code>vbModal</code> and <code>Unload</code>, and mouse, double-click, focus and <code>Activate</code> events
+             fire. Text, Random and Binary files work, and so do <code>Collection</code>, <code>Static</code>,
+             <code>ReDim Preserve</code>, named arguments, <code>DefType</code>, <code>#If</code>, <code>Like</code> and
+             <code>GetSetting</code>. Something the interpreter can't run now stops with a message that names it, instead
+             of carrying on. 143 of the language's names still stop a program, down from 261.</p>
+
+          <h3>Everything else</h3>
+          <ul>
+            <li><strong>Make EXE</strong> builds a program that runs on a machine with neither .NET nor HexIDE installed:
+                one runner, with the project packed beside it, running every form and module.</li>
+            <li><strong>The designer</strong> gives new controls VB6's sizes, names and tab order. A control HexIDE doesn't
+                model, such as an ImageList, shows as a labelled box where VB6 draws it. The ProgressBar is the first
+                in-box OCX that runs.</li>
+            <li><strong>The debugger</strong> breaks on the statement when you press Debug on an unhandled error, and
+                <code>Debug.Assert</code> breaks. Run, Start External Debug Session drives an outside debug adapter.</li>
+            <li><strong>Language servers</strong> can connect over WebSocket, take argument lists and environment
+                variables, and show their progress in the status bar.</li>
+            <li><strong>A Windows installer</strong> for x64, optional. Like everything here, it isn't signed yet.</li>
+            <li><strong>860 strings in 30 languages</strong>, and the IDE now starts in your system's language.</li>
+          </ul>
+
+          <div class="callout">
+            <strong>Before you upgrade</strong>
+            <ul>
+              <li>Programs made with 0.2.0 don't start. Make them again with 0.3.0.</li>
+              <li>Line numbers now count from the top of the file, header included, so they agree everywhere. Add-ins
+                  and automation that use line numbers will see different ones.</li>
+              <li>Bookmarks and breakpoints are moved to a new place as a project opens, one way: open it in 0.2.0
+                  again and 0.2.0 deletes them the next time it saves.</li>
+              <li>The downloads that need .NET installed are bigger than 0.2.0's, because the runner they carry for
+                  Make EXE now has its own copy of .NET.</li>
+            </ul>
+          </div>
+
+          <h3>Still missing</h3>
+          <p>Third-party controls at run time, COM and <code>Declare</code> calls, MDI forms, printing, and autosave.
+             <a href="scope.html">The Scope page</a> has the whole list.</p>
+
+          <div class="entry__links">
+            <a class="btn btn--ghost btn--small" href="index.html#download">Download 0.3.0</a>
+            <a class="btn btn--ghost btn--small" href="https://github.com/hexide-io/HexIDE/releases/tag/v0.3.0">Release notes on GitHub</a>
+          </div>
+        </article>
+
+        <article class="entry" id="v0-2-0">
+          <p class="entry__meta"><span class="tag">Release</span><time datetime="2026-09-24">24 September 2026</time></p>
+          <h2>HexIDE 0.2.0: forms saved the way VB6 writes them</h2>
+          <p>The designer writer stopped rebuilding forms in its own shape and started reproducing VB6's: 21 of the 22
+             template forms round-trip byte for byte, and a form HexIDE can't reproduce opens read-only rather than
+             being rewritten.</p>
+          <ul>
+            <li>Frames and PictureBoxes hold controls, and the Image control arrives.</li>
+            <li>Any language server can be attached through <code>lsp-servers.json</code>, and the Protocol Inspector
+                shows what crossed the wire.</li>
+            <li>Go to Declaration, workspace symbols and code actions.</li>
+          </ul>
+          <div class="entry__links">
+            <a class="btn btn--ghost btn--small" href="https://github.com/hexide-io/HexIDE/releases/tag/v0.2.0">Release notes on GitHub</a>
+          </div>
+        </article>
+
+        <article class="entry" id="v0-1-0">
+          <p class="entry__meta"><span class="tag">Release</span><time datetime="2026-08-16">16 August 2026</time></p>
+          <h2>HexIDE 0.1.0: the first public build</h2>
+          <p>The workbench, the interpreter, and a debugger with stepping, Locals, Watches and the Call Stack, on Windows,
+             macOS and Linux.</p>
+          <div class="entry__links">
+            <a class="btn btn--ghost btn--small" href="https://github.com/hexide-io/HexIDE/releases/tag/v0.1.0">Release notes on GitHub</a>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="foot">
+  <div class="shell">
+    <div class="foot__top">
+      <div><strong class="foot__brand">HexIDE</strong><br>MIT licensed. Built in the open.</div>
+      <nav class="foot__links" aria-label="Footer">
+        <a href="news.html">News</a>
+        <a href="news.xml">Atom feed</a>
+        <a href="demos.html">Demos</a>
+        <a href="scope.html">Scope</a>
+        <a href="licence.html">Licence</a>
+        <a href="https://github.com/hexide-io/HexIDE">Source</a>
+        <a href="mailto:hello@hexide.io">hello@hexide.io</a>
+        <a href="https://github.com/hexide-io/HexIDE/security/advisories/new">Report a vulnerability</a>
+      </nav>
+    </div>
+    <div class="foot__legal">
+      <p>“Visual Basic”, “VB”, and “VBA” are trademarks of Microsoft Corporation. HexIDE is an independent,
+         community-built project, not affiliated with, endorsed by, or sponsored by Microsoft, and uses these
+         names only descriptively to indicate VB6 file-format and workflow compatibility.</p>
+      <p>Built on the work of many others: <a href="licence.html#attribution">the attribution list and full third-party notices are here</a>.</p>
+      <p>Much of HexIDE was built in pair-programming with Claude (Anthropic).</p>
+      <p>© The HexIDE Authors.</p>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

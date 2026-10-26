@@ -3,40 +3,31 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Demos — programs written in HexIDE, compiled by VB6</title>
-<meta name="description" content="Five small VB6 programs built in HexIDE: three demoscene intros, a fidelity cross-check whose output matches the real 1998 compiler line for line, and a tour of the menu surface.">
+<title>Demos: HexIDE</title>
+<meta name="description" content="Nine small VB6 programs made with HexIDE: three demoscene intros built by agents driving the IDE, three form programs that run under F5, and three that exist to be checked.">
 <meta name="theme-color" content="#F07820">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://hexide.io/demos.html">
-<meta property="og:title" content="Demos — built in HexIDE, compiled by VB6">
-<meta property="og:description" content="Three demoscene intros, a fidelity cross-check matching the real 1998 compiler line for line, and a tour of the menu surface.">
+<meta property="og:title" content="Demos: HexIDE">
+<meta property="og:description" content="Nine small VB6 programs, each plain source you can rebuild.">
 <meta property="og:image" content="https://hexide.io/assets/shots/neon-aurora.png">
-<meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="assets/hexide-logo.svg" type="image/svg+xml">
+<link rel="alternate" type="application/atom+xml" title="HexIDE news" href="news.xml">
 <link rel="stylesheet" href="assets/site.css">
 </head>
 <body>
 
 <a class="skip" href="#main">Skip to content</a>
 
-<aside class="alert">
-  <div class="shell alert__in">
-    <b>Alpha</b>
-    <p>HexIDE opens and runs real VB6 projects, and a save now gives back the file it read:
-       <strong>21 of the 22 designer files VB6 itself ships survive a save byte for byte</strong>,
-       and the one it cannot — an ActiveX form — opens read-only rather than being quietly rewritten.
-       Keep a backup anyway: that measure is Microsoft's own templates, not your project.
-       <a href="scope.html#saving">What a save changes</a>.</p>
-  </div>
-</aside>
-
 <header class="masthead">
   <div class="shell masthead__in">
-    <a class="brand" href="index.html">
+    <a class="brand" href="/">
       <svg viewBox="0 0 200 200" aria-hidden="true" focusable="false">
-        <defs><radialGradient id="hx" cx="38%" cy="35%" r="65%" fx="38%" fy="35%">
-          <stop offset="0%" stop-color="#FFB347"/><stop offset="45%" stop-color="#F07820"/><stop offset="100%" stop-color="#C04A00"/>
-        </radialGradient></defs>
+        <defs>
+          <radialGradient id="hx" cx="38%" cy="35%" r="65%" fx="38%" fy="35%">
+            <stop offset="0%" stop-color="#FFB347"/><stop offset="45%" stop-color="#F07820"/><stop offset="100%" stop-color="#C04A00"/>
+          </radialGradient>
+        </defs>
         <path d="M171 59 112 18Q100 13 88 18L29 59v82l59 41q12 5 24 0l59-41Z" fill="url(#hx)"/>
         <g fill="#fff" stroke="#fff" stroke-width="11">
           <line x1="110.4" y1="94" x2="152" y2="70"/><circle cx="152" cy="70" r="12.5" stroke="none"/>
@@ -49,8 +40,9 @@
       </svg>
       HexIDE
     </a>
-    <p class="masthead__status">Alpha</p>
+    <span class="chip">Alpha</span>
     <nav class="nav" aria-label="Main">
+      <a href="news.html">News</a>
       <a href="demos.html" aria-current="page">Demos</a>
       <a href="scope.html">Scope</a>
       <a href="licence.html">Licence</a>
@@ -60,111 +52,148 @@
 </header>
 
 <main id="main">
-
-  <section class="band">
+  <section class="band" style="padding-bottom: 16px">
     <div class="shell prose">
       <p class="eyebrow">Demos</p>
-      <h1>Five small programs, and two of them aren't demos.</h1>
-      <p>Three of these are demoscene intros — the sort of thing that used to arrive on a floppy
-         with a scroller and a chiptune. Two were written end to end by AI agents driving the
-         running IDE through its automation tools; the six-part one was authored by a fan-out of
-         agents and integrated live through the IDE the same way. All three were then compiled,
-         unmodified, by the real VB6 compiler — the six-part one clean on the first attempt.</p>
-      <p>The other two are not intros. <strong>battleship</strong> is the reason to trust the first
-         three: the same source, running identically on this interpreter and on the real 1998
-         compiler. <strong>bill-of-fare</strong> is the reason to distrust a green test suite —
-         every part of it shipped broken at some point, and every one of those defects was found by
-         a person opening the menu and looking.</p>
-      <p>Every one of them is plain VB6 source in the repository. The built executables are
-         deliberately <em>not</em> committed: the tree-hygiene guard rejects a build artefact and CI
-         enforces it, so each ships as source you rebuild rather than a binary you trust.</p>
+      <h1 class="page-title">Nine small programs, all plain VB6.</h1>
+      <p class="lede">Three demoscene intros, built by agents driving the running IDE through its automation tools and
+         compiled by the real VB6 compiler. Three ordinary form programs that run under F5 and build with the same
+         compiler. And three that exist to be checked rather than watched.</p>
+      <p>Every one is plain VB6 source in the repository. The built programs are deliberately not committed: each ships
+         as source you rebuild rather than a binary you trust.</p>
+      <ul class="toc">
+        <li><a href="#intros">Intros</a></li>
+        <li><a href="#programs">Form programs</a></li>
+        <li><a href="#checks">Checks</a></li>
+      </ul>
     </div>
   </section>
 
-  <section class="band band--rule">
+  <section class="band" style="padding-top: 0">
     <div class="shell">
 
+      <div class="group-head" id="intros">
+        <h2>Intros</h2>
+        <p>The sort of thing that used to arrive on a floppy with a scroller and a chiptune.</p>
+      </div>
+
       <article class="demo" id="neon-aurora">
-        <img src="assets/shots/neon-aurora.png" alt="A cluster of glowing purple and cyan spheres over neon horizontal beams, with magenta text scrolling across." width="800" height="568">
+        <div class="demo__media"><img src="assets/shots/neon-aurora.png" alt="A cluster of glowing purple and cyan spheres over neon horizontal beams, with magenta text scrolling across." width="800" height="568" loading="lazy"></div>
         <div>
-          <h2 class="demo__t">neon-aurora</h2>
-          <p>A six-part Amiga-style intro: raster plasma, copper bars, a 3D starfield, a glenz
-             vector, vector balls and a sine-scroller — with real MIDI chiptune music underneath.</p>
-          <p>The plasma is computed per pixel into a 32-bit device-independent bitmap and blitted
-             with <code>StretchBlt</code>; the music goes out through <code>midiOutShort</code>.
-             Both of those are Windows API work, in VB6, written by an agent. It reflows when you
-             resize the window.</p>
-          <p class="demo__meta">6 classes · 2 modules · 1 form</p>
+          <h3>neon-aurora</h3>
+          <p>A six-part Amiga-style intro: raster plasma, copper bars, a 3D starfield, a glenz vector, vector balls and a
+             sine-scroller, with MIDI chiptune music underneath.</p>
+          <p>The plasma is computed per pixel into a 32-bit bitmap and blitted with <code>StretchBlt</code>; the music goes
+             out through <code>midiOutShort</code>. Both are Windows API calls, in VB6, written by an agent.</p>
+          <ul class="pills"><li class="pill">6 classes</li><li class="pill">2 modules</li><li class="pill">1 form</li><li class="pill">Built by vb6.exe</li></ul>
         </div>
       </article>
 
       <article class="demo" id="neon-vertigo">
-        <img src="assets/shots/neon-vertigo.png" alt="A rotating sphere made of glowing vector balls, shaded from magenta through to blue." width="760" height="428" loading="lazy" decoding="async">
+        <div class="demo__media"><img src="assets/shots/neon-vertigo.png" alt="A rotating sphere made of glowing vector balls, shaded from magenta through to blue." width="760" height="428" loading="lazy"></div>
         <div>
-          <h2 class="demo__t">neon-vertigo</h2>
-          <p>130 vector balls distributed over a sphere on a Fibonacci lattice, spun on two axes
-             through a pair of rotation matrices, projected with perspective, depth-shaded from
-             magenta to blue and painted back to front.</p>
-          <p>It is a painter's-algorithm sort and a lot of trigonometry, which is exactly what this
-             sort of thing was in 1996.</p>
-          <p class="demo__meta">1 form</p>
+          <h3>neon-vertigo</h3>
+          <p>130 vector balls over a sphere on a Fibonacci lattice, spun on two axes through a pair of rotation matrices,
+             projected with perspective, depth-shaded from magenta to blue and painted back to front.</p>
+          <ul class="pills"><li class="pill">1 form</li><li class="pill">Built by vb6.exe</li></ul>
         </div>
       </article>
 
       <article class="demo" id="wild-ecstasy">
-        <img src="assets/shots/wild-ecstasy.png" alt="The word HEXIDE rippling on per-letter sine waves in cycling colours." width="820" height="488" loading="lazy" decoding="async">
+        <div class="demo__media"><img src="assets/shots/wild-ecstasy.png" alt="The word HEXIDE rippling on per-letter sine waves in cycling colours." width="820" height="488" loading="lazy"></div>
         <div>
-          <h2 class="demo__t">wild-ecstasy</h2>
-          <p>“HEXIDE” on a per-character sine wave with the colours cycling through the spectrum.
-             The smallest thing here — a form and a class, about a hundred lines together — and the
-             best one to read first if you want to see what the interpreter handles.</p>
-          <p class="demo__meta">1 class · 1 form</p>
+          <h3>wild-ecstasy</h3>
+          <p>“HEXIDE” on a per-character sine wave, colours cycling through the spectrum. The smallest thing here, a form
+             and a class of about a hundred lines together, and the best one to read first.</p>
+          <ul class="pills"><li class="pill">1 class</li><li class="pill">1 form</li><li class="pill">Built by vb6.exe</li></ul>
         </div>
       </article>
 
+      <div class="group-head" id="programs">
+        <h2>Form programs</h2>
+        <p>Written the way a VB6 developer writes them. Each runs under F5 in HexIDE and builds with vb6.exe.</p>
+      </div>
+
+      <article class="demo" id="notepad-forms">
+        <div class="demo__media"><img src="assets/shots/notepad-forms.png" alt="notepad-forms running: a Notepad window with its Edit menu open, showing Cut, Copy, Paste, Find and Time/Date." width="660" height="478" loading="lazy"></div>
+        <div>
+          <h3>notepad-forms</h3>
+          <p>Windows' Notepad on forms. Two TextBoxes swapped by Word Wrap, a CommonDialog for Open, Save As and Font,
+             <code>Line Input #</code> and <code>Print #</code>, a modeless Find dialog, the <code>Clipboard</code> object,
+             and a save prompt in <code>QueryUnload</code>.</p>
+          <ul class="pills"><li class="pill">2 forms</li><li class="pill pill--run">Runs under F5</li><li class="pill">Built by vb6.exe</li></ul>
+        </div>
+      </article>
+
+      <article class="demo" id="minesweeper-forms">
+        <div class="demo__media"><img src="assets/shots/minesweeper-forms.png" alt="minesweeper-forms after a lost game: the board uncovered, mines shown, the face frowning." width="294" height="371" loading="lazy"></div>
+        <div>
+          <h3>minesweeper-forms</h3>
+          <p>Windows' Minesweeper on a form. A Label field loaded at run time, right-click flags through
+             <code>MouseDown</code>'s Button, a recursive flood fill over a 2-D array, a Timer clock, and a face that starts
+             again.</p>
+          <ul class="pills"><li class="pill">1 form</li><li class="pill pill--run">Runs under F5</li><li class="pill">Built by vb6.exe</li></ul>
+        </div>
+      </article>
+
+      <article class="demo" id="battleship-forms">
+        <div class="demo__media"><img src="assets/shots/battleship-forms.png" alt="battleship-forms: a small board of labels during a game." width="204" height="241" loading="lazy"></div>
+        <div>
+          <h3>battleship-forms</h3>
+          <p>The Battleship engine below, played on forms: a modal setup dialog, a Label grid loaded at run time,
+             <code>WithEvents</code>, <code>MouseDown</code>, and Play again.</p>
+          <ul class="pills"><li class="pill">3 classes</li><li class="pill">1 module</li><li class="pill">2 forms</li><li class="pill pill--run">Runs under F5</li><li class="pill">Built by vb6.exe</li></ul>
+        </div>
+      </article>
+
+      <div class="group-head" id="checks">
+        <h2>Checks</h2>
+        <p>Not for watching. Each one is here because it proves something, or once caught something a test suite missed.</p>
+      </div>
+
       <article class="demo" id="battleship">
-        <pre class="card__trace demo__trace">Firing...
+        <div class="demo__media demo__media--flush"><pre class="card__trace" aria-hidden="true">Firing...
 (0,0) HIT
 (0,1) SUNK
 (5,5) MISS
 (2,0) HIT
 (2,1) HIT
 (2,2) SUNK
-AllSunk=False</pre>
+AllSunk=False</pre></div>
         <div>
-          <h2 class="demo__t">battleship</h2>
-          <p>Not an intro. An object-oriented Battleship engine — four classes, properties, an
-             object array holding the fleet, and <code>WithEvents</code> raising the hits — written
-             as ordinary VB6 with no graphics at all.</p>
-          <p>It exists to be run twice. The engine — those four classes, unchanged — runs on
-             HexIDE's interpreter as a regression test, and inside a native executable built by the
-             real 1998 compiler. <strong>That trace is what both of them produce, line for
-             line.</strong> Only the driver around it differs: the archived project writes to a
-             file, which needs file I/O the interpreter does not have, so the test harness prints
-             to Debug instead.</p>
-          <p>That is the whole claim, and it is deliberately narrow. A tree-walking interpreter
-             written in 2026 and a compiler shipped in 1998 agreeing exactly — on classes, events
-             and object arrays — is the difference between “we implemented VB6” and “we checked”.</p>
-          <p class="demo__meta">4 classes · 1 module · no forms</p>
+          <h3>battleship</h3>
+          <p>An object-oriented Battleship engine: four classes, properties, an object array holding the fleet, and
+             <code>WithEvents</code> raising the hits, with no graphics at all.</p>
+          <p>It exists to be run twice: on HexIDE's interpreter as a regression test, and inside a native executable built
+             by the real VB6 compiler. <strong>That trace is what both of them produce, line for line.</strong> A
+             tree-walking interpreter and the real compiler agreeing exactly is the difference between “we implemented
+             VB6” and “we checked”.</p>
+          <ul class="pills"><li class="pill">4 classes</li><li class="pill">1 module</li><li class="pill">No forms</li></ul>
         </div>
       </article>
 
       <article class="demo" id="bill-of-fare">
-        <img src="assets/shots/bill-of-fare.png" alt="A VB6 form with its File menu open, showing separators, right-aligned keyboard shortcuts and a greyed-out item." width="628" height="322" loading="lazy" decoding="async">
+        <div class="demo__media"><img src="assets/shots/bill-of-fare.png" alt="A VB6 form with its File menu open, showing separators, right-aligned shortcuts and a greyed-out item." width="628" height="322" loading="lazy"></div>
         <div>
-          <h2 class="demo__t">bill-of-fare</h2>
-          <p>Also not an intro. A tour of the VB6 <strong>menu</strong> surface — a menu bar, submenus
-             nested two deep, separators, shortcuts that fire from anywhere, access keys, a disabled
-             item, and click dispatch to the event procedure. <em>Bill of fare</em> is the old term
-             for a menu, which is the joke and the whole subject.</p>
-          <p>Every element in that one screenshot was broken at some point. The bar was empty; then
-             the separators drew nothing; then a two-pixel dot; then near-black. <strong>Each of
-             those shipped under a green test suite</strong>, and each was found by a person opening
-             the menu and looking at it.</p>
-          <p>That is why it is archived rather than deleted. The assertions that passed throughout
-             were true and useless — <em>the item exists</em>, <em>the background is not null</em> —
-             and a picture of an open menu is the only artefact that would have caught any of it.</p>
-          <p class="demo__meta">1 form · 16 menu items · 3 separators · 5 shortcuts</p>
+          <h3>bill-of-fare</h3>
+          <p>A tour of the VB6 menu surface: a menu bar, submenus nested two deep, separators, shortcuts that fire from
+             anywhere, access keys, a disabled item, and click dispatch. <em>Bill of fare</em> is the old word for a menu.</p>
+          <p>Every element in that screenshot was broken at some point, and <strong>each shipped under a green test
+             suite</strong>. Each was found by a person opening the menu and looking at it.</p>
+          <ul class="pills"><li class="pill">1 form</li><li class="pill">16 menu items</li><li class="pill">3 separators</li><li class="pill">5 shortcuts</li></ul>
+        </div>
+      </article>
+
+      <article class="demo" id="spring-tide">
+        <div class="demo__media demo__media--flush"><img src="assets/shots/spring-tide.png" alt="HexIDE's code window in the dark theme, showing a module with fold markers in the gutter and a red squiggle under a syntax error on the last line." width="1920" height="974" loading="lazy"></div>
+        <div>
+          <h3>spring-tide</h3>
+          <p>A short module to open with an outside language server attached, so you can see that server's folding regions
+             and diagnostics drawn in HexIDE's editor. The colouring is HexIDE's own; the fold markers and the squiggle come
+             from the server.</p>
+          <p>It doesn't build, by design: the last line is a deliberate syntax error, because a diagnostic is half of what
+             it is here to show.</p>
+          <ul class="pills"><li class="pill">1 module</li><li class="pill">Doesn't build</li></ul>
         </div>
       </article>
 
@@ -174,22 +203,22 @@ AllSunk=False</pre>
   <section class="band band--rule">
     <div class="shell prose">
       <p class="eyebrow">Read the source</p>
-      <h2>All five are in the repository.</h2>
-      <p>Each lives in its own folder with the complete, self-contained VB6 source and a README
-         explaining how the effect works. If you have VB6 installed you can rebuild any of them
-         with <code>VB6.EXE /make</code>.</p>
+      <h2 class="h2">All nine are in the repository.</h2>
+      <p>Each lives in its own folder with its complete VB6 source and a README explaining how it works. With VB6
+         installed, rebuild any but spring-tide with <code>VB6.EXE /make</code>.</p>
       <p><a href="https://github.com/hexide-io/HexIDE/tree/HEAD/demo">Browse the demos on GitHub</a></p>
     </div>
   </section>
-
 </main>
 
 <footer class="foot">
   <div class="shell">
     <div class="foot__top">
-      <div><strong class="foot__brand">HexIDE</strong><br>MIT licensed · Built in the open</div>
+      <div><strong class="foot__brand">HexIDE</strong><br>MIT licensed. Built in the open.</div>
       <nav class="foot__links" aria-label="Footer">
-        <a href="demos.html" aria-current="page">Demos</a>
+        <a href="news.html">News</a>
+        <a href="news.xml">Atom feed</a>
+        <a href="demos.html">Demos</a>
         <a href="scope.html">Scope</a>
         <a href="licence.html">Licence</a>
         <a href="https://github.com/hexide-io/HexIDE">Source</a>
@@ -198,16 +227,15 @@ AllSunk=False</pre>
       </nav>
     </div>
     <div class="foot__legal">
-      <p>“Visual Basic”, “VB”, and “VBA” are trademarks of Microsoft Corporation. HexIDE is an
-         independent, community-built project — not affiliated with, endorsed by, or sponsored by
-         Microsoft — and uses these names only descriptively to indicate VB6 file-format and
-         workflow compatibility.</p>
+      <p>“Visual Basic”, “VB”, and “VBA” are trademarks of Microsoft Corporation. HexIDE is an independent,
+         community-built project, not affiliated with, endorsed by, or sponsored by Microsoft, and uses these
+         names only descriptively to indicate VB6 file-format and workflow compatibility.</p>
+      <p>Built on the work of many others: <a href="licence.html#attribution">the attribution list and full third-party notices are here</a>.</p>
       <p>Much of HexIDE was built in pair-programming with Claude (Anthropic).</p>
       <p>© The HexIDE Authors.</p>
     </div>
   </div>
 </footer>
 
-<script src="assets/site.js"></script>
 </body>
 </html>

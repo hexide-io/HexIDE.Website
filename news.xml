@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- The Atom feed for news.html. Each <entry> carries the same id, title and words as the <article> it links to,
+     and a release adds one at the top of both. -->
+<feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en-GB">
+  <title>HexIDE news</title>
+  <subtitle>A release every second Monday: what changed, what to watch for before you upgrade, and what is still missing.</subtitle>
+  <id>https://hexide.io/news.html</id>
+  <link rel="self" type="application/atom+xml" href="https://hexide.io/news.xml"/>
+  <link rel="alternate" type="text/html" href="https://hexide.io/news.html"/>
+  <icon>https://hexide.io/assets/hexide-logo.svg</icon>
+  <updated>2026-10-26T07:58:03Z</updated>
+  <author><name>The HexIDE Authors</name><uri>https://github.com/hexide-io/HexIDE</uri></author>
+  <rights>© The HexIDE Authors. MIT licensed.</rights>
+
+  <entry>
+    <title>HexIDE 0.3.0: every template form saves, and F5 runs real programs</title>
+    <id>https://hexide.io/news.html#v0-3-0</id>
+    <link rel="alternate" type="text/html" href="https://hexide.io/news.html#v0-3-0"/>
+    <published>2026-10-26T07:58:03Z</published>
+    <updated>2026-10-26T07:58:03Z</updated>
+    <summary>About 460 changes in a month: every template form saves byte for byte, several forms, file I/O and Collection run under F5, Make EXE builds a self-contained program, and Windows gets an installer.</summary>
+    <content type="html"><![CDATA[
+<p>0.3.0 is a month of work: about 460 changes since 0.2.0, none of which was in a download until now. From here there is a release every second Monday, so they reach you in a fortnight rather than when somebody remembers.</p>
+<h3>Saving</h3>
+<p>All 22 of the designer files VB6 itself ships now survive a save byte for byte, up from 21, and VB6's own <code>.vbp</code> files round-trip with their line order and description kept. Sources are read in your machine's ANSI code page and keep their encoding, and an edit that code page can't hold is refused before anything is written.</p>
+<h3>Running</h3>
+<p>A form is a real object now. Several forms work with <code>Load</code>, <code>Show</code>, <code>vbModal</code> and <code>Unload</code>, and mouse, double-click, focus and <code>Activate</code> events fire. Text, Random and Binary files work, and so do <code>Collection</code>, <code>Static</code>, <code>ReDim Preserve</code>, named arguments, <code>DefType</code>, <code>#If</code>, <code>Like</code> and <code>GetSetting</code>. Something the interpreter can't run now stops with a message that names it, instead of carrying on. 143 of the language's names still stop a program, down from 261.</p>
+<h3>Everything else</h3>
+<ul>
+<li><strong>Make EXE</strong> builds a program that runs on a machine with neither .NET nor HexIDE installed: one runner, with the project packed beside it, running every form and module.</li>
+<li><strong>The designer</strong> gives new controls VB6's sizes, names and tab order. A control HexIDE doesn't model, such as an ImageList, shows as a labelled box where VB6 draws it. The ProgressBar is the first in-box OCX that runs.</li>
+<li><strong>The debugger</strong> breaks on the statement when you press Debug on an unhandled error, and <code>Debug.Assert</code> breaks. Run, Start External Debug Session drives an outside debug adapter.</li>
+<li><strong>Language servers</strong> can connect over WebSocket, take argument lists and environment variables, and show their progress in the status bar.</li>
+<li><strong>A Windows installer</strong> for x64, optional. Like everything here, it isn't signed yet.</li>
+<li><strong>860 strings in 30 languages</strong>, and the IDE now starts in your system's language.</li>
+</ul>
+<h3>Before you upgrade</h3>
+<ul>
+<li>Programs made with 0.2.0 don't start. Make them again with 0.3.0.</li>
+<li>Line numbers now count from the top of the file, header included, so they agree everywhere. Add-ins and automation that use line numbers will see different ones.</li>
+<li>Bookmarks and breakpoints are moved to a new place as a project opens, one way: open it in 0.2.0 again and 0.2.0 deletes them the next time it saves.</li>
+<li>The downloads that need .NET installed are bigger than 0.2.0's, because the runner they carry for Make EXE now has its own copy of .NET.</li>
+</ul>
+<h3>Still missing</h3>
+<p>Third-party controls at run time, COM and <code>Declare</code> calls, MDI forms, printing, and autosave. <a href="https://hexide.io/scope.html">The Scope page</a> has the whole list.</p>
+<p><a href="https://hexide.io/#download">Download 0.3.0</a> · <a href="https://github.com/hexide-io/HexIDE/releases/tag/v0.3.0">Release notes on GitHub</a></p>
+]]></content>
+  </entry>
+
+  <entry>
+    <title>HexIDE 0.2.0: forms saved the way VB6 writes them</title>
+    <id>https://hexide.io/news.html#v0-2-0</id>
+    <link rel="alternate" type="text/html" href="https://hexide.io/news.html#v0-2-0"/>
+    <published>2026-09-24T02:10:49Z</published>
+    <updated>2026-09-24T02:10:49Z</updated>
+    <summary>21 of the 22 template forms round-trip byte for byte, any language server can be attached, and the Protocol Inspector arrives.</summary>
+    <content type="html"><![CDATA[
+<p>The designer writer stopped rebuilding forms in its own shape and started reproducing VB6's: 21 of the 22 template forms round-trip byte for byte, and a form HexIDE can't reproduce opens read-only rather than being rewritten.</p>
+<ul>
+<li>Frames and PictureBoxes hold controls, and the Image control arrives.</li>
+<li>Any language server can be attached through <code>lsp-servers.json</code>, and the Protocol Inspector shows what crossed the wire.</li>
+<li>Go to Declaration, workspace symbols and code actions.</li>
+</ul>
+<p><a href="https://github.com/hexide-io/HexIDE/releases/tag/v0.2.0">Release notes on GitHub</a></p>
+]]></content>
+  </entry>
+
+  <entry>
+    <title>HexIDE 0.1.0: the first public build</title>
+    <id>https://hexide.io/news.html#v0-1-0</id>
+    <link rel="alternate" type="text/html" href="https://hexide.io/news.html#v0-1-0"/>
+    <published>2026-08-16T21:11:42Z</published>
+    <updated>2026-08-16T21:11:42Z</updated>
+    <summary>The workbench, the interpreter and the debugger, on Windows, macOS and Linux.</summary>
+    <content type="html"><![CDATA[
+<p>The workbench, the interpreter, and a debugger with stepping, Locals, Watches and the Call Stack, on Windows, macOS and Linux.</p>
+<p><a href="https://github.com/hexide-io/HexIDE/releases/tag/v0.1.0">Release notes on GitHub</a></p>
+]]></content>
+  </entry>
+</feed>

@@ -4,20 +4,22 @@ The source of [hexide.io](https://hexide.io).
 
 ## What this is
 
-Four pages of hand-written HTML and CSS, plus one small progressive-enhancement script.
+Five pages of hand-written HTML and CSS, an Atom feed, and one small progressive-enhancement script.
 **There is no build step**: no npm, no lockfile, no generator, nothing to break. `git push` is the
 deploy. That is a deliberate match for the project it advertises, which is likewise careful about
 what it takes a dependency on.
 
 ```
 index.html      the landing page
+news.html       one post per release, newest first, each in full
+news.xml        the Atom feed of those posts
 demos.html      the demo gallery
 scope.html      what HexIDE does, and what it deliberately doesn't
 licence.html    MIT, attribution, trademarks, what leaves your machine
 404.html
 assets/
   site.css      the whole design system
-  site.js       tab strips and the properties panel — the pages read fine without it
+  site.js       tab strips and the properties panel; the pages read fine without it
   shots/        screenshots, captured from the running IDE
 CNAME           hexide.io
 .well-known/
@@ -35,6 +37,20 @@ stage interpreting it, which is what we want anyway.
 Open `index.html` in a browser. That is the whole toolchain.
 
 Contributions go through a fork and a pull request, the same as the main repository.
+
+### When a release ships
+
+HexIDE releases every second Monday, and each release gets a post. With no build step, these are edited by hand, in
+one pull request:
+
+- **`news.html`:** a new `<article id="v0-4-0">` at the top, a row at the top of the Releases list, and the
+  Next date moved on a fortnight.
+- **`news.xml`:** a new `<entry>` at the top with the same id, title and words, and the feed's `<updated>`.
+- **`index.html`:** the release pill in the masthead, the "Download HexIDE" heading, and the three newest posts in
+  the News band.
+- **`scope.html`:** the "This version describes" line, and any row the release changes.
+
+Check each claim against the release's own tag, not against `main`: the site describes what someone can download.
 
 ## Checking it
 

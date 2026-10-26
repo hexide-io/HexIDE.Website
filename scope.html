@@ -3,40 +3,31 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Scope — what HexIDE does, and what it deliberately doesn't</title>
-<meta name="description" content="The limits of HexIDE's VB6 interpreter and workbench, written down: what is bounded by design, what is simply not built yet, and which VB6 features are out of scope.">
+<title>Scope: HexIDE</title>
+<meta name="description" content="Where HexIDE stops: what works, what is partial, what is not built yet, and what is out of scope by design, for each part of the IDE.">
 <meta name="theme-color" content="#F07820">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://hexide.io/scope.html">
-<meta property="og:title" content="Scope — where HexIDE stops">
-<meta property="og:description" content="The limits, written down: what is bounded by design, what is simply not built yet, and which VB6 features are out of scope.">
+<meta property="og:title" content="Scope: HexIDE">
+<meta property="og:description" content="What works, what is partial, and what isn't there yet, part by part.">
 <meta property="og:image" content="https://hexide.io/assets/shots/ide-designer.png">
-<meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="assets/hexide-logo.svg" type="image/svg+xml">
+<link rel="alternate" type="application/atom+xml" title="HexIDE news" href="news.xml">
 <link rel="stylesheet" href="assets/site.css">
 </head>
 <body>
 
 <a class="skip" href="#main">Skip to content</a>
 
-<aside class="alert">
-  <div class="shell alert__in">
-    <b>Alpha</b>
-    <p>HexIDE opens and runs real VB6 projects, and a save now gives back the file it read:
-       <strong>21 of the 22 designer files VB6 itself ships survive a save byte for byte</strong>,
-       and the one it cannot — an ActiveX form — opens read-only rather than being quietly rewritten.
-       Keep a backup anyway: that measure is Microsoft's own templates, not your project.
-       <a href="scope.html#saving">What a save changes</a>.</p>
-  </div>
-</aside>
-
 <header class="masthead">
   <div class="shell masthead__in">
-    <a class="brand" href="index.html">
+    <a class="brand" href="/">
       <svg viewBox="0 0 200 200" aria-hidden="true" focusable="false">
-        <defs><radialGradient id="hx" cx="38%" cy="35%" r="65%" fx="38%" fy="35%">
-          <stop offset="0%" stop-color="#FFB347"/><stop offset="45%" stop-color="#F07820"/><stop offset="100%" stop-color="#C04A00"/>
-        </radialGradient></defs>
+        <defs>
+          <radialGradient id="hx" cx="38%" cy="35%" r="65%" fx="38%" fy="35%">
+            <stop offset="0%" stop-color="#FFB347"/><stop offset="45%" stop-color="#F07820"/><stop offset="100%" stop-color="#C04A00"/>
+          </radialGradient>
+        </defs>
         <path d="M171 59 112 18Q100 13 88 18L29 59v82l59 41q12 5 24 0l59-41Z" fill="url(#hx)"/>
         <g fill="#fff" stroke="#fff" stroke-width="11">
           <line x1="110.4" y1="94" x2="152" y2="70"/><circle cx="152" cy="70" r="12.5" stroke="none"/>
@@ -49,8 +40,9 @@
       </svg>
       HexIDE
     </a>
-    <p class="masthead__status">Alpha</p>
+    <span class="chip">Alpha</span>
     <nav class="nav" aria-label="Main">
+      <a href="news.html">News</a>
       <a href="demos.html">Demos</a>
       <a href="scope.html" aria-current="page">Scope</a>
       <a href="licence.html">Licence</a>
@@ -60,169 +52,133 @@
 </header>
 
 <main id="main">
-
-  <section class="band">
+  <section class="band" style="padding-bottom: 32px">
     <div class="shell prose">
       <p class="eyebrow">Scope</p>
-      <h1>Where HexIDE stops.</h1>
-      <p>Most projects publish what they can do. This page is the other half, because a limit you
-         find out about on day three is a bug report and a limit you read about on day one is a
-         design decision.</p>
-      <p>Two kinds of limit follow. The first are <strong>permanent</strong> — they are what HexIDE
-         is, and no amount of work will move them. The second are simply <strong>not built
-         yet</strong>.</p>
+      <h1 class="page-title">Where HexIDE stops.</h1>
+      <p class="lede">Most projects publish what they can do. This page is the other half, because a limit you find on day
+         three is a bug report, and a limit you read about on day one is a decision you can make.</p>
+      <p>It is updated with every release. This version describes 0.3.0.</p>
+      <ul class="toc">
+        <li><a href="#table">Where each part stands</a></li>
+        <li><a href="#saving">What a save changes</a></li>
+        <li><a href="#permanent">By design</a></li>
+      </ul>
     </div>
   </section>
 
-  <section class="band band--rule">
+  <section class="band band--rule" id="table">
+    <div class="shell">
+      <div class="band__head">
+        <p class="eyebrow">Status</p>
+        <h2>Where each part stands.</h2>
+        <p>Grouped the way you'd meet them: building a form, saving it, running it, debugging it.</p>
+      </div>
+      <ul class="legend">
+        <li><span class="state s-works">Works</span></li>
+        <li><span class="state s-part">Partial</span></li>
+        <li><span class="state s-no">Not yet</span></li>
+        <li><span class="state s-design">By design</span></li>
+      </ul>
+
+      <div class="matrix">
+        <h3>The workbench</h3>
+        <div class="mrow"><span>Designer, toolbox, menu editor</span><span class="state s-works">Works</span><span>Thirteen controls in the toolbox, at VB6's own sizes and names. Line and the ProgressBar load from a form but aren't in the toolbox yet.</span></div>
+        <div class="mrow"><span>Controls HexIDE doesn't model</span><span class="state s-part">Partial</span><span>An ImageList, a Toolbar or any third-party control shows as a labelled box where VB6 draws it, and saves unchanged. F5 refuses the form.</span></div>
+        <div class="mrow"><span>UserControls and PropertyPages</span><span class="state s-part">Partial</span><span>They open in their designers and save as VB6 writes them. They don't run.</span></div>
+        <div class="mrow"><span>Object Browser and Find</span><span class="state s-part">Partial</span><span>The Object Browser is incomplete, and Find has no project scope.</span></div>
+        <div class="mrow"><span>MDI forms, printing, Procedure Attributes</span><span class="state s-no">Not yet</span><span>Each is tracked as an issue.</span></div>
+        <div class="mrow"><span>Autosave and crash recovery</span><span class="state s-no">Not yet</span><span>Save often, and work on a copy.</span></div>
+      </div>
+
+      <div class="matrix">
+        <h3>Files and saving</h3>
+        <div class="mrow"><span>VB6's template forms</span><span class="state s-works">Works</span><span>All 22 designer files VB6 itself ships survive a save byte for byte.</span></div>
+        <div class="mrow"><span>Project files</span><span class="state s-works">Works</span><span><code>.vbp</code> files round-trip with their line order and description kept.</span></div>
+        <div class="mrow"><span>Encodings</span><span class="state s-works">Works</span><span>Sources are read in your ANSI code page and keep their encoding. An edit the code page can't hold is refused before anything is written.</span></div>
+        <div class="mrow"><span>Your own projects</span><span class="state s-part">Partial</span><span>Anything HexIDE doesn't understand is preserved, not dropped. Preserved isn't the same as tested. See <a href="#saving">what a save changes</a>.</span></div>
+        <div class="mrow"><span>Project groups</span><span class="state s-part">Partial</span><span>Groups open and save. Make Project Group isn't built yet.</span></div>
+      </div>
+
+      <div class="matrix">
+        <h3>Running your program</h3>
+        <div class="mrow"><span>Forms and events</span><span class="state s-works">Works</span><span>Several forms with <code>Load</code>, <code>Show</code>, <code>vbModal</code> and <code>Unload</code>. Mouse, double-click, focus and <code>Activate</code> events fire.</span></div>
+        <div class="mrow"><span>Files and settings</span><span class="state s-works">Works</span><span>Text, Random and Binary files, the filesystem statements, and <code>GetSetting</code>.</span></div>
+        <div class="mrow"><span>The language</span><span class="state s-part">Partial</span><span>Of 1,184 names, 577 run in full and 435 in part. 143 stop the program with a message naming what's missing. <a href="https://github.com/hexide-io/HexIDE/blob/v0.3.0/docs/MISSING_LANGUAGE.md">The full list</a>.</span></div>
+        <div class="mrow"><span>Wrong answers</span><span class="state s-part">Partial</span><span>Seven names can give a wrong answer without an error. Each one is listed there, with its issue.</span></div>
+        <div class="mrow"><span>Control properties</span><span class="state s-part">Partial</span><span>A TextBox ignores <code>MaxLength</code>, <code>Locked</code>, <code>PasswordChar</code> and <code>Alignment</code>; a ComboBox has no <code>Sorted</code>. The CommonDialog has Open, Save As and Font, not Color, Printer or Help.</span></div>
+        <div class="mrow"><span>Windows API and COM</span><span class="state s-no">Not yet</span><span>A module with <code>Declare</code> loads, but the call fails. <code>CreateObject</code> and type libraries don't work.</span></div>
+        <div class="mrow"><span>GoSub, On…GoTo, ParamArray</span><span class="state s-no">Not yet</span><span>These need a different way of walking the program, and are tracked.</span></div>
+        <div class="mrow"><span>Screen, Printer, graphics</span><span class="state s-no">Not yet</span><span>The <code>Screen</code> and <code>Printer</code> objects, the graphics methods, <code>LoadPicture</code>, <code>SendKeys</code> and <code>Shell</code>.</span></div>
+      </div>
+
+      <div class="matrix">
+        <h3>Debugging and making</h3>
+        <div class="mrow"><span>The debugger</span><span class="state s-works">Works</span><span>Breakpoints, stepping, Locals, Watches, the Call Stack and an Immediate window that evaluates. Debug on an unhandled error breaks on the statement.</span></div>
+        <div class="mrow"><span>Outside debug adapters</span><span class="state s-works">Works</span><span>Run, Start External Debug Session drives a debug adapter you supply.</span></div>
+        <div class="mrow"><span>Make EXE</span><span class="state s-part">Partial</span><span>Builds a program that needs neither HexIDE nor .NET. A made program stops silently on a run-time error, and made programs on macOS are untested.</span></div>
+        <div class="mrow"><span>Making with VB6</span><span class="state s-works">Works</span><span>On Windows with VB6 installed, HexIDE drives the real compiler.</span></div>
+      </div>
+
+      <div class="matrix">
+        <h3>What the editor knows</h3>
+        <div class="mrow"><span>Syntax and structure</span><span class="state s-works">Works</span><span>Syntax errors as you type, the two VB6 combos, quick info, folding, formatting, and keyword and declared-name completion. Signature help covers VB6's built-in functions.</span></div>
+        <div class="mrow"><span>Rename, go to definition</span><span class="state s-part">Partial</span><span>Within one file, and by matching text rather than meaning.</span></div>
+        <div class="mrow"><span>Outside language servers</span><span class="state s-works">Works</span><span>Attach any LSP server in <code>lsp-servers.json</code>, and read what crossed the wire in the Protocol Inspector.</span></div>
+        <div class="mrow"><span>Whole-project understanding</span><span class="state s-design">By design</span><span>Cross-file references, type-aware completion after a dot, semantic diagnostics: the job of a language engine, attached through that seam.</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="band band--tint" id="saving">
+    <div class="shell">
+      <div class="band__head">
+        <p class="eyebrow">Saving</p>
+        <h2>What a save changes.</h2>
+        <p>Writing a project back is the half that can lose your work, so it is measured rather than estimated: against the
+           22 designer files in VB6's own <code>Template</code> folder. Microsoft wrote those, so any difference between
+           what goes in and what comes out is a defect.</p>
+        <p><strong>All 22 now survive a save byte for byte.</strong> What follows is what's left.</p>
+      </div>
+      <dl class="walls">
+        <div><dt>A form HexIDE can't reproduce won't save</dt>
+          <dd>If a form carries something HexIDE can't write back, it opens read-only and Save declines, rather than putting
+            a lossy copy over your original.</dd></div>
+        <div><dt>Twenty-two files isn't every file</dt>
+          <dd>A real project of any age carries controls and header lines those templates never had. HexIDE preserves what
+            it doesn't understand, but preserved isn't tested. That is the honest reason to keep a backup.</dd></div>
+        <div><dt>Where the measure runs</dt>
+          <dd>Against VB6's template folder wherever VB6 is installed, and against the demos on every build. It can only be
+            lowered by fixing something.</dd></div>
+        <div><dt>Refusing beats guessing</dt>
+          <dd>A refusal is recoverable. A silently rewritten project that only fails the next time VB6 opens it is not.</dd></div>
+      </dl>
+    </div>
+  </section>
+
+  <section class="band" id="permanent">
     <div class="shell">
       <div class="band__head">
         <p class="eyebrow">Permanent</p>
         <h2>By design, and not changing.</h2>
-        <p>These are deliberate. They are the reason the rest of the project stays small enough
-           to be finished.</p>
+        <p>These are deliberate, and they are why the rest of the project stays small enough to finish.</p>
       </div>
       <dl class="walls">
-        <div>
-          <dt>The interpreter is a demonstrator</dt>
-          <dd>It exists so you can paste some VB6 in and watch it run — enough to kick the tyres on
-            the workbench. It is not a migration path, and making it one is explicitly not the plan.
-            Every divergence you hit is a mapped boundary, not a missing feature.</dd>
-        </div>
-        <div>
-          <dt>There is no native compiler</dt>
-          <dd>HexIDE does not and will not emit machine code. On Windows, if you have VB6 installed,
-            it can drive the real compiler for you — that is a bridge to the genuine article, not a
-            reimplementation of it.</dd>
-        </div>
-        <div>
-          <dt>No whole-program analysis</dt>
-          <dd>The language tooling works at the syntactic level. Cross-file name binding, type
-            inference, semantic rename, find-all-references and refactoring all require a bound
-            semantic model, and building one is a compiler front end. That belongs to a real language
-            engine, and there is a clean, replaceable seam here for one.</dd>
-        </div>
-        <div>
-          <dt>Classic dialects only</dt>
-          <dd>The interpreter targets the language as Microsoft shipped it. Extended syntax from
-            newer BASIC dialects is out of scope, permanently — when the interpreter meets something
-            it does not recognise, the right answer is to fail clearly rather than to guess.</dd>
-        </div>
-        <div>
-          <dt>Some of VB6 is not coming back</dt>
-          <dd>SDI mode, User Documents, DHTML and IIS applications, the Data Environment, the
-            Package &amp; Deployment Wizard, and COM add-in hosting are all deliberately out of
-            scope.</dd>
-        </div>
-      </dl>
-    </div>
-  </section>
-
-  <section class="band band--rule">
-    <div class="shell">
-      <div class="band__head">
-        <p class="eyebrow">Not yet</p>
-        <h2>Real gaps, actively moving.</h2>
-        <p>These are genuine omissions rather than decisions, and the list goes out of date in the
-           project's favour. If something here matters to you, it is a good thing to open an issue
-           about.</p>
-      </div>
-      <dl class="walls">
-        <div><dt>ActiveX and OCX hosting</dt>
-          <dd>Third-party controls cannot be loaded. This excludes a great many real-world VB6
-            projects, and it is the single largest gap.</dd></div>
-        <div><dt>File I/O</dt>
-          <dd><code>Open</code>, <code>Print #</code>, <code>Input #</code> and friends are not
-            implemented in the interpreter.</dd></div>
-        <div><dt>Declare statements</dt>
-          <dd><code>Declare … Lib</code> is not supported, so a module that calls into the Windows
-            API will not load.</dd></div>
-        <div><dt>Conditional compilation</dt>
-          <dd><code>#If</code> is not supported — a module containing it will not load at all,
-            rather than one branch being taken.</dd></div>
-        <div><dt>Assorted intrinsics</dt>
-          <dd>The <code>$</code>-suffixed twins (<code>Left$</code>), type-hint suffixes
-            (<code>x%</code>), <code>IIf</code>, <code>Choose</code>, <code>Switch</code>,
-            <code>RGB</code>, <code>Shell</code>, <code>Environ</code>, <code>DoEvents</code>,
-            <code>Erase</code>, the <code>Mid</code> statement and <code>Static</code> locals.</dd></div>
-        <div><dt>Built-in objects</dt>
-          <dd><code>App</code>, <code>Screen</code>, <code>Printer</code>, <code>Clipboard</code>
-            and <code>Collection</code>.</dd></div>
-        <div><dt>The Immediate window does not evaluate</dt>
-          <dd><code>Debug.Print</code> output arrives, but you cannot type an expression into it and
-            get an answer.</dd></div>
-        <div><dt>Faithful saving</dt>
-          <dd>Reading is solid; writing back is not. It has its own section below, because it is
-            the most important limit on this page — <a href="#saving">what a save actually
-            changes</a>.</dd></div>
-      </dl>
-      <p class="dl-note">The debugger is further along than this list implies: breakpoints,
-        Break and Continue and the current-statement highlight all work today, and the
-        <code>Stop</code> statement breaks into the debugger as it does in VB6. Single-stepping, a
-        Locals window and an evaluating Immediate pane are what is next.</p>
-    </div>
-  </section>
-
-  <section class="band band--rule" id="saving">
-    <div class="shell">
-      <div class="band__head">
-        <p class="eyebrow">Saving</p>
-        <h2>What a save actually changes.</h2>
-        <p>Reading a VB6 project was always the easy half. Writing one back is why HexIDE is alpha,
-           and the gap is measured rather than estimated — against the twenty-two designer files in
-           VB6's own <code>Template</code> tree. Microsoft wrote those, so any difference between
-           what goes in and what comes out is a defect by definition, with nothing to argue about.</p>
-        <p><strong>Twenty-one of the twenty-two now survive a save byte-for-byte</strong>, companion
-           binaries included. The one that does not is not damaged by a save either — it is the one
-           HexIDE declines to save at all. What follows is what is left, listed here rather than
-           discovered by you.</p>
-      </div>
-      <dl class="walls">
-        <div><dt>A form hosting an ActiveX control will not save</dt>
-          <dd>One of the twenty-two keeps its images inside a third-party <code>ImageList</code>
-            control. HexIDE cannot host those, so it cannot reproduce what they hold — and rather
-            than write a form with the pictures silently missing, it opens the file
-            <strong>read-only</strong> and File&nbsp;→&nbsp;Save declines. You can still open, read
-            and run it, and Save As writes a copy elsewhere and leaves the original alone.
-            <br><br>This one will not move until ActiveX hosting does, which is why the number above
-            is twenty-one rather than twenty-two.</dd></div>
-        <div><dt>The project file comes back tidied, not identical</dt>
-          <dd>A <code>.vbp</code> is rewritten with <code>Type=Exe</code> recapitalised to
-            <code>Type=EXE</code> and the quotes dropped from <code>Startup="Sub Main"</code>. It is
-            the one file still regenerated rather than round-tripped. Whether VB6 minds the missing
-            quotes has not been put to the compiler yet, which is exactly why it is on this
-            list.</dd></div>
-        <div><dt>Twenty-two files is not every file</dt>
-          <dd>The measure above is Microsoft's own templates. A real project of any age carries
-            controls, properties and header lines those files never had. HexIDE preserves what it
-            does not understand rather than dropping it — but preserved is not the same as tested,
-            and that gap is the honest reason to keep a backup.</dd></div>
-      </dl>
-      <p class="dl-note">One rule sits behind all three: a save that cannot reproduce a file does not
-        attempt it. Refusing is recoverable; a silently rewritten project that only fails the next
-        time you open it in VB6 is not. The number above is not a claim — it is a gate that runs on
-        every build against the same twenty-two files, and it can only be lowered by fixing
-        something.</p>
-    </div>
-  </section>
-
-  <section class="band band--rule">
-    <div class="shell">
-      <div class="band__head">
-        <p class="eyebrow">Language tooling</p>
-        <h2>What the editor actually knows.</h2>
-        <p>Everything here is syntactic. That is the boundary above, stated as a feature list.</p>
-      </div>
-      <dl class="walls">
-        <div><dt>Works today</dt>
-          <dd>Syntax errors as you type, document structure in the two VB6 combos, quick info and
-            signature help, folding, formatting, and keyword and declared-name completion.</dd></div>
-        <div><dt>Works, but lexically</dt>
-          <dd>Rename and go-to-definition operate within a single file and match text rather than
-            meaning. Fine day to day; not the same thing as a semantic model.</dd></div>
-        <div><dt>Not there, by design</dt>
-          <dd>Anything needing to understand your whole project at once — cross-file references,
-            type-aware completion after a dot, semantic diagnostics.</dd></div>
+        <div><dt>The interpreter is not a compiler</dt>
+          <dd>It exists so you can press F5 and watch your program run, and it runs typical form programs. It is not a
+            migration path. Where it differs from VB6, the difference is written down.</dd></div>
+        <div><dt>No native compiler</dt>
+          <dd>HexIDE doesn't emit machine code. On Windows with VB6 installed it drives the real compiler: a bridge to the
+            genuine article, not a copy of it.</dd></div>
+        <div><dt>No whole-program analysis</dt>
+          <dd>The built-in language tooling works on syntax. Binding names across files, inferring types and refactoring
+            need a compiler front end, and that belongs to a real language engine behind a replaceable seam.</dd></div>
+        <div><dt>Classic dialects only</dt>
+          <dd>The interpreter runs the language as Microsoft shipped it. When it meets something it doesn't recognise, it
+            fails clearly rather than guessing.</dd></div>
+        <div><dt>Some of VB6 isn't coming back</dt>
+          <dd>SDI mode, User Documents, DHTML and IIS applications, the Data Environment, the Package and Deployment Wizard,
+            SourceSafe, and COM add-in hosting.</dd></div>
       </dl>
     </div>
   </section>
@@ -230,24 +186,24 @@
   <section class="band band--rule">
     <div class="shell prose">
       <p class="eyebrow">Why publish this</p>
-      <h2>A map is more useful than a promise.</h2>
-      <p>The interpreter's behaviour is checked against the real 1998 compiler rather than against
-         anybody's memory of it — including, repeatedly, against assumptions that turned out to be
-         wrong. That process produces two things: a runtime that behaves correctly where it works,
-         and an exact record of where it doesn't.</p>
-      <p>Publishing the second one costs nothing and saves you an afternoon.</p>
+      <h2 class="h2">A map is more useful than a promise.</h2>
+      <p>The interpreter's behaviour is checked against the real compiler, VB6 with Service Pack 6, rather than against
+         anybody's memory of it, and that has overturned the obvious answer many times. It produces two things: a runtime
+         that behaves correctly where it works, and an exact record of where it doesn't.</p>
+      <p>Publishing the second one costs nothing, and saves you an afternoon.</p>
     </div>
   </section>
-
 </main>
 
 <footer class="foot">
   <div class="shell">
     <div class="foot__top">
-      <div><strong class="foot__brand">HexIDE</strong><br>MIT licensed · Built in the open</div>
+      <div><strong class="foot__brand">HexIDE</strong><br>MIT licensed. Built in the open.</div>
       <nav class="foot__links" aria-label="Footer">
+        <a href="news.html">News</a>
+        <a href="news.xml">Atom feed</a>
         <a href="demos.html">Demos</a>
-        <a href="scope.html" aria-current="page">Scope</a>
+        <a href="scope.html">Scope</a>
         <a href="licence.html">Licence</a>
         <a href="https://github.com/hexide-io/HexIDE">Source</a>
         <a href="mailto:hello@hexide.io">hello@hexide.io</a>
@@ -255,16 +211,15 @@
       </nav>
     </div>
     <div class="foot__legal">
-      <p>“Visual Basic”, “VB”, and “VBA” are trademarks of Microsoft Corporation. HexIDE is an
-         independent, community-built project — not affiliated with, endorsed by, or sponsored by
-         Microsoft — and uses these names only descriptively to indicate VB6 file-format and
-         workflow compatibility.</p>
+      <p>“Visual Basic”, “VB”, and “VBA” are trademarks of Microsoft Corporation. HexIDE is an independent,
+         community-built project, not affiliated with, endorsed by, or sponsored by Microsoft, and uses these
+         names only descriptively to indicate VB6 file-format and workflow compatibility.</p>
+      <p>Built on the work of many others: <a href="licence.html#attribution">the attribution list and full third-party notices are here</a>.</p>
       <p>Much of HexIDE was built in pair-programming with Claude (Anthropic).</p>
       <p>© The HexIDE Authors.</p>
     </div>
   </div>
 </footer>
 
-<script src="assets/site.js"></script>
 </body>
 </html>
