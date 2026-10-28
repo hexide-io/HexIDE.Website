@@ -3,12 +3,12 @@
      and a release adds one at the top of both. -->
 <feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en-GB">
   <title>HexIDE news</title>
-  <subtitle>A release every second Monday: what changed, what to watch for before you upgrade, and what is still missing.</subtitle>
+  <subtitle>A release every Monday: what changed, what to watch for before you upgrade, and what is still missing.</subtitle>
   <id>https://hexide.io/news.html</id>
   <link rel="self" type="application/atom+xml" href="https://hexide.io/news.xml"/>
   <link rel="alternate" type="text/html" href="https://hexide.io/news.html"/>
   <icon>https://hexide.io/assets/hexide-logo.svg</icon>
-  <updated>2026-10-26T07:58:03Z</updated>
+  <updated>2026-10-28T01:55:13Z</updated>
   <author><name>The HexIDE Authors</name><uri>https://github.com/hexide-io/HexIDE</uri></author>
   <rights>© The HexIDE Authors. MIT licensed.</rights>
 
@@ -17,10 +17,10 @@
     <id>https://hexide.io/news.html#v0-3-0</id>
     <link rel="alternate" type="text/html" href="https://hexide.io/news.html#v0-3-0"/>
     <published>2026-10-26T07:58:03Z</published>
-    <updated>2026-10-26T07:58:03Z</updated>
+    <updated>2026-10-28T01:55:13Z</updated>
     <summary>About 460 changes in a month: every template form saves byte for byte, several forms, file I/O and Collection run under F5, Make EXE builds a self-contained program, and Windows gets an installer.</summary>
     <content type="html"><![CDATA[
-<p>0.3.0 is a month of work: about 460 changes since 0.2.0, none of which was in a download until now. From here there is a release every second Monday, so they reach you in a fortnight rather than when somebody remembers.</p>
+<p>0.3.0 is a month of work: about 460 changes since 0.2.0, none of which was in a download until now. From here there is a release every Monday, so they reach you within a week rather than when somebody remembers.</p>
 <h3>Saving</h3>
 <p>All 22 of the designer files VB6 itself ships now survive a save byte for byte, up from 21, and VB6's own <code>.vbp</code> files round-trip with their line order and description kept. Sources are read in your machine's ANSI code page and keep their encoding, and an edit that code page can't hold is refused before anything is written.</p>
 <h3>Running</h3>
