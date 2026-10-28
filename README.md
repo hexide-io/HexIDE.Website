@@ -40,11 +40,11 @@ Contributions go through a fork and a pull request, the same as the main reposit
 
 ### When a release ships
 
-HexIDE releases every second Monday, and each release gets a post. With no build step, these are edited by hand, in
+HexIDE releases every Monday, and each release gets a post. With no build step, these are edited by hand, in
 one pull request:
 
 - **`news.html`:** a new `<article id="v0-4-0">` at the top, a row at the top of the Releases list, and the
-  Next date moved on a fortnight.
+  Next date moved on a week.
 - **`news.xml`:** a new `<entry>` at the top with the same id, title and words, and the feed's `<updated>`.
 - **`index.html`:** the release pill in the masthead, the "Download HexIDE" heading, and the three newest posts in
   the News band.
