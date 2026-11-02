@@ -8,9 +8,43 @@
   <link rel="self" type="application/atom+xml" href="https://hexide.io/news.xml"/>
   <link rel="alternate" type="text/html" href="https://hexide.io/news.html"/>
   <icon>https://hexide.io/assets/hexide-logo.svg</icon>
-  <updated>2026-10-28T01:55:13Z</updated>
+  <updated>2026-11-02T04:00:00Z</updated>
   <author><name>The HexIDE Authors</name><uri>https://github.com/hexide-io/HexIDE</uri></author>
   <rights>© The HexIDE Authors. MIT licensed.</rights>
+
+  <entry>
+    <title>HexIDE 0.4.0: the common controls run, and unsaved work survives a crash</title>
+    <id>https://hexide.io/news.html#v0-4-0</id>
+    <link rel="alternate" type="text/html" href="https://hexide.io/news.html#v0-4-0"/>
+    <published>2026-11-02T04:00:00Z</published>
+    <updated>2026-11-02T04:00:00Z</updated>
+    <summary>About 300 changes in a week: most of Windows' common controls run, unsaved work survives a crash, saves can't damage the file they replace, and 85 names still stop a program, down from 143.</summary>
+    <content type="html"><![CDATA[
+<p>0.4.0 is the first weekly release: about 300 changes in the week since 0.3.0.</p>
+<h3>Running</h3>
+<p>Most of Windows' common controls run now. ListView draws its four views, though not their images yet, with columns, sorting, mouse and keyboard selection, and label editing. TreeView builds, walks and edits a tree. TabStrip, SSTab, Toolbar, StatusBar and UpDown draw, raise their events and load what the designer saved, and ImageList holds the Toolbar's images. RichTextBox, DTPicker and MaskedEdBox have begun. <code>Controls.Add</code> and <code>Controls.Remove</code> run, and a control held in a <code>WithEvents</code> variable raises its handlers.</p>
+<p><code>CallByName</code>, <code>Shell</code>, <code>CVErr</code>, <code>FormatDateTime</code>, <code>Partition</code>, <code>ObjPtr</code>, <code>StrPtr</code> and <code>VarPtr</code> run, and so do the loan and depreciation functions, from <code>Pmt</code> to <code>SYD</code>, each matching vb6.exe's results. 85 of the language's names still stop a program, down from 143, and nothing stops a module loading any more.</p>
+<h3>Safety</h3>
+<p>Unsaved work survives a crash. While the IDE runs it keeps a private copy of every unsaved document, and after a crash, a kill or a power cut the next start offers it back, leaving the files on disk untouched. Saves are written to a staging file and flushed before they replace anything, so a save interrupted half way can't damage the file it was replacing.</p>
+<h3>Everything else</h3>
+<ul>
+<li><strong>The code window</strong> takes colours from a language server's semantic tokens, colours brackets by depth, and has indent guides, sticky scroll, Recent Edits, Paste as Comment, and greyed inactive <code>#If</code> branches.</li>
+<li><strong>The designer</strong> previews a form without running the project, shows tab order, dims invisible controls and designs controls on SSTab pages. The Components dialog adds Windows' common control libraries to a project.</li>
+<li><strong>Windows you close</strong> can be reopened from the Window menu, or with Ctrl+Shift+T.</li>
+<li><strong>Find</strong> searches the whole project by default.</li>
+<li><strong>Language servers</strong> can import the project through a command they declare, ask for generated workspace files, and hear about files you create.</li>
+</ul>
+<div class="callout">
+<strong>Before you upgrade</strong>
+<ul>
+<li>A new project's first save asks where each form and module goes, rather than leaving them in a temporary folder.</li>
+<li>Make asks before replacing an existing project archive, and declining leaves both the archive and the program untouched.</li>
+</ul>
+</div>
+<h3>Still missing</h3>
+<p>Third-party controls at run time, COM and <code>Declare</code> calls, MDI forms, printing, and autosave. <a href="scope.html">The Scope page</a> has the whole list.</p>
+]]></content>
+  </entry>
 
   <entry>
     <title>HexIDE 0.3.0: every template form saves, and F5 runs real programs</title>

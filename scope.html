@@ -58,7 +58,7 @@
       <h1 class="page-title">Where HexIDE stops.</h1>
       <p class="lede">Most projects publish what they can do. This page is the other half, because a limit you find on day
          three is a bug report, and a limit you read about on day one is a decision you can make.</p>
-      <p>It is updated with every release. This version describes 0.3.0.</p>
+      <p>It is updated with every release. This version describes 0.4.0.</p>
       <ul class="toc">
         <li><a href="#table">Where each part stands</a></li>
         <li><a href="#saving">What a save changes</a></li>
@@ -84,11 +84,11 @@
       <div class="matrix">
         <h3>The workbench</h3>
         <div class="mrow"><span>Designer, toolbox, menu editor</span><span class="state s-works">Works</span><span>Thirteen controls in the toolbox, at VB6's own sizes and names. Line and the ProgressBar load from a form but aren't in the toolbox yet.</span></div>
-        <div class="mrow"><span>Controls HexIDE doesn't model</span><span class="state s-part">Partial</span><span>An ImageList, a Toolbar or any third-party control shows as a labelled box where VB6 draws it, and saves unchanged. F5 refuses the form.</span></div>
+        <div class="mrow"><span>Controls HexIDE doesn't model</span><span class="state s-part">Partial</span><span>A third-party control, or one of Windows' common controls that doesn't run yet, shows as a labelled box where VB6 draws it, and saves unchanged. F5 refuses the form. ListView, TreeView, TabStrip, SSTab, Toolbar, StatusBar, UpDown and ImageList run.</span></div>
         <div class="mrow"><span>UserControls and PropertyPages</span><span class="state s-part">Partial</span><span>They open in their designers and save as VB6 writes them. They don't run.</span></div>
-        <div class="mrow"><span>Object Browser and Find</span><span class="state s-part">Partial</span><span>The Object Browser is incomplete, and Find has no project scope.</span></div>
+        <div class="mrow"><span>Object Browser and Find</span><span class="state s-part">Partial</span><span>The Object Browser is incomplete. Find searches the whole project by default.</span></div>
         <div class="mrow"><span>MDI forms, printing, Procedure Attributes</span><span class="state s-no">Not yet</span><span>Each is tracked as an issue.</span></div>
-        <div class="mrow"><span>Autosave and crash recovery</span><span class="state s-no">Not yet</span><span>Save often, and work on a copy.</span></div>
+        <div class="mrow"><span>Autosave and crash recovery</span><span class="state s-part">Partial</span><span>Unsaved work survives a crash, and the next start offers it back. There's no autosave, so save often.</span></div>
       </div>
 
       <div class="matrix">
@@ -104,12 +104,12 @@
         <h3>Running your program</h3>
         <div class="mrow"><span>Forms and events</span><span class="state s-works">Works</span><span>Several forms with <code>Load</code>, <code>Show</code>, <code>vbModal</code> and <code>Unload</code>. Mouse, double-click, focus and <code>Activate</code> events fire.</span></div>
         <div class="mrow"><span>Files and settings</span><span class="state s-works">Works</span><span>Text, Random and Binary files, the filesystem statements, and <code>GetSetting</code>.</span></div>
-        <div class="mrow"><span>The language</span><span class="state s-part">Partial</span><span>Of 1,184 names, 577 run in full and 435 in part. 143 stop the program with a message naming what's missing. <a href="https://github.com/hexide-io/HexIDE/blob/v0.3.0/docs/MISSING_LANGUAGE.md">The full list</a>.</span></div>
-        <div class="mrow"><span>Wrong answers</span><span class="state s-part">Partial</span><span>Seven names can give a wrong answer without an error. Each one is listed there, with its issue.</span></div>
-        <div class="mrow"><span>Control properties</span><span class="state s-part">Partial</span><span>A TextBox ignores <code>MaxLength</code>, <code>Locked</code>, <code>PasswordChar</code> and <code>Alignment</code>; a ComboBox has no <code>Sorted</code>. The CommonDialog has Open, Save As and Font, not Color, Printer or Help.</span></div>
+        <div class="mrow"><span>The language</span><span class="state s-part">Partial</span><span>Of 1,185 names, 599 run in full and 480 in part. 85 stop the program with a message naming what's missing. <a href="https://github.com/hexide-io/HexIDE/blob/v0.4.0/docs/MISSING_LANGUAGE.md">The full list</a>.</span></div>
+        <div class="mrow"><span>Wrong answers</span><span class="state s-part">Partial</span><span>One name can give a wrong answer without an error. It is listed there, with its issue.</span></div>
+        <div class="mrow"><span>Control properties</span><span class="state s-part">Partial</span><span>A TextBox ignores <code>MaxLength</code>, <code>Locked</code>, <code>PasswordChar</code> and <code>Alignment</code>; a ComboBox has no <code>Sorted</code>. The CommonDialog runs Open, Save As, Font and Color, and Printer in its basic form.</span></div>
         <div class="mrow"><span>Windows API and COM</span><span class="state s-no">Not yet</span><span>A module with <code>Declare</code> loads, but the call fails. <code>CreateObject</code> and type libraries don't work.</span></div>
-        <div class="mrow"><span>GoSub, On…GoTo, ParamArray</span><span class="state s-no">Not yet</span><span>These need a different way of walking the program, and are tracked.</span></div>
-        <div class="mrow"><span>Screen, Printer, graphics</span><span class="state s-no">Not yet</span><span>The <code>Screen</code> and <code>Printer</code> objects, the graphics methods, <code>LoadPicture</code>, <code>SendKeys</code> and <code>Shell</code>.</span></div>
+        <div class="mrow"><span>GoSub, On…GoTo</span><span class="state s-no">Not yet</span><span>These need a different way of walking the program, and are tracked. <code>ParamArray</code> runs.</span></div>
+        <div class="mrow"><span>Screen, Printer, graphics</span><span class="state s-part">Partial</span><span><code>Shell</code> starts a program, and <code>Screen</code> and <code>LoadPicture</code> work in part. The <code>Printer</code> object, the graphics methods and <code>SendKeys</code> don't.</span></div>
       </div>
 
       <div class="matrix">
