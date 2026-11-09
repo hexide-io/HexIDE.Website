@@ -108,9 +108,9 @@
 
           <h3>Running</h3>
           <p>VB code now runs on a 64 MiB stack on Windows and Linux. Measured in a Debug build on Windows, a recursive
-             Function gets about 1,490 calls deep before Error 28, up from about 31. macOS keeps its 8 MiB stack. A
-             recursion also stops with Error 28 at 5,000 calls deep, where vb6.exe goes on to 258,825. Deep nesting no
-             longer stops a module loading.</p>
+             Function gets about 1,490 calls deep before the stack runs out and raises Error 28, up from about 31. macOS
+             keeps its 8 MiB stack. Whatever the stack allows, no recursion goes past 5,000 calls, where it raises
+             Error 28, and vb6.exe goes on to 258,825. Deep nesting no longer stops a module loading.</p>
           <p>FlatScrollBar and Animation run, MonthView has begun, and ListView draws ImageList images in all four views.
              <code>FormatNumber</code>, <code>FormatCurrency</code> and <code>FormatPercent</code> run, with vb6.exe's
              rounding. A <code>Property Get</code>, <code>Let</code> or <code>Set</code> in a standard module is reached by
