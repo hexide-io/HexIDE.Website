@@ -58,7 +58,7 @@
       <h1 class="page-title">Where HexIDE stops.</h1>
       <p class="lede">Most projects publish what they can do. This page is the other half, because a limit you find on day
          three is a bug report, and a limit you read about on day one is a decision you can make.</p>
-      <p>It is updated with every release. This version describes 0.4.0.</p>
+      <p>It is updated with every release. This version describes 0.5.0.</p>
       <ul class="toc">
         <li><a href="#table">Where each part stands</a></li>
         <li><a href="#saving">What a save changes</a></li>
@@ -84,7 +84,7 @@
       <div class="matrix">
         <h3>The workbench</h3>
         <div class="mrow"><span>Designer, toolbox, menu editor</span><span class="state s-works">Works</span><span>Thirteen controls in the toolbox, at VB6's own sizes and names. Line and the ProgressBar load from a form but aren't in the toolbox yet.</span></div>
-        <div class="mrow"><span>Controls HexIDE doesn't model</span><span class="state s-part">Partial</span><span>A third-party control, or one of Windows' common controls that doesn't run yet, shows as a labelled box where VB6 draws it, and saves unchanged. F5 refuses the form. ListView, TreeView, TabStrip, SSTab, Toolbar, StatusBar, UpDown and ImageList run.</span></div>
+        <div class="mrow"><span>Controls HexIDE doesn't model</span><span class="state s-part">Partial</span><span>A third-party control, or one of Windows' common controls that doesn't run yet, shows as a labelled box where VB6 draws it, and saves unchanged. F5 refuses the form. ListView, TreeView, TabStrip, SSTab, Toolbar, StatusBar, UpDown, ImageList, FlatScrollBar and Animation run, and MonthView runs in part.</span></div>
         <div class="mrow"><span>UserControls and PropertyPages</span><span class="state s-part">Partial</span><span>They open in their designers and save as VB6 writes them. They don't run.</span></div>
         <div class="mrow"><span>Object Browser and Find</span><span class="state s-part">Partial</span><span>The Object Browser is incomplete. Find searches the whole project by default.</span></div>
         <div class="mrow"><span>MDI forms, printing, Procedure Attributes</span><span class="state s-no">Not yet</span><span>Each is tracked as an issue.</span></div>
@@ -104,18 +104,18 @@
         <h3>Running your program</h3>
         <div class="mrow"><span>Forms and events</span><span class="state s-works">Works</span><span>Several forms with <code>Load</code>, <code>Show</code>, <code>vbModal</code> and <code>Unload</code>. Mouse, double-click, focus and <code>Activate</code> events fire.</span></div>
         <div class="mrow"><span>Files and settings</span><span class="state s-works">Works</span><span>Text, Random and Binary files, the filesystem statements, and <code>GetSetting</code>.</span></div>
-        <div class="mrow"><span>The language</span><span class="state s-part">Partial</span><span>Of 1,185 names, 599 run in full and 480 in part. 85 stop the program with a message naming what's missing. <a href="https://github.com/hexide-io/HexIDE/blob/v0.4.0/docs/MISSING_LANGUAGE.md">The full list</a>.</span></div>
-        <div class="mrow"><span>Wrong answers</span><span class="state s-part">Partial</span><span>One name can give a wrong answer without an error. It is listed there, with its issue.</span></div>
+        <div class="mrow"><span>The language</span><span class="state s-part">Partial</span><span>Of 1,185 names, 602 run in full and 481 in part. 82 stop the program with a message naming what's missing. <a href="https://github.com/hexide-io/HexIDE/blob/v0.5.0/docs/MISSING_LANGUAGE.md">The full list</a>.</span></div>
+        <div class="mrow"><span>Wrong answers</span><span class="state s-part">Partial</span><span>None of the 1,185 names is known to give a wrong answer without an error. 20, mostly attributes, are accepted and ignored, and are listed there too.</span></div>
         <div class="mrow"><span>Control properties</span><span class="state s-part">Partial</span><span>A TextBox ignores <code>MaxLength</code>, <code>Locked</code>, <code>PasswordChar</code> and <code>Alignment</code>; a ComboBox has no <code>Sorted</code>. The CommonDialog runs Open, Save As, Font and Color, and Printer in its basic form.</span></div>
-        <div class="mrow"><span>Windows API and COM</span><span class="state s-no">Not yet</span><span>A module with <code>Declare</code> loads, but the call fails. <code>CreateObject</code> and type libraries don't work.</span></div>
+        <div class="mrow"><span>Windows API and COM</span><span class="state s-no">Not yet</span><span>A module with <code>Declare</code> loads, but the call fails. <code>CreateObject</code> can't start a COM object such as <code>Excel.Application</code>, and type libraries don't work.</span></div>
         <div class="mrow"><span>GoSub, On…GoTo</span><span class="state s-no">Not yet</span><span>These need a different way of walking the program, and are tracked. <code>ParamArray</code> runs.</span></div>
         <div class="mrow"><span>Screen, Printer, graphics</span><span class="state s-part">Partial</span><span><code>Shell</code> starts a program, and <code>Screen</code> and <code>LoadPicture</code> work in part. The <code>Printer</code> object, the graphics methods and <code>SendKeys</code> don't.</span></div>
       </div>
 
       <div class="matrix">
         <h3>Debugging and making</h3>
-        <div class="mrow"><span>The debugger</span><span class="state s-works">Works</span><span>Breakpoints, stepping, Locals, Watches, the Call Stack and an Immediate window that evaluates. Debug on an unhandled error breaks on the statement.</span></div>
-        <div class="mrow"><span>Outside debug adapters</span><span class="state s-works">Works</span><span>Run, Start External Debug Session drives a debug adapter you supply.</span></div>
+        <div class="mrow"><span>The debugger</span><span class="state s-works">Works</span><span>Breakpoints, stepping, Locals, Watches, the Call Stack and an Immediate window that evaluates. Debug on an unhandled error breaks on the statement. Under F5 a breakpoint ignores its condition and stops every time.</span></div>
+        <div class="mrow"><span>Outside debug adapters</span><span class="state s-works">Works</span><span>Run, Start External Debug Session drives a debug adapter you supply. One that supports them takes breakpoint conditions and Set Next Statement.</span></div>
         <div class="mrow"><span>Make EXE</span><span class="state s-part">Partial</span><span>Builds a program that needs neither HexIDE nor .NET. A made program stops silently on a run-time error, and made programs on macOS are untested.</span></div>
         <div class="mrow"><span>Making with VB6</span><span class="state s-works">Works</span><span>On Windows with VB6 installed, HexIDE drives the real compiler.</span></div>
       </div>
@@ -124,7 +124,7 @@
         <h3>What the editor knows</h3>
         <div class="mrow"><span>Syntax and structure</span><span class="state s-works">Works</span><span>Syntax errors as you type, the two VB6 combos, quick info, folding, formatting, and keyword and declared-name completion. Signature help covers VB6's built-in functions.</span></div>
         <div class="mrow"><span>Rename, go to definition</span><span class="state s-part">Partial</span><span>Within one file, and by matching text rather than meaning.</span></div>
-        <div class="mrow"><span>Outside language servers</span><span class="state s-works">Works</span><span>Attach any LSP server in <code>lsp-servers.json</code>, and read what crossed the wire in the Protocol Inspector.</span></div>
+        <div class="mrow"><span>Outside language servers</span><span class="state s-works">Works</span><span>Attach any LSP server in <code>lsp-servers.json</code>, and read what crossed the wire in the Protocol Inspector. One that offers them adds Find References, Call Hierarchy, Go to Implementation, Go to Type Definition, Format Selection and Quick Fixes.</span></div>
         <div class="mrow"><span>Whole-project understanding</span><span class="state s-design">By design</span><span>Cross-file references, type-aware completion after a dot, semantic diagnostics: the job of a language engine, attached through that seam.</span></div>
       </div>
     </div>
