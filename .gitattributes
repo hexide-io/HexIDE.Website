@@ -5,3 +5,8 @@ CNAME  text eol=lf
 *.png  binary
 *.jpg  binary
 *.webp binary
+
+# The signed add-in revocation list (hexide-io/HexIDE#4022). HexIDE verifies these bytes against its root key,
+# so git must store and check them out exactly as signed: one changed byte fails verification.
+revocations.json     -text
+revocations.json.sig -text
