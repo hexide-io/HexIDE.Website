@@ -8,9 +8,56 @@
   <link rel="self" type="application/atom+xml" href="https://hexide.io/news.xml"/>
   <link rel="alternate" type="text/html" href="https://hexide.io/news.html"/>
   <icon>https://hexide.io/assets/hexide-logo.svg</icon>
-  <updated>2026-11-09T04:07:49Z</updated>
+  <updated>2026-11-16T03:30:00Z</updated>
   <author><name>The HexIDE Authors</name><uri>https://github.com/hexide-io/HexIDE</uri></author>
   <rights>© The HexIDE Authors. MIT licensed.</rights>
+
+  <entry>
+    <title>HexIDE 0.6.0: shortcuts you can remap, high-contrast themes, and builds under another name</title>
+    <id>https://hexide.io/news.html#v0-6-0</id>
+    <link rel="alternate" type="text/html" href="https://hexide.io/news.html#v0-6-0"/>
+    <published>2026-11-16T03:30:00Z</published>
+    <updated>2026-11-16T03:30:00Z</updated>
+    <summary>About 230 changes in a week: any shortcut can be remapped, high-contrast themes follow the system, language servers can format as you type, a build can carry another product's name, and 76 names still stop a program, down from 82.</summary>
+    <content type="html"><![CDATA[
+<p>0.6.0 is the third weekly release: about 230 changes in the week since 0.5.0.</p>
+<h3>The workbench</h3>
+<p>In Options, the Keymap page remaps any command's shortcut. Search for a command and press the keys you want, and any command that already uses them is named before you confirm. Your changes can be exported and imported, and they survive a change of keymap or profile. The Editor Formatting page sets each token's colours, the editor's font and its size, with a preview, and keeps them with each theme.</p>
+<p>High-contrast light and dark themes are in Options in every profile, with heavy borders on whatever has focus or is selected. HexIDE switches to them when Windows or macOS asks for high contrast; Linux waits on support in the UI toolkit. Split, in the Window menu, shows two panes over one code document, each with its own scroll position, caret and selection. A tool window you float now opens in a window of its own, and floating windows come back where they were after a restart.</p>
+<h3>Running</h3>
+<p><code>LoadResString</code>, <code>LoadResData</code> and <code>LoadResPicture</code> read a project's resource file, and <code>NPV</code> runs with vb6.exe's precision in the cases measured. A class's default member is read where a value is wanted, a Type field can hold an object, and <code>Dim n As Node</code> and the other common-controls classes work without their library's name. Switching between forms raises LostFocus, Deactivate, Activate and GotFocus in VB6's order, a ListBox raises <code>Scroll</code>, and MsgBox honours <code>vbMsgBoxRight</code> and <code>vbMsgBoxRtlReading</code>. On Windows, a program's dates follow Windows' own locale data. 76 of the language's names still stop a program, down from 82.</p>
+<p>A breakpoint's condition now decides whether F5 stops there. A made program draws VB6's system colours: before this, a form left at its default colours came out pink.</p>
+<h3>Language servers</h3>
+<p>A language server can format as you type: on Enter it can indent the new line and close the block, and its edits undo with the keystroke. Completion takes snippets, with nested placeholders and the protocol's snippet variables. Files a project carries, such as Markdown or C, get completion and signature help from the server attached for them. The Language &amp; Debug Servers window, in the Tools menu, adds and edits server entries in a form, and restarts one server without restarting HexIDE. Servers can also be reached over TCP, in either direction, and can watch files.</p>
+<p>For RDCore's language server, the <code>rdcore</code> provider now writes the <code>.rdproj</code> format RDCore reads, naming the project's <code>.vbp</code>, and its documented entry restarts the server as projects join or leave a group. <a href="https://github.com/hexide-io/HexIDE/blob/v0.6.0/docs/language-servers.md">The language-servers guide</a> has its entry, under RDCore.</p>
+<h3>Builds under another name</h3>
+<p>A <code>brand.json</code> beside the executable makes an installation another product. Its name, logo, tagline, links and added credits appear in the title bar, dialogs, menus, About and <code>--help</code>, and it keeps its own settings, logs and recovery files. It can choose a default profile and translate its tagline and credits. HexIDE's own credits and licence notice stay. <code>HexIDE.Repack</code>, run from a clone of the release's tag, turns a published Windows, macOS or Linux build into that product, with its own executable or app bundle and icons. Its output is unsigned, and whoever makes it signs it. <a href="https://github.com/hexide-io/HexIDE/blob/v0.6.0/docs/white-label.md">The white-label guide</a> has the details.</p>
+<h3>Add-ins</h3>
+<p>An add-in can now supply a project type that reads and writes its own project file, adds and removes members, and carries forms, UserControls and PropertyPages, which it saves if it can also write them. No add-in uses this yet. An add-in's pane titles, menu items and commands can follow the IDE's language, and every label is checked before it's shown. Each package is checked again just before it loads, and one that changed on disk since is refused.</p>
+<h3>Everything else</h3>
+<ul>
+<li><strong>Open HexIDE Log Folder</strong>, in the Help menu, opens the folder of logs, and the bug-report form says what a log attached to a public issue can show.</li>
+<li><strong>Project groups</strong> save in VB6's own format.</li>
+<li><strong>Saving</strong> never replaces a project file another program has changed without asking first.</li>
+<li><strong>Esc</strong> cancels every dialog that has a Cancel button, and dialog titles follow the IDE's language.</li>
+<li><strong>The Properties window</strong> shows the properties HexIDE doesn't model, greyed and read-only.</li>
+<li><strong>Project Explorer</strong> opens a project's own file as read-only text.</li>
+<li><strong>Linux</strong> can run on Wayland directly with <code>--platform wayland</code> or <code>--platform auto</code>. X11 stays the default.</li>
+<li><strong>AI Chat</strong> follows the IDE's language, and stops before reading or sending anything to a remote endpoint that has no API key.</li>
+</ul>
+<div class="callout">
+<strong>Before you upgrade</strong>
+<ul>
+<li>In the code window, Ctrl+Y deletes the current line. Redo is Ctrl+Shift+Z.</li>
+<li>A module or class whose <code>Attribute VB_Name</code> differs from its line in the <code>.vbp</code> now loads under the file's name, and Save Project writes that name into the <code>.vbp</code>.</li>
+<li>A compiled add-in that calls <code>RegisterComponent</code> or <code>RegisterProjectTemplate</code> must be rebuilt against this release.</li>
+<li>The first time a context menu opens, it can cut off its shortcuts and submenu arrows.</li>
+</ul>
+</div>
+<h3>Still missing</h3>
+<p>Third-party controls at run time, COM and <code>Declare</code> calls, MDI forms, printing, and autosave. <a href="scope.html">The Scope page</a> has the whole list.</p>
+]]></content>
+  </entry>
 
   <entry>
     <title>HexIDE 0.5.0: fourteen new languages, and projects reopen as you left them</title>
