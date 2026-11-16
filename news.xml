@@ -8,7 +8,7 @@
   <link rel="self" type="application/atom+xml" href="https://hexide.io/news.xml"/>
   <link rel="alternate" type="text/html" href="https://hexide.io/news.html"/>
   <icon>https://hexide.io/assets/hexide-logo.svg</icon>
-  <updated>2026-11-16T03:30:00Z</updated>
+  <updated>2026-11-16T03:58:45Z</updated>
   <author><name>The HexIDE Authors</name><uri>https://github.com/hexide-io/HexIDE</uri></author>
   <rights>© The HexIDE Authors. MIT licensed.</rights>
 
@@ -16,8 +16,8 @@
     <title>HexIDE 0.6.0: shortcuts you can remap, high-contrast themes, and builds under another name</title>
     <id>https://hexide.io/news.html#v0-6-0</id>
     <link rel="alternate" type="text/html" href="https://hexide.io/news.html#v0-6-0"/>
-    <published>2026-11-16T03:30:00Z</published>
-    <updated>2026-11-16T03:30:00Z</updated>
+    <published>2026-11-16T03:58:45Z</published>
+    <updated>2026-11-16T03:58:45Z</updated>
     <summary>About 230 changes in a week: any shortcut can be remapped, high-contrast themes follow the system, language servers can format as you type, a build can carry another product's name, and 76 names still stop a program, down from 82.</summary>
     <content type="html"><![CDATA[
 <p>0.6.0 is the third weekly release: about 230 changes in the week since 0.5.0.</p>
