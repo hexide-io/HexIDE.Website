@@ -8,9 +8,58 @@
   <link rel="self" type="application/atom+xml" href="https://hexide.io/news.xml"/>
   <link rel="alternate" type="text/html" href="https://hexide.io/news.html"/>
   <icon>https://hexide.io/assets/hexide-logo.svg</icon>
-  <updated>2026-11-16T03:58:45Z</updated>
+  <updated>2026-11-23T03:25:25Z</updated>
   <author><name>The HexIDE Authors</name><uri>https://github.com/hexide-io/HexIDE</uri></author>
   <rights>© The HexIDE Authors. MIT licensed.</rights>
+
+  <entry>
+    <title>HexIDE 0.7.0: VBA from Office documents, programs that draw, and projects that target RDCore</title>
+    <id>https://hexide.io/news.html#v0-7-0</id>
+    <link rel="alternate" type="text/html" href="https://hexide.io/news.html#v0-7-0"/>
+    <published>2026-11-23T03:25:25Z</published>
+    <updated>2026-11-23T03:25:25Z</updated>
+    <summary>About 400 changes in a week: an Office document's VBA project opens read-only, forms and PictureBoxes draw, GoSub runs, a project can target RDCore, and 40 names still stop a program, down from 76.</summary>
+    <content type="html"><![CDATA[
+<p>0.7.0 is the fourth weekly release: about 400 changes in the week since 0.6.0.</p>
+<h3>Office and VBA7</h3>
+<p>Open an Excel, Word or PowerPoint document beside your workspace and browse its VBA project: the host objects, modules, references and decoded source, with a notice that Office may run different compiled code. It is read-only. A locked project keeps its code hidden, a UserForm opens its code while its designer is still to come, and the document can't be run or written back. Its code tabs attach language servers, read-only, and their findings are underlined.</p>
+<p>A VBA7 project's bitness belongs to the project. A 32-bit project runs, with <code>LongPtr</code> as a Long and VBA7's own <code>#If</code> constants. With <code>VbaBitness=64</code> in a trailing <code>[HexIDE]</code> section of its project file, a project is 64-bit: <code>LongLong</code> and a 64-bit <code>LongPtr</code> run with the arithmetic and overflow Excel x64 was measured giving, active declarations need <code>PtrSafe</code>, and on macOS it takes Excel for Mac's constants. VB6 projects keep VB6's rules.</p>
+<h3>Running</h3>
+<p>Forms and PictureBoxes draw. <code>Line</code>, <code>PSet</code>, <code>Circle</code> and <code>Cls</code> paint the pixels VB6 was measured painting, and <code>Point</code> reads them back, through each one's own coordinate system, which <code>Scale</code> and <code>ScaleMode</code> set. Thick lines, arcs and sectors still stop with a message naming what's missing.</p>
+<p><code>GoSub</code>, <code>Return</code>, and computed <code>On GoTo</code> and <code>On GoSub</code> run. Fixed-length Strings work in variables, arrays, Type fields and file records. <code>PropertyBag</code> keeps VB6's own bytes, <code>LSet</code> copies between Types, an array declared <code>As New</code> makes each element on first use, and <code>IRR</code>, <code>MIRR</code> and <code>DDB</code> run. MSFlexGrid and MSComctlLib's Slider run as in-box controls, and a ListBox shows checkboxes and columns. Buttons and lists raise KeyDown, KeyPress and KeyUp, a form's Default and Cancel buttons take Enter and Esc, and <code>LoadPicture</code> reads JPEG and GIF. 40 of the language's names still stop a program, down from 76.</p>
+<h3>Projects that target RDCore</h3>
+<p>A project with <code>Targets=RDCore</code> in its <code>[HexIDE]</code> section uses RDCore's predefined <code>#If</code> constants when it runs and when the code window greys out inactive code. Such a project, or one opened as an <code>.rdproj</code>, reads PNG pictures with <code>LoadPicture</code>, and its Images, Labels and PictureBoxes take RDCore's <code>Opacity</code>. VB6 and VBA projects are unchanged.</p>
+<p>When one project of a group references another, the <code>.rdproj</code> HexIDE writes for RDCore names it, so RDCore binds its classes; this needs RDCore.SDK 0.1.9-alpha or later. RDCore's rename and references commands now come from its add-in, and the documents of an add-in's project type go only to that add-in's language servers. RDCore's option to set <code>Win64</code> only on Windows is now one setting for the whole IDE, in Options → Environment → General.</p>
+<h3>The editor and language servers</h3>
+<p>While a program is paused, a language server that offers them shows values beside the code, for HexIDE's own runs and for an outside debug adapter. Linked editing, off by default under Options → Editor, renames a variable's other uses as you type. Type Hierarchy joins Call Hierarchy, and the Refactor and Source Actions menus ask the server what it can do at the caret, without needing a diagnostic. Servers that offer it report on modules you haven't opened, in the Diagnostics window. List members as you type can be turned off.</p>
+<p>A project's <code>.vbp</code> can be edited as text from Project Explorer, with undo, and saved back into the project. A file opened from a twinBASIC project archive now reaches language servers.</p>
+<h3>Builds under another name, and add-ins</h3>
+<p>A repacked Windows setup program carries the brand's logo, name and links. A branded product's dialogs show its icon, its macOS app menu and Dock use its name, and it can name its own project-local state folder. A program with no icon of its own, run or made in HexIDE, now shows a neutral window icon rather than HexIDE's mark.</p>
+<p>VB6's own projects now open through a project type, registered the way an add-in registers one. An add-in's project type can use VB6's form format for its forms, UserControls and PropertyPages, and F5 runs an add-in project with that add-in's launch by default. Add-ins can handle their own language servers' commands, open a document at a range, and report a failure that shows in Options → Add-ins. A language server can give AI Chat tools, and a tool asks before it runs unless it says it only reads. Add-in revocation now works: the list HexIDE ships, and the one this site serves, are signed with the HexIDE root.</p>
+<h3>Everything else</h3>
+<ul>
+<li><strong>macOS</strong> shows a running form's menus in the menu bar, and the app menu opens HexIDE's own About.</li>
+<li><strong>The Menu Editor</strong> opens with a form's existing menus, makes menu control arrays, offers the full shortcut list, and works from the keyboard.</li>
+<li><strong>The Font dialog</strong> offers Strikeout and Underline, and controls draw both.</li>
+<li><strong>Add Watch</strong> offers <code>(All Modules)</code>, as VB6 does, with Module and Procedure pickers.</li>
+<li><strong>Saving</strong>: Save As, Make and Make with VB6 ask before replacing an existing file.</li>
+<li><strong>Windows</strong> can sign out, shut down or restart with HexIDE open.</li>
+<li><strong>Context menus</strong> no longer cut off their shortcuts the first time they open.</li>
+</ul>
+<div class="callout">
+<strong>Before you upgrade</strong>
+<ul>
+<li>Add-ins signed under the new HexIDE root still show as unsigned in this build. The fix follows as a point release this week.</li>
+<li>Before the first run in a session, HexIDE asks if any of the project's code came from a file Windows marks as downloaded, a file macOS quarantines, or an Office document. It names each file, No is the default, and a Yes holds for the session.</li>
+<li>AI Chat's first message to an endpoint that isn't on this computer waits for Send on its privacy notice.</li>
+<li>A project's <code>Win64OnlySetOnWindows</code> line is now ignored, and kept when it saves. Set the option in Options → Environment → General instead.</li>
+<li>A <code>brand.json</code> writes its logo paths with <code>/</code>.</li>
+</ul>
+</div>
+<h3>Still missing</h3>
+<p>Third-party controls at run time, COM and <code>Declare</code> calls, MDI forms, printing, and autosave. <a href="scope.html">The Scope page</a> has the whole list.</p>
+]]></content>
+  </entry>
 
   <entry>
     <title>HexIDE 0.6.0: shortcuts you can remap, high-contrast themes, and builds under another name</title>
