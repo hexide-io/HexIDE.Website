@@ -8,7 +8,7 @@
   <link rel="self" type="application/atom+xml" href="https://hexide.io/news.xml"/>
   <link rel="alternate" type="text/html" href="https://hexide.io/news.html"/>
   <icon>https://hexide.io/assets/hexide-logo.svg</icon>
-  <updated>2026-11-23T03:25:25Z</updated>
+  <updated>2026-11-23T05:44:14Z</updated>
   <author><name>The HexIDE Authors</name><uri>https://github.com/hexide-io/HexIDE</uri></author>
   <rights>© The HexIDE Authors. MIT licensed.</rights>
 
@@ -16,8 +16,8 @@
     <title>HexIDE 0.7.0: VBA from Office documents, programs that draw, and projects that target RDCore</title>
     <id>https://hexide.io/news.html#v0-7-0</id>
     <link rel="alternate" type="text/html" href="https://hexide.io/news.html#v0-7-0"/>
-    <published>2026-11-23T03:25:25Z</published>
-    <updated>2026-11-23T03:25:25Z</updated>
+    <published>2026-11-23T05:44:14Z</published>
+    <updated>2026-11-23T05:44:14Z</updated>
     <summary>About 400 changes in a week: an Office document's VBA project opens read-only, forms and PictureBoxes draw, GoSub runs, a project can target RDCore, and 40 names still stop a program, down from 76.</summary>
     <content type="html"><![CDATA[
 <p>0.7.0 is the fourth weekly release: about 400 changes in the week since 0.6.0.</p>
